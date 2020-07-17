@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  apiBaseUrl: "http://188.152.211.199/iQWApi/api"
 };
 
 /*

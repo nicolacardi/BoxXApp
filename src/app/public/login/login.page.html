@@ -5,27 +5,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="ion-padding">
 
   <ion-row>
     <ion-col center size-lg="4" size-md="12" offset-lg="4">
       <ion-card>
         <ion-card-header>
-        <ion-img style="height: 160px;" src="../../../assets/img/BoxXColored.svg"></ion-img>
-      </ion-card-header>
+          <ion-img style="height: 160px;" src="../../../assets/img/BoxXColored.svg"></ion-img>
+        </ion-card-header>
+
         <ion-card-content>
-          <ion-item>
-            <ion-label position="stacked">USERNAME <ion-text color="#FFF">*</ion-text>
-            </ion-label>
-            <ion-input required type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">PASSWORD <ion-text color="#FFF">*</ion-text>
-            </ion-label>
-            <ion-input required type="text"></ion-input>
-          </ion-item>
-          <ion-button (click)="login()" expand="block" class="ion-margin-top">Login</ion-button>
-          <ion-button expand="block" color="secondary" href="/register" routerDirection="forward" class="ion-margin-top">Register</ion-button>
+          <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
+            <ion-item>
+              <ion-label position="stacked">USERNAME <ion-text color="#FFF">*</ion-text>
+              </ion-label>
+              <ion-input required type="text" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" >PASSWORD <ion-text color="#FFF">*</ion-text>
+              </ion-label>
+              <ion-input required type="text" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password"></ion-input>
+            </ion-item>
+            <ion-button type="submit" expand="block" class="ion-margin-top">Login</ion-button>
+            <ion-button expand="block" color="secondary" href="/register" routerDirection="forward"
+              class="ion-margin-top">Register</ion-button>
+          </form>
         </ion-card-content>
       </ion-card>
     </ion-col>
