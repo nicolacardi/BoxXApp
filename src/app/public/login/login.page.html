@@ -1,19 +1,25 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
     <!-- <ion-title>Login</ion-title> -->
     <img src="../../../assets/img/BoxX.svg" width="40" height="40" alt="BoxX Logo" title="Benvenuti su BoxX">
   </ion-toolbar>
 </ion-header>
- 
+
 <ion-content padding>
-  <ion-item>
-    <ion-label position="stacked">USERNAME <ion-text color="danger">*</ion-text></ion-label>
-    <ion-input required type="text"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">PASSWORD <ion-text color="danger">*</ion-text></ion-label>
-    <ion-input required type="text"></ion-input>
-  </ion-item>
-  <ion-button (click)="login()" expand="block">Login</ion-button>
-  <ion-button expand="block" color="secondary" href="/register" routerDirection="forward">Register</ion-button>
+  <ion-row>
+    <ion-col center size-md="4" size-sm="12" offset-md="4">
+      <ion-item>
+        <ion-label position="stacked">USERNAME <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input required type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">PASSWORD <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input required type="text"></ion-input>
+      </ion-item>
+      <ion-button (click)="login()" expand="block">Login</ion-button>
+      <ion-button expand="block" color="secondary" href="/register" routerDirection="forward">Register</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>
