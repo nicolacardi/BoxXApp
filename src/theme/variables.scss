@@ -1,6 +1,15 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+@font-face {
+  font-family: 'TitilliumWeb-Light';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/font/TitilliumWeb-Regular.ttf');
+  }
+* {
+  --ion-font-family: 'TitilliumWeb-Regular', sans-serif !important;
+}
 /** Ionic CSS Variables **/
 :root {
 
