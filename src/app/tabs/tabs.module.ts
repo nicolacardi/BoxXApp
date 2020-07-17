@@ -47,8 +47,9 @@ const routes: Routes = [
     redirectTo: "tabs/tabHome",
     pathMatch: "full"
   },
-  { path: "about", loadChildren: "../about/about.module#AboutPageModule" }
+  { path: "todo", loadChildren: "../todo/todo.module#TodoPageModule" }
 ];
+
 
 @NgModule({
   imports: [

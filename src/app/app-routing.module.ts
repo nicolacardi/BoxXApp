@@ -10,6 +10,10 @@ const routes: Routes = [
     loadChildren: './tabs/tabs.module#TabsPageModule'
   },
   { path: 'login', loadChildren: './public/login/login.module#LoginPageModule' },
+  {
+    path: 'todo',
+    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
+  },
 
 ];
 
