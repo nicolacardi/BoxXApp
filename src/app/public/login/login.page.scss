@@ -1,7 +1,18 @@
 ion-toolbar {
-    --background: url("../../../assets/img/backgroundcell.jpg") no-repeat fixed !important; 
-    background-size: cover !important;
-    --color: #FFF;
     text-align: center;
+}
 
+ion-card {
+    --background: url("../../../assets/img/backgrounddark.jpg") no-repeat fixed !important; 
+}
+
+
+ion-item {
+    --background: transparent;
+    --color: #FFF;
+    --border-color: #FFF;
+}
+
+ion-button {
+    --background: #04c582;
 }
