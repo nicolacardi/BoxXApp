@@ -4,14 +4,17 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { currentUser } from '../models/models';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, from} from 'rxjs';
 import { ToastController } from '@ionic/angular';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   
+  
+
   private BehaviourSubjectLoggedIn = new BehaviorSubject<boolean>(false);
   obsLoggedIn = this.BehaviourSubjectLoggedIn.asObservable();
 
@@ -19,7 +22,11 @@ export class UserService {
   public obscurrentUser: Observable<currentUser>;
   
   public currUser: currentUser;
+  //public currUser: any;
   readonly BaseURI = environment.apiBaseUrl;
+
+  
+
 
   constructor(private fb: FormBuilder, private http: HttpClient, public toastController: ToastController) {
     //The BehaviorSubject holds the value that needs to be shared with other components
@@ -42,11 +49,21 @@ export class UserService {
   });
 
   Login(formData) {
-    //this.ShowMessage( JSON.stringify(formData));
+    
 
+      
+
+
+
+    
+
+
+    //return  from(this.http.post<currentUser>(this.BaseURI + '/ApplicationUser/Login', formData)) //NC tentativo di usare from
+    
+    
     return this.http.post<currentUser>(this.BaseURI + '/ApplicationUser/Login', formData)
       .pipe(map(user => {
-
+        this.ShowMessage(JSON.stringify(user));
          if (user && user.token) {
            localStorage.setItem('token', user.token);
            localStorage.setItem('currentUser', JSON.stringify(user));

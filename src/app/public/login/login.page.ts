@@ -4,6 +4,9 @@ import { AuthenticationService } from "../../services/authentication.service";
 import { UserService } from 'src/app/services/user.service';
 import { NgForm } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
+import { currentUser } from 'src/app/models/models';
+import { uptime } from 'process';
 
 @Component({
   selector: "app-login",
@@ -12,20 +15,20 @@ import { ToastController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loading = false;
-  formModel={
-    UserName:'',
-    Password:''
+  formModel = {
+    UserName: '',
+    Password: ''
   };
-  constructor(private uService: UserService, private router: Router, private auth: AuthenticationService, public toastController: ToastController) {}
+  constructor(private http: HttpClient, private uService: UserService, private router: Router, private auth: AuthenticationService, public toastController: ToastController) { }
 
   ngOnInit() {
-    if(localStorage.getItem('token') != null){
+    if (localStorage.getItem('token') != null) {
       this.router.navigateByUrl('members'); //NC c'era scritto default... 
     }
   }
   debugg: any;
   debugname: string;
-  onSubmit(form:NgForm) {
+  onSubmit(form: NgForm) {
 
     //this.auth.setLoggedIn(true)
     //this.router.navigateByUrl("members");
@@ -36,6 +39,54 @@ export class LoginPage implements OnInit {
 
     //this.auth.setLoggedIn(true);
     //this.router.navigateByUrl("members");
+
+    // DA USER.SERVICE.TS 
+    //return this.http.post<currentUser>(this.BaseURI + '/ApplicationUser/Login', formData)
+    //   .pipe(map(user => {
+    //     this.ShowMessage(JSON.stringify(user));
+    //      if (user && user.token) {
+    //        localStorage.setItem('token', user.token);
+    //        localStorage.setItem('currentUser', JSON.stringify(user));
+    //        this.currUser = user;
+    //        this.BehaviourSubjectcurrentUser.next(user);
+    //      }
+    //     this.ShowMessage(JSON.stringify(user));
+    //     return user;
+    //   }));
+
+
+    
+    
+
+
+
+    
+  //TENTATIVO CON HEADERS
+  //  const options = {
+  //   headers: new HttpHeaders().append('Content-Type', 'application/json'),
+  // }
+
+  //   this.http.post<currentUser>('http://188.152.211.199/iQWApi/api/ApplicationUser/Login', form.value, options).subscribe(
+    
+  //     utente => {
+  //       this.ShowMessage(JSON.stringify(utente.token));
+  //       if (utente && utente.token) {
+  //         localStorage.setItem('token', utente.token);
+  //         localStorage.setItem('currentUser', JSON.stringify(utente));
+  //         //        this.currUser = user;
+  //         //        this.BehaviourSubjectcurrentUser.next(user);
+  //         this.ShowMessage("Login Corretta");
+  //         this.auth.setLoggedIn(true);
+  //         this.router.navigateByUrl("members");
+  //       }
+  //     },
+  //     err => {
+  //       this.ShowMessage(JSON.stringify(err));
+  //       this.auth.setLoggedIn(false);
+  //     })
+
+
+
 
     this.uService.Login(form.value).subscribe(
       (res: any) => {
@@ -64,14 +115,14 @@ export class LoginPage implements OnInit {
           //this.ShowMessage("ERRORE: " + err.status); //[object Object]
         }
       }
-      
+
     );
   }
 
   async ShowMessage(msg: string, title?: string) {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 2000
+      duration: 20000
     });
     toast.present();
   }
