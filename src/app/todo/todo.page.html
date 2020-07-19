@@ -7,4 +7,51 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
+  json:
+  {{todoEvents | json}}
 </ion-content>
+
+
+<!-- AS: per DEBUG -->
+<!-- <p>JSON </p>
+{{todoEvents | json}}
+<p></p> -->
+
+<!--
+<div class="todo-container">
+  <mat-spinner class="nickspinner" diameter="30" *ngIf="loading"></mat-spinner>
+    <div class="grid-table">
+      <div>
+          <div class="tr" >
+            <div class="td">
+                <button class="btn btn-outline-dark" (click)="addTodoEventsForm()">
+                <mat-icon>add</mat-icon>
+                Aggiungi un'attività
+                </button>
+            </div>
+          </div>
+      </div>
+
+      <div class="tbody">
+        <form class="tr" [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;" (submit)="recordSubmit(fgroup)">
+          <div class="td">
+            <mat-checkbox  #Chiuso  class="form-control check-todo" formControlName="isClosed" color="primary" (change)="onChange(fgroup)"></mat-checkbox>
+          </div>
+          <div class="td">
+            <input class="form-control" formControlName="titolo" [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"  (focusout)="onChange(fgroup)">
+          </div>
+          <div class="td">
+            <input class="form-control" formControlName="dettagli" [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"  (focusout)="onChange(fgroup)">
+          </div>
+          <div class="td">
+            <button class="btn btn-light ml-1" [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"  (click)="onDelete(fgroup.get('id').value,i)">
+                <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </div>
+        </form>
+    </div>
+  </div> 
+  <router-outlet></router-outlet>
+  <app-snackbar></app-snackbar>
+</div>
+-->

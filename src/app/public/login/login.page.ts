@@ -62,6 +62,25 @@ export class LoginPage implements OnInit {
     //     this.auth.setLoggedIn(false);
     //   })
 
+    /* Sintassi per  Ionic Native HTTP 
+    var httpHeaders = new Headers();
+    httpHeaders.append("Accept", 'application/json');
+    httpHeaders.append('Content-Type', 'application/json' );
+    //headers.append('Access-Control-Allow-Origin', '*' );
+  
+    let headers = { };
+    this.http.setDataSerializer("json");
+    this.http.setHeader("Accept", "application/json");
+    this.http.setHeader("Content-Type", "application/json");
+
+    this.http.post(this.BaseURI + '/ApplicationUser/Login', formData, httpHeaders)
+      .then((response:HTTPResponse) => {
+        console.log(`POST ${url} ${JSON.stringify(response.data)}`);
+      })
+      .catch((error:any) => {
+        console.error(`POST ${url} ${error.error}`);
+      });
+    */
 
     this.uService.Login(form.value).subscribe(
       (res: any) => {

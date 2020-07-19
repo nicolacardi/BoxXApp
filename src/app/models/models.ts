@@ -6,3 +6,19 @@ export interface currentUser {
     badge: string;
     token?: string;
 }
+
+
+export interface todoEvent{
+    id: number;
+    userID: string;
+    causaleID: number;
+    
+    ticketID: number;
+    //objTicket: ticket;
+
+    isClosed: boolean;
+    titolo: string;
+    dettagli: string;
+    dt: Date;
+    h_Ini: Date;
+}
