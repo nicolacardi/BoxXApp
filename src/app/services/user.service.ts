@@ -4,7 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { currentUser } from '../models/models';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject, Observable, from} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 
 
@@ -12,24 +12,17 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class UserService {
-  
-  
 
   private BehaviourSubjectLoggedIn = new BehaviorSubject<boolean>(false);
   obsLoggedIn = this.BehaviourSubjectLoggedIn.asObservable();
 
-  private BehaviourSubjectcurrentUser : BehaviorSubject<currentUser>;
+  private BehaviourSubjectcurrentUser: BehaviorSubject<currentUser>;
   public obscurrentUser: Observable<currentUser>;
-  
+
   public currUser: currentUser;
-  //public currUser: any;
   readonly BaseURI = environment.apiBaseUrl;
 
-  
-
-
   constructor(private fb: FormBuilder, private http: HttpClient, public toastController: ToastController) {
-    //The BehaviorSubject holds the value that needs to be shared with other components
     this.BehaviourSubjectcurrentUser = new BehaviorSubject<currentUser>(JSON.parse(localStorage.getItem('currentUser')));
     this.obscurrentUser = this.BehaviourSubjectcurrentUser.asObservable();
   }
@@ -49,28 +42,14 @@ export class UserService {
   });
 
   Login(formData) {
-    
-
-      
-
-
-
-    
-
-
-    //return  from(this.http.post<currentUser>(this.BaseURI + '/ApplicationUser/Login', formData)) //NC tentativo di usare from
-    
-    
     return this.http.post<currentUser>(this.BaseURI + '/ApplicationUser/Login', formData)
       .pipe(map(user => {
-        this.ShowMessage(JSON.stringify(user));
-         if (user && user.token) {
-           localStorage.setItem('token', user.token);
-           localStorage.setItem('currentUser', JSON.stringify(user));
-           this.currUser = user;
-           this.BehaviourSubjectcurrentUser.next(user);
-         }
-        this.ShowMessage(JSON.stringify(user));
+        if (user && user.token) {
+          localStorage.setItem('token', user.token);
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currUser = user;
+          this.BehaviourSubjectcurrentUser.next(user);
+        }
         return user;
       }));
   }
@@ -95,7 +74,6 @@ export class UserService {
     return this.BehaviourSubjectcurrentUser.value;
   }
 
-
   changeLoggedIn(val: boolean) {
     this.BehaviourSubjectLoggedIn.next(val)
     //console.log ("user.service.ts - isLoggedIn viene impostato a "+ val)
@@ -112,14 +90,6 @@ export class UserService {
       else
         confirmPasswordCtrl.setErrors(null);
     }
-  }
-
-  async ShowMessage(msg: string, title?: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 8000
-    });
-    toast.present();
   }
 
 

@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
+
+
+
+<!-- MODIFICATO PERCHE' LA BUILD DI ANDROID NON FUNZIONAVA (non andava la httpClient.post). MODIFICHE IN BASE A:
+https://stackoverflow.com/questions/59306640/http-get-working-but-not-working-in-buildrelease-debug-in-ionic-4/59310320#59310320 
+Ecco com'era prima delle modifiche
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
     </domain-config>
-</network-security-config>
+</network-security-config> -->
 
 

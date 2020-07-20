@@ -18,6 +18,12 @@ ion-toolbar {
 ion-menu-button {
     color: #FFF !important;
 }
+
+ion-toast{
+    color:#FFF;
+}
+
+
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 
