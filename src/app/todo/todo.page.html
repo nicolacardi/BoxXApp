@@ -15,13 +15,10 @@
   </form> 
   -->
  
-  <form [formGroup]="fgroup" *ngFor="let fgroup of todoFormGroup.controls; let i=index;">
+  <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
     <ion-list >
       <ion-item  >
-        <ion-label>Input {{i}}</ion-label>
-
-        <!-- <ion-input formControlName="titolo" >Titolo: </ion-input>-->
-        <ion-input> </ion-input>
+        <ion-input formControlName="titolo" ></ion-input>
       </ion-item>
     </ion-list>  
   </form>

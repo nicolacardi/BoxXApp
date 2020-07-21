@@ -20,20 +20,20 @@ export class TodoPage implements OnInit {
 
   titoloChanged: any;
 
-  public todoFormGroup: FormGroup;
+  // public todoFormGroup: FormGroup;
 
   constructor(private fb: FormBuilder, private todoEventsService: TodoEventsService) {
 
-     this.todoFormGroup = fb.group({
-      id: [0],
-      userID: [''],
-      causaleID: [0],
-      ticketID: [0],
+    //  this.todoFormGroup = fb.group({
+    //   id: [0],
+    //   userID: [''],
+    //   causaleID: [0],
+    //   ticketID: [0],
 
-      titolo: ['', Validators.required],
-      dettagli: ['', Validators.required],
-      isClosed: false
-     })
+    //   titolo: ['', Validators.required],
+    //   dettagli: ['', Validators.required],
+    //   isClosed: false
+    //  })
     
   }
 
