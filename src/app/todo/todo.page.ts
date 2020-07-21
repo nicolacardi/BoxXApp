@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormArray, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@angular/forms';
 
 import { todoEvent } from 'src/app/models/models';
 import { TodoEventsService } from 'src/app/services/todoevents.service';
+
 
 
 @Component({
@@ -13,18 +14,44 @@ import { TodoEventsService } from 'src/app/services/todoevents.service';
 export class TodoPage implements OnInit {
 
   todoEventsForms: FormArray = this.fb.array([]);
-  todoEvents: todoEvent[];
+
+  //todoEvents: todoEvent[];
   loading = true;
 
   titoloChanged: any;
 
+  public todoFormGroup: FormGroup;
 
   constructor(private fb: FormBuilder, private todoEventsService: TodoEventsService) {
+
+     this.todoFormGroup = fb.group({
+      id: [0],
+      userID: [''],
+      causaleID: [0],
+      ticketID: [0],
+
+      titolo: ['', Validators.required],
+      dettagli: ['', Validators.required],
+      isClosed: false
+     })
+    
   }
 
   ngOnInit() {
 
-    console.log("Inizio todo.page.ts");
+/*    
+  this.form = this.fb.group({
+    id: [0],
+    userID: [''],
+    causaleID: [0],
+    ticketID: [0],
+
+    titolo: ['', Validators.required],
+    dettagli: ['', Validators.required],
+    isClosed: false
+  });
+*/
+    //console.log("Inizio todo.page.ts");
 
     this.todoEventsService.getTodoEventList().subscribe(
       res => {
@@ -32,17 +59,18 @@ export class TodoPage implements OnInit {
           this.addTodoEventsForm();
         else {
           //sort per far comparire i todo chiusi sotto
-          //res.sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
+          res.sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
 
           console.log(JSON.stringify(res));
           console.log("------------------------");
-
-          console.log(res as []);
-          
+          /*
+          his.myForm = formBuilder.group({
+              firstName: ['value'],
+              lastName: ['value', *validation function goes here*],
+              age: ['value', *validation function goes here*, *asynchronous validation function goes here*]
+          });  
+          */
           (res as []).forEach((todo: todoEvent) => {
-            
-            //this.todoEvents.push(todo.userID);
-
             this.todoEventsForms.push(this.fb.group({
 
               id: [todo.id],
@@ -62,7 +90,9 @@ export class TodoPage implements OnInit {
       }
     );
   }
-
+  logForm() {
+    console.log("aaa");
+  }
 
   addTodoEventsForm() {
     //this.todoEventsForms.push(this.fb.group({         //per aggiungere in coda

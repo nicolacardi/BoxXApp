@@ -6,9 +6,56 @@
     <ion-title>To do</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
-  json:
-  {{todoEvents | json}}
+  
+  <!--
+  <form class="tr" [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;" (submit)="recordSubmit(fgroup)">
+  
+  </form> 
+  -->
+ 
+  <form [formGroup]="fgroup" *ngFor="let fgroup of todoFormGroup.controls; let i=index;">
+    <ion-list >
+      <ion-item  >
+        <ion-label>Input {{i}}</ion-label>
+
+        <!-- <ion-input formControlName="titolo" >Titolo: </ion-input>-->
+        <ion-input> </ion-input>
+      </ion-item>
+    </ion-list>  
+  </form>
+    
+
+      <!--
+        <ion-list >
+      <form [formGroup]="todoFormGroup">
+
+        <ion-item>
+          <ion-label>Todo</ion-label>
+          <ion-input type="text" [(ngModel)]="todoFormGroup.titolo" name="titolo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-textarea [(ngModel)]="todoFormGroup.dettagli" name="dettagli"></ion-textarea>
+        </ion-item>
+        <button ion-button type="submit" block>Add Todo</button>
+
+      </form>
+    </ion-list>  
+  
+
+    <ion-list>
+      <ion-list-header>
+        Ionic Lists Example
+      </ion-list-header>
+      <ion-item *ngFor="let fgroup of todoEventsForms.controls">
+        <ion-label>
+          {{fgroup}}
+        </ion-label> 
+      </ion-item>
+    </ion-list>
+  -->
 </ion-content>
 
 
