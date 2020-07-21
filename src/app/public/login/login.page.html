@@ -6,25 +6,25 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <ion-row>
     <ion-col center size-lg="4" size-md="12" offset-lg="4">
       <ion-card>
         <ion-card-header>
           <ion-img style="height: 160px;" src="../../../assets/img/BoxXColored.svg"></ion-img>
         </ion-card-header>
-
         <ion-card-content>
           <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
             <ion-item>
               <ion-label position="stacked">USERNAME <ion-text color="#FFF">*</ion-text>
               </ion-label>
-              <ion-input required type="text" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName"></ion-input>
+              <ion-input required type="text" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName">
+              </ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="stacked" >PASSWORD <ion-text color="#FFF">*</ion-text>
+              <ion-label position="stacked">PASSWORD <ion-text color="#FFF">*</ion-text>
               </ion-label>
-              <ion-input required type="text" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password"></ion-input>
+              <ion-input required type="text" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password">
+              </ion-input>
             </ion-item>
             <ion-button type="submit" expand="block" class="ion-margin-top">Login</ion-button>
             <ion-button expand="block" color="secondary" href="/register" routerDirection="forward"
@@ -34,5 +34,5 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  {{debugname}}
+  <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 </ion-content>
