@@ -1,30 +1,46 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-      </ion-buttons>    
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>To do</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  
+
   <!--
   <form class="tr" [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;" (submit)="recordSubmit(fgroup)">
   
   </form> 
   -->
- 
-  <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
-    <ion-list >
-      <ion-item  >
-        <ion-input formControlName="titolo" ></ion-input>
-      </ion-item>
-    </ion-list>  
-  </form>
-    
 
-      <!--
+  <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
+    <ion-list>
+      <ion-row>
+        <ion-col size="1" class="ion-padding-top">
+          <ion-checkbox formControlName="isClosed" color="danger" (change)="onChange(fgroup)"></ion-checkbox>
+        </ion-col>
+        <ion-col size="5">
+          <ion-item>
+            <ion-input formControlName="titolo"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="5">
+          <ion-item>
+            <ion-input formControlName="dettagli"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1" class="ion-padding-top">
+          <ion-icon size="large" name="trash" color="danger"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+  </form>
+
+
+  <!--
         <ion-list >
       <form [formGroup]="todoFormGroup">
 
