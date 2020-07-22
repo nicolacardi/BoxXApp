@@ -13,7 +13,7 @@ import { currentUser } from 'src/app/models/models';
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  loading = false;
+  public loading = false;
   formModel = {
     UserName: '',
     Password: ''
