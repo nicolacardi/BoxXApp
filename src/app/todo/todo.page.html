@@ -14,25 +14,29 @@
   
   </form> 
   -->
+  <ion-button class="btn btn-outline-dark" (click)="addTodoEventsForm()">
+    
+    Aggiungi un'attività
+    </ion-button>
 
   <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
     <ion-list>
       <ion-row>
         <ion-col size="1" class="ion-padding-top">
-          <ion-checkbox formControlName="isClosed" color="danger" (change)="onChange(fgroup)"></ion-checkbox>
+          <ion-checkbox #Chiuso formControlName="isClosed" color="danger" (change)="onChange(fgroup)"></ion-checkbox>
         </ion-col>
         <ion-col size="5">
           <ion-item>
-            <ion-input formControlName="titolo"></ion-input>
+            <ion-input formControlName="titolo" [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="5">
           <ion-item>
-            <ion-input formControlName="dettagli"></ion-input>
+            <ion-input formControlName="dettagli" [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
-          <ion-icon size="large" name="trash" color="danger"></ion-icon>
+          <ion-icon size="large" name="trash" color="danger" [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}" (click)="onDelete(fgroup.get('id').value,i)"></ion-icon>
         </ion-col>
       </ion-row>
     </ion-list>
