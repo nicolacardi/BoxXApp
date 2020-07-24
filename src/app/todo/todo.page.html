@@ -8,17 +8,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <!--
-  <form class="tr" [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;" (submit)="recordSubmit(fgroup)">
-  
-  </form> 
-  -->
-  <!-- <ion-button class="btn btn-outline-dark" >
-    Aggiungi un'attività
-  </ion-button> -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addTodoEventsForm()">
-    <ion-fab-button color="danger" >
+    <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -37,7 +28,8 @@
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
           <ion-input #id formControlName="id" hidden></ion-input>
-          <ion-icon *ngIf="titolo.value" size="large" name="create" color="primary" [routerLink]="['/todo-detail/'+id.value]"></ion-icon>
+          <ion-icon *ngIf="titolo.value" size="large" name="create" color="primary"
+            [routerLink]="['/todo-detail/'+id.value]"></ion-icon>
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
           <ion-icon size="large" name="trash" color="danger"
@@ -47,92 +39,14 @@
       </ion-row>
       <ion-row>
         <ion-col size="1">
-
         </ion-col>
-        <ion-col size="10">
-            <ion-input #dettagli formControlName="dettagli" hidden></ion-input>
-            <ion-label class="ion-no-padding ion-input-dettagli"
-              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}">{{dettagli.value}}</ion-label>
+        <ion-col size="9">
+          <ion-input #dettagli formControlName="dettagli" hidden></ion-input>
+          <ion-label class="ion-no-padding ion-input-dettagli"
+            [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}">{{dettagli.value}}
+          </ion-label>
         </ion-col>
       </ion-row>
-
     </ion-list>
-
   </form>
-
-
-  <!--
-        <ion-list >
-      <form [formGroup]="todoFormGroup">
-
-        <ion-item>
-          <ion-label>Todo</ion-label>
-          <ion-input type="text" [(ngModel)]="todoFormGroup.titolo" name="titolo"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Description</ion-label>
-          <ion-textarea [(ngModel)]="todoFormGroup.dettagli" name="dettagli"></ion-textarea>
-        </ion-item>
-        <button ion-button type="submit" block>Add Todo</button>
-
-      </form>
-    </ion-list>  
-  
-
-    <ion-list>
-      <ion-list-header>
-        Ionic Lists Example
-      </ion-list-header>
-      <ion-item *ngFor="let fgroup of todoEventsForms.controls">
-        <ion-label>
-          {{fgroup}}
-        </ion-label> 
-      </ion-item>
-    </ion-list>
-  -->
 </ion-content>
-
-
-<!-- AS: per DEBUG -->
-<!-- <p>JSON </p>
-{{todoEvents | json}}
-<p></p> -->
-
-<!--
-<div class="todo-container">
-  <mat-spinner class="nickspinner" diameter="30" *ngIf="loading"></mat-spinner>
-    <div class="grid-table">
-      <div>
-          <div class="tr" >
-            <div class="td">
-                <button class="btn btn-outline-dark" (click)="addTodoEventsForm()">
-                <mat-icon>add</mat-icon>
-                Aggiungi un'attività
-                </button>
-            </div>
-          </div>
-      </div>
-
-      <div class="tbody">
-        <form class="tr" [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;" (submit)="recordSubmit(fgroup)">
-          <div class="td">
-            <mat-checkbox  #Chiuso  class="form-control check-todo" formControlName="isClosed" color="primary" (change)="onChange(fgroup)"></mat-checkbox>
-          </div>
-          <div class="td">
-            <input class="form-control" formControlName="titolo" [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"  (focusout)="onChange(fgroup)">
-          </div>
-          <div class="td">
-            <input class="form-control" formControlName="dettagli" [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"  (focusout)="onChange(fgroup)">
-          </div>
-          <div class="td">
-            <button class="btn btn-light ml-1" [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"  (click)="onDelete(fgroup.get('id').value,i)">
-                <mat-icon color="warn">delete</mat-icon>
-            </button>
-          </div>
-        </form>
-    </div>
-  </div> 
-  <router-outlet></router-outlet>
-  <app-snackbar></app-snackbar>
-</div>
--->
