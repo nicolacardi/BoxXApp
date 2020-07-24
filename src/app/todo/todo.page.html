@@ -36,28 +36,25 @@
           </ion-item>
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
-        
           <ion-input #id formControlName="id" hidden></ion-input>
-          <ion-icon *ngIf="titolo.value" size="large" name="create-outline" color="primary" [routerLink]="['/todo-detail/'+id.value]"></ion-icon>
+          <ion-icon *ngIf="titolo.value" size="large" name="create" color="primary" [routerLink]="['/todo-detail/'+id.value]"></ion-icon>
         </ion-col>
-
         <ion-col size="1" class="ion-padding-top">
-          <ion-icon size="large" name="trash-outline" color="danger"
+          <ion-icon size="large" name="trash" color="danger"
             [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"
             (click)="onDelete(fgroup.get('id').value,i)"></ion-icon>
         </ion-col>
       </ion-row>
-      <!-- <ion-row>
+      <ion-row>
         <ion-col size="1">
 
         </ion-col>
         <ion-col size="10">
-          <ion-item class="ion-item-dettagli">
-            <ion-input formControlName="dettagli" class="ion-no-padding ion-input-dettagli"
-              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}" (ionBlur)="onChange(fgroup)"></ion-input>
-          </ion-item>
+            <ion-input #dettagli formControlName="dettagli" hidden></ion-input>
+            <ion-label class="ion-no-padding ion-input-dettagli"
+              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}">{{dettagli.value}}</ion-label>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
 
     </ion-list>
 

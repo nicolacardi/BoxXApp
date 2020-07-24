@@ -21,7 +21,11 @@ export class TodoPage implements OnInit {
   }
 
   ngOnInit() {
-
+  }
+  
+  ionViewDidEnter() {
+    console.log("ci ripasso");
+    this.todoEventsForms.clear();
     this.todoEventsService.getTodoEventList().subscribe(
       res => {
         if (res == [])
