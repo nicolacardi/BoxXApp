@@ -3,7 +3,7 @@ import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@ang
 
 import { todoEvent } from 'src/app/models/models';
 import { TodoEventsService } from 'src/app/services/todoevents.service';
-
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -22,7 +22,7 @@ export class TodoPage implements OnInit {
 
   // public todoFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder, private todoEventsService: TodoEventsService) {
+  constructor(private router: Router, private fb: FormBuilder, private todoEventsService: TodoEventsService) {
 
     //  this.todoFormGroup = fb.group({
     //   id: [0],
@@ -121,7 +121,6 @@ export class TodoPage implements OnInit {
         });
   }
   onChange(fg: FormGroup) {
-
     if (fg.controls['isClosed'].dirty ||
       fg.controls['titolo'].dirty ||
       fg.controls['dettagli'].dirty) {
@@ -150,6 +149,9 @@ export class TodoPage implements OnInit {
       }
       this.loading = false;
     }
+  }
+  gotoTodoDetail() {
+    this.router.navigateByUrl("/todo-detail");
   }
 }
 
