@@ -14,44 +14,17 @@ import { Router } from "@angular/router";
 export class TodoPage implements OnInit {
 
   todoEventsForms: FormArray = this.fb.array([]);
-
-  //todoEvents: todoEvent[];
   loading = true;
-
   titoloChanged: any;
 
-  // public todoFormGroup: FormGroup;
+
+
+
 
   constructor(private router: Router, private fb: FormBuilder, private todoEventsService: TodoEventsService) {
-
-    //  this.todoFormGroup = fb.group({
-    //   id: [0],
-    //   userID: [''],
-    //   causaleID: [0],
-    //   ticketID: [0],
-
-    //   titolo: ['', Validators.required],
-    //   dettagli: ['', Validators.required],
-    //   isClosed: false
-    //  })
-    
   }
 
   ngOnInit() {
-
-/*    
-  this.form = this.fb.group({
-    id: [0],
-    userID: [''],
-    causaleID: [0],
-    ticketID: [0],
-
-    titolo: ['', Validators.required],
-    dettagli: ['', Validators.required],
-    isClosed: false
-  });
-*/
-    //console.log("Inizio todo.page.ts");
 
     this.todoEventsService.getTodoEventList().subscribe(
       res => {
@@ -151,8 +124,44 @@ export class TodoPage implements OnInit {
     }
   }
 
+
+  getName(i) {
+    return this.getControls()[i].value.name;
+  }
+
+  getControls() {
+    return (<FormArray>this.todoEventsForms.get('id')).controls;
+  }
+
+
+
 }
 
- 
+   //todoEvents: todoEvent[];
 
- 
+   // public todoFormGroup: FormGroup;
+
+
+    //  this.todoFormGroup = fb.group({
+    //   id: [0],
+    //   userID: [''],
+    //   causaleID: [0],
+    //   ticketID: [0],
+
+    //   titolo: ['', Validators.required],
+    //   dettagli: ['', Validators.required],
+    //   isClosed: false
+    //  })
+
+    /*    
+  this.form = this.fb.group({
+    id: [0],
+    userID: [''],
+    causaleID: [0],
+    ticketID: [0],
+
+    titolo: ['', Validators.required],
+    dettagli: ['', Validators.required],
+    isClosed: false
+  });
+*/
