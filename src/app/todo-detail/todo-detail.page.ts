@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-todo-detail',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoDetailPage implements OnInit {
 
-  constructor() { }
-
+  constructor(private route: ActivatedRoute,) { }
+  todoID: any;
   ngOnInit() {
+    this.todoID = this.route.snapshot.params['id'];
   }
 
 }

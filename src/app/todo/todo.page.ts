@@ -150,9 +150,7 @@ export class TodoPage implements OnInit {
       this.loading = false;
     }
   }
-  gotoTodoDetail() {
-    this.router.navigateByUrl("/todo-detail");
-  }
+
 }
 
  

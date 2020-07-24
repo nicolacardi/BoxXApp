@@ -32,7 +32,9 @@
           </ion-item>
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
-          <ion-icon size="large" name="add" color="primary" (click)="gotoTodoDetail()"></ion-icon>
+          <!-- <ion-icon size="large" name="add" color="primary" (click)="gotoTodoDetail()"></ion-icon> -->
+          <!--COME SI FA A PASSARGLI QUI L'ID DEL TODO SPECIFICO VISTO CHE L'NGFOR PASSA DEI CONTROLS?-->
+          <ion-icon size="large" name="add" color="primary" [routerLink]="['/todo-detail', 'id']"></ion-icon>
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
           <ion-icon size="large" name="trash" color="danger"

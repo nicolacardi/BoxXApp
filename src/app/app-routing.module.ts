@@ -15,11 +15,13 @@ const routes: Routes = [
     loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
   },
   {
-    path: 'todo-detail',
+    path: 'todo-detail/:ID',
     loadChildren: () => import('./todo-detail/todo-detail.module').then( m => m.TodoDetailPageModule)
   },
 
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
