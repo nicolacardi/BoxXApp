@@ -41,6 +41,10 @@ export class TodoEventsService {
   }  
   
   putTodoEvent(formData){
+    if(formData.userID == null || formData.userID =="" ){
+      this.currUser = JSON.parse(localStorage.getItem('currentUser'));
+      formData.userID = this.currUser.userID;
+    }
     formData.ticketID = +formData.ticketID;
     return this.http.put( environment.apiBaseUrl  + '/TodoEvents/' + formData.id , formData)    
   }
