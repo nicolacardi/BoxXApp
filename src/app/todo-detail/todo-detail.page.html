@@ -1,12 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>todo-detail</ion-title>
+    <ion-title>{{todoID}} : {{objTodo.titolo}}</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/todo"></ion-back-button>
+      <ion-back-button (click)="backToTodo()" defaultHref="/todo" ></ion-back-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  todoID: {{todoID}}
+  <ion-item padding-start padding-end>
+    <ion-input [(ngModel)]= "objTodo.titolo"></ion-input>
+  </ion-item>
+  <ion-item padding-start padding-end>
+    <ion-textarea rows ="4" #dettagli class="ion-no-padding" [(ngModel)]= "objTodo.dettagli"></ion-textarea>
+  </ion-item>
+
 </ion-content>

@@ -17,10 +17,6 @@ export class TodoPage implements OnInit {
   loading = true;
   titoloChanged: any;
 
-
-
-
-
   constructor(private router: Router, private fb: FormBuilder, private todoEventsService: TodoEventsService) {
   }
 
@@ -34,15 +30,6 @@ export class TodoPage implements OnInit {
           //sort per far comparire i todo chiusi sotto
           res.sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
 
-          console.log(JSON.stringify(res));
-          console.log("------------------------");
-          /*
-          his.myForm = formBuilder.group({
-              firstName: ['value'],
-              lastName: ['value', *validation function goes here*],
-              age: ['value', *validation function goes here*, *asynchronous validation function goes here*]
-          });  
-          */
           (res as []).forEach((todo: todoEvent) => {
             this.todoEventsForms.push(this.fb.group({
 

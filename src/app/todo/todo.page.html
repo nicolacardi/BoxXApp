@@ -14,11 +14,14 @@
   
   </form> 
   -->
-  <ion-button class="btn btn-outline-dark" (click)="addTodoEventsForm()">
-
+  <!-- <ion-button class="btn btn-outline-dark" >
     Aggiungi un'attività
-  </ion-button>
-
+  </ion-button> -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addTodoEventsForm()">
+    <ion-fab-button color="danger" >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
     <ion-list>
       <ion-row>
@@ -27,20 +30,19 @@
         </ion-col>
         <ion-col size="9">
           <ion-item>
-            <ion-input formControlName="titolo"
-              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}" (ionBlur)="onChange(fgroup)"></ion-input>
+            <ion-input #titolo formControlName="titolo"
+              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"
+              (ionBlur)="onChange(fgroup)"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
-          <!-- <ion-icon size="large" name="add" color="primary" (click)="gotoTodoDetail()"></ion-icon> -->
-          <!--COME SI FA A PASSARGLI QUI L'ID DEL TODO SPECIFICO VISTO CHE L'NGFOR PASSA DEI CONTROLS?-->
-          <ion-icon size="large" name="add" color="primary" [routerLink]="['/todo-detail/0']"></ion-icon>
-          <!-- <ion-icon size="large" name="add" color="primary" [routerLink]="['/todo-detail', getName(i)]"></ion-icon> -->
-          id:{{fgroup[0].controls('titolo').value}}
-          </ion-col>
+        
+          <ion-input #id formControlName="id" hidden></ion-input>
+          <ion-icon *ngIf="titolo.value" size="large" name="create-outline" color="primary" [routerLink]="['/todo-detail/'+id.value]"></ion-icon>
+        </ion-col>
 
         <ion-col size="1" class="ion-padding-top">
-          <ion-icon size="large" name="trash" color="danger"
+          <ion-icon size="large" name="trash-outline" color="danger"
             [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"
             (click)="onDelete(fgroup.get('id').value,i)"></ion-icon>
         </ion-col>
@@ -56,7 +58,7 @@
           </ion-item>
         </ion-col>
       </ion-row> -->
-      
+
     </ion-list>
 
   </form>
