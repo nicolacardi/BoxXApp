@@ -2,17 +2,17 @@
   <ion-toolbar>
     <ion-title></ion-title>
     <ion-buttons slot="start">
-      <ion-back-button (click)="backToTodo()" defaultHref="/todo" ></ion-back-button>
+      <ion-back-button (click)="backToTodo()" defaultHref="/todo"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-item class="ion-padding-end ion-padding-start">
-    <ion-input [(ngModel)]= "objTodo.titolo" placeholder="titolo"></ion-input>
+    <ion-input [(ngModel)]="objTodo.titolo" placeholder="titolo"></ion-input>
   </ion-item>
   <ion-item class="ion-padding-end ion-padding-start">
-    <ion-textarea rows ="4" #dettagli class="ion-no-padding" [(ngModel)]= "objTodo.dettagli" placeholder="dettagli"></ion-textarea>
+    <ion-textarea rows="4" #dettagli class="ion-no-padding" [(ngModel)]="objTodo.dettagli" placeholder="dettagli">
+    </ion-textarea>
   </ion-item>
-
 </ion-content>
