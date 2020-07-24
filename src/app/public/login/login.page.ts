@@ -114,6 +114,7 @@ export class LoginPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       color: 'primary',
+      position: 'middle',
       duration: 2000,
       showCloseButton: true,  
       closeButtonText: 'OK',  

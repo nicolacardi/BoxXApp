@@ -3,7 +3,7 @@ import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@ang
 
 import { todoEvent } from 'src/app/models/models';
 import { TodoEventsService } from 'src/app/services/todoevents.service';
-
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -14,44 +14,17 @@ import { TodoEventsService } from 'src/app/services/todoevents.service';
 export class TodoPage implements OnInit {
 
   todoEventsForms: FormArray = this.fb.array([]);
-
-  //todoEvents: todoEvent[];
   loading = true;
-
   titoloChanged: any;
 
-  // public todoFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder, private todoEventsService: TodoEventsService) {
 
-    //  this.todoFormGroup = fb.group({
-    //   id: [0],
-    //   userID: [''],
-    //   causaleID: [0],
-    //   ticketID: [0],
 
-    //   titolo: ['', Validators.required],
-    //   dettagli: ['', Validators.required],
-    //   isClosed: false
-    //  })
-    
+
+  constructor(private router: Router, private fb: FormBuilder, private todoEventsService: TodoEventsService) {
   }
 
   ngOnInit() {
-
-/*    
-  this.form = this.fb.group({
-    id: [0],
-    userID: [''],
-    causaleID: [0],
-    ticketID: [0],
-
-    titolo: ['', Validators.required],
-    dettagli: ['', Validators.required],
-    isClosed: false
-  });
-*/
-    //console.log("Inizio todo.page.ts");
 
     this.todoEventsService.getTodoEventList().subscribe(
       res => {
@@ -121,7 +94,6 @@ export class TodoPage implements OnInit {
         });
   }
   onChange(fg: FormGroup) {
-
     if (fg.controls['isClosed'].dirty ||
       fg.controls['titolo'].dirty ||
       fg.controls['dettagli'].dirty) {
@@ -151,8 +123,45 @@ export class TodoPage implements OnInit {
       this.loading = false;
     }
   }
+
+
+  getName(i) {
+    return this.getControls()[i].value.name;
+  }
+
+  getControls() {
+    return (<FormArray>this.todoEventsForms.get('id')).controls;
+  }
+
+
+
 }
 
- 
+   //todoEvents: todoEvent[];
 
- 
+   // public todoFormGroup: FormGroup;
+
+
+    //  this.todoFormGroup = fb.group({
+    //   id: [0],
+    //   userID: [''],
+    //   causaleID: [0],
+    //   ticketID: [0],
+
+    //   titolo: ['', Validators.required],
+    //   dettagli: ['', Validators.required],
+    //   isClosed: false
+    //  })
+
+    /*    
+  this.form = this.fb.group({
+    id: [0],
+    userID: [''],
+    causaleID: [0],
+    ticketID: [0],
+
+    titolo: ['', Validators.required],
+    dettagli: ['', Validators.required],
+    isClosed: false
+  });
+*/

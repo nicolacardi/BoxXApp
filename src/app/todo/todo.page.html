@@ -23,31 +23,39 @@
     <ion-list>
       <ion-row>
         <ion-col size="1" class="ion-padding-top">
-          <ion-checkbox #Chiuso formControlName="isClosed" color="danger" (change)="onChange(fgroup)"></ion-checkbox>
+          <ion-checkbox #Chiuso formControlName="isClosed" color="danger" (ionChange)="onChange(fgroup)"></ion-checkbox>
         </ion-col>
-        <ion-col size="10">
+        <ion-col size="9">
           <ion-item>
             <ion-input formControlName="titolo"
-              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}" (focusout)="onChange(fgroup)"></ion-input>
+              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}" (ionBlur)="onChange(fgroup)"></ion-input>
           </ion-item>
         </ion-col>
+        <ion-col size="1" class="ion-padding-top">
+          <!-- <ion-icon size="large" name="add" color="primary" (click)="gotoTodoDetail()"></ion-icon> -->
+          <!--COME SI FA A PASSARGLI QUI L'ID DEL TODO SPECIFICO VISTO CHE L'NGFOR PASSA DEI CONTROLS?-->
+          <ion-icon size="large" name="add" color="primary" [routerLink]="['/todo-detail']"></ion-icon>
+          <!-- <ion-icon size="large" name="add" color="primary" [routerLink]="['/todo-detail', getName(i)]"></ion-icon> -->
+          <!-- id:{{getName(i)}}  -->
+          </ion-col>
+
         <ion-col size="1" class="ion-padding-top">
           <ion-icon size="large" name="trash" color="danger"
             [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"
             (click)="onDelete(fgroup.get('id').value,i)"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <!-- <ion-row>
         <ion-col size="1">
 
         </ion-col>
         <ion-col size="10">
           <ion-item class="ion-item-dettagli">
             <ion-input formControlName="dettagli" class="ion-no-padding ion-input-dettagli"
-              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}" (focusout)="onChange(fgroup)"></ion-input>
+              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}" (ionBlur)="onChange(fgroup)"></ion-input>
           </ion-item>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
       
     </ion-list>
 
