@@ -20,10 +20,10 @@
           <ion-checkbox #Chiuso formControlName="isClosed" color="danger" (ionChange)="onChange(fgroup)"></ion-checkbox>
         </ion-col>
         <ion-col size="9">
-          <ion-item>
-            <ion-input #titolo formControlName="titolo"
+          <ion-item >
+            <ion-textarea class="ion-no-padding" #titolo formControlName="titolo"
               [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"
-              (ionBlur)="onChange(fgroup)"></ion-input>
+              (ionBlur)="onChange(fgroup)" rows="1"></ion-textarea>
           </ion-item>
         </ion-col>
         <ion-col size="1" class="ion-padding-top">
