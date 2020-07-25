@@ -3,11 +3,32 @@
     <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>tabHome</ion-title>
+    <ion-title>Home</ion-title>
     <img src="../../../assets/img/BoxX.svg" width="30" height="30" alt="BoxX Logo" slot="end" class="ion-margin-right" style="margin-right: 20px;" title="Benvenuti su BoxX">
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-button (click)="gotoDetail()">DETAIL PAGE</ion-button>
+    <!-- <ion-button (click)="gotoDetail()">DETAIL PAGE</ion-button> -->
+    <ion-card>
+      <ion-card-header >
+        <ion-card-subtitle class="ion-no-padding">Ticket Chiusi questa settimana</ion-card-subtitle>
+        <!-- <ion-card-title>Card Title</ion-card-title> -->
+      </ion-card-header>
+    
+      <ion-card-content>
+        <canvas #barChart></canvas>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Tipologia Ticket</ion-card-subtitle>
+        <!-- <ion-card-title>Card Title</ion-card-title> -->
+      </ion-card-header>
+    
+      <ion-card-content>
+        <canvas #pieChart></canvas>
+      </ion-card-content>
+    </ion-card>
+
 </ion-content>

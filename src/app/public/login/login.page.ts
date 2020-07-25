@@ -22,7 +22,8 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('token') != null) {
-      this.router.navigateByUrl('members'); //NC c'era scritto default... 
+      //this.router.navigateByUrl('members'); //NC c'era scritto default... 
+      this.router.navigateByUrl('home'); //NC c'era scritto default... 
     }
   }
 
@@ -90,8 +91,8 @@ export class LoginPage implements OnInit {
         this.ShowMessage("Benvenuto " + this.uService.currUser.fullname);
         //Forse fa schifo ma funziona
         //this.sidebar.ngOnInit();
-        console.log('OK! ma c è l auth che blocca...ancora da sistemare ...ma perchè dice Bad request?');
-        this.router.navigateByUrl("members");
+        //this.router.navigateByUrl("members");
+        this.router.navigateByUrl("home");
       },
       err => {
 

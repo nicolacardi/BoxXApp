@@ -24,7 +24,6 @@ export class TodoPage implements OnInit {
   }
   
   ionViewDidEnter() {
-    console.log("ci ripasso");
     this.todoEventsForms.clear();
     this.todoEventsService.getTodoEventList().subscribe(
       res => {

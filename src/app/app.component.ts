@@ -13,18 +13,25 @@ import { Router } from "@angular/router";
 export class AppComponent {
   selectedPath = "";
   public appPages = [
+    
     {
       title: "Home",
-      url: "/members/tabs/tabHome",
+      url: "/home",
       icon: "home"
     },
     {
       title: "To Do",
-      url: "/members/todo",
+      url: "/todo",
       icon: "menu"
     }
   ];
 
+
+  // {
+  //   title: "Home",
+  //   url: "/members/tabs/tabHome",
+  //   icon: "home"
+  // },
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
