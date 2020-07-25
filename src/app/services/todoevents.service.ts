@@ -30,17 +30,19 @@ export class TodoEventsService {
     return this.http.get(environment.apiBaseUrl  + '/TodoEvents/' + todoEvent );
   }
 
-
   //AS: metodo di passaggio dati come parametro (in alternativa ad avere una variabile formData sul servizio -->  vedi TicketDetailService)
   postTodoEvent(formData){
+    console.log('PostTodoEvent');
+    console.log(JSON.stringify(formData));
     this.currUser = JSON.parse(localStorage.getItem('currentUser'));
     formData.userID = this.currUser.userID;
     formData.ticketID = +formData.ticketID;       //forzo la conversione su tipo number
-
     return this.http.post( environment.apiBaseUrl   + '/TodoEvents',formData)  
   }  
   
   putTodoEvent(formData){
+    console.log('PutTodoEvent');
+    console.log(JSON.stringify(formData));
     if(formData.userID == null || formData.userID =="" ){
       this.currUser = JSON.parse(localStorage.getItem('currentUser'));
       formData.userID = this.currUser.userID;

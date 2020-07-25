@@ -40,8 +40,8 @@ export class TodoPage implements OnInit {
               userID: [todo.userID],
               titolo: [todo.titolo],
               dettagli: [todo.dettagli],
-              isClosed: [todo.isClosed]
-              //dt: Date;
+              isClosed: [todo.isClosed],
+              dt: [todo.dt]
               //h_Ini: Date;
               //causaleID: number;
               //ticketID: number;
@@ -67,8 +67,8 @@ export class TodoPage implements OnInit {
 
       titolo: ['', Validators.required],
       dettagli: ['', Validators.required],
-      isClosed: false
-      //dt : [0, Validators.min(1)],
+      isClosed: false,
+      dt : [0, Validators.min(1)],
       //h_Ini : ['', Validators.required]
     }))
   }

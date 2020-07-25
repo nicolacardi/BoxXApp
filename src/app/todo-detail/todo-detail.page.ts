@@ -31,7 +31,7 @@ export class TodoDetailPage implements OnInit {
   }
 
   backToTodo() {
-    console.log (JSON.stringify(this.objTodo));
+    // console.log (JSON.stringify(this.objTodo));
     this.objTodo.id = +this.objTodo.id;
     if (this.todoID == 0) {
 
@@ -39,8 +39,7 @@ export class TodoDetailPage implements OnInit {
       this.todoEventsService.postTodoEvent(this.objTodo).subscribe(
         (res: any) => {
           // fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
-          
-          console.log ("inserito");
+          // console.log ("inserito");
         },
         err => {
           console.log(err);
@@ -50,9 +49,7 @@ export class TodoDetailPage implements OnInit {
       //Update
       this.todoEventsService.putTodoEvent(this.objTodo).subscribe(
         (res: any) => {
-
-          //this.showNotification('update');
-          console.log ("aggiornato");
+          // console.log ("aggiornato");
         },
         err => {
           console.log(err);
