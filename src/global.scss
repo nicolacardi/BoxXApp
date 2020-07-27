@@ -11,7 +11,7 @@
 
 /*ion menu button va settato qui*/
 ion-toolbar {
-    --background: url("./assets/img/backgroundcell.jpg") no-repeat fixed !important; 
+    --background: url("./assets/img/backgroundcell.jpg") no-repeat fixed !important;
     --color: #FFF;
 }
 
@@ -19,8 +19,8 @@ ion-menu-button {
     color: #FFF !important;
 }
 
-ion-toast{
-    color:#FFF;
+ion-toast {
+    color: #FFF;
 }
 
 
@@ -39,3 +39,80 @@ ion-toast{
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+
+
+//Animazioni Splash
+.st1 {
+    fill: none;
+    stroke: #114369;
+    stroke-miterlimit: 10;
+}
+
+#logo-top {
+    animation-name: logotopAni;
+    animation-duration: 3s;
+}
+
+@keyframes logotopAni {
+    0% {opacity: 1;}
+    20% {opacity: 1;}
+    //50% {opacity: 1;}
+    95% {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+#logo-dx {
+    animation-name: logodxAni;
+    animation-duration: 3s;
+}
+
+@keyframes logodxAni {
+    0% {opacity: 0.4;}
+    20% {opacity: 0.4;}
+    //50% {opacity: 0.4;}
+    95% {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+#logo-sx {
+    animation-name: logosxAni;
+    animation-duration: 3s;
+}
+
+@keyframes logosxAni {
+    0% {opacity: 0.2;}
+    20% {opacity: 0.2;}
+    //50% {opacity: 0.2;}
+    100% {opacity: 0;}
+}
+.logo-testo-outline {
+    stroke: #114369;
+    fill: none;
+    animation-name: logotxtOutAni;
+    animation-duration: 3s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes logotxtOutAni {
+    0% {opacity: 1;}
+    80% {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+.logo-testo {
+    stroke: #114369;
+    fill: #114369;
+    animation-name: logotxtAni;
+    animation-duration: 3s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes logotxtAni {
+    0% {opacity: 0;}
+    40% {opacity: 1;}
+    80% {opacity: 0;}
+    100% {opacity: 0;}
+}
+

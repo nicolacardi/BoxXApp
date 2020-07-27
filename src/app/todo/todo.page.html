@@ -13,8 +13,9 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+ 
   <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
-
+    <ion-card class="ion-no-margin ion-margin-bottom ion-padding-end ion-padding-start">
       <ion-list class="ion-no-margin">
         <ion-row>
           <ion-col size="1" class="ion-padding-top">
@@ -61,5 +62,6 @@
           </ion-col>
         </ion-row>
       </ion-list>
+    </ion-card>
   </form>
 </ion-content>

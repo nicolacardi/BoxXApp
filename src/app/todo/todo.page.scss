@@ -8,6 +8,16 @@
     --min-height: 10px;
 }
 
-.myborder-bottom {
-    border-bottom: 1px dotted red;
+// .myborder-bottom {
+//     border-bottom: 1px dotted red;
+// }
+
+ion-content{
+    --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
+    background-size: cover;
+}
+
+ion-card {
+    --background: white;
+    margin-bottom: 8px !important;
 }

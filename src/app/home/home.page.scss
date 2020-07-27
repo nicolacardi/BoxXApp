@@ -2,3 +2,13 @@
     margin-top : 8px;
     margin-bottom: 16px;
 }
+
+ion-content{
+    --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
+    background-size: cover;
+}
+
+ion-card {
+    --background: white;
+}
+

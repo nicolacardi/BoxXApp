@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "../../services/authentication.service";
 import { UserService } from 'src/app/services/user.service';
@@ -13,6 +13,9 @@ import { currentUser } from 'src/app/models/models';
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
+
+
+
   public loading = false;
   formModel = {
     UserName: '',

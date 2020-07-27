@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild, ElementRef } from "@angular/core";
 
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
@@ -11,6 +11,10 @@ import { Router } from "@angular/router";
   templateUrl: "app.component.html"
 })
 export class AppComponent {
+
+  @ViewChild('splashlogo', { static: false }) splashlogo: ElementRef;
+
+  routerHidden = true;
   selectedPath = "";
   public appPages = [
     
@@ -50,6 +54,11 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      setTimeout(() => {
+        this.routerHidden = false;
+        this.splashlogo.nativeElement.style.display = 'none';
+      }, 3000);
     });
   }
 }
