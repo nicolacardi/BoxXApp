@@ -1,24 +1,29 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthenticationService } from "../../services/authentication.service";
-import { UserService } from 'src/app/services/user.service';
 import { NgForm } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { currentUser } from 'src/app/models/models';
+
+import { AuthenticationService } from "../../services/authentication.service";
+import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.page.html",
   styleUrls: ["./login.page.scss"]
 })
+
 export class LoginPage implements OnInit {
   public loading = false;
   formModel = {
     UserName: '',
     Password: ''
   };
-  constructor(private http: HttpClient, private uService: UserService, private router: Router, private auth: AuthenticationService, public toastController: ToastController) { }
+
+  constructor(private http: HttpClient, private uService: UserService, private router: Router, private auth: AuthenticationService, public toastController: ToastController) { 
+
+  }
 
   ngOnInit() {
     if (localStorage.getItem('token') != null) {

@@ -1,0 +1,116 @@
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col center size-lg="4" size-md="12" offset-lg="4">
+      <ion-card>
+      <!--
+        <ion-card-header>
+          <ion-img style="height: 160px;" src="../../../assets/img/BoxXColored.svg"></ion-img>
+        </ion-card-header>
+      -->
+      <ion-card-content>
+        
+        <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
+
+          <ion-item>
+            <ion-label position="stacked">USERNAME <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="text" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">EMAIL <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="text" #Email="ngModel" name="Email" [(ngModel)]="formModel.Email">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">PASSWORD <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="password" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password">
+            </ion-input>
+           
+          </ion-item>
+          <ion-label class="text-danger" *ngIf="(Password.touched) && (Password.value == '')"   >Required</ion-label>
+          <ion-label class="text-danger" *ngIf="(Password.touched) && (Password.value.length < 5)"   >Almeno 5 caratteri</ion-label>
+          
+          <ion-label class="text-danger" *ngIf="uService.formModel.get('Passwords.Password').touched && uService.formModel.get('Passwords.Password').errors?.required">Campo obbligatorio.</ion-label>
+          <ion-label class="text-danger" *ngIf="uService.formModel.get('Passwords.Password').touched && uService.formModel.get('Passwords.Password').errors?.minlength">Sono richiesti almeno 4 caratteri.</ion-label>
+
+          
+          <ion-item>
+            <ion-label position="stacked">CONFIRM PASSWORD <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="password" #ConfirmPassword="ngModel" name="ConfirmPassword" [(ngModel)]="formModel.ConfirmPassword">
+            </ion-input>
+
+            <ion-label class="text-danger" *ngIf="uService.formModel.get('Passwords.ConfirmPassword').touched && uService.formModel.get('Passwords.ConfirmPassword').errors?.required">Campo obbligatorio.</ion-label>
+            <ion-label class="text-danger" *ngIf="uService.formModel.get('Passwords.ConfirmPassword').touched && uService.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">La password di conferma non corrisponde.</ion-label>
+          </ion-item>
+<!--
+          <div formGroupName="Passwords">
+            <div class="form-group required">
+                <label>Password</label>
+                <input type="password" class="form-control" formControlName="Password">
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">Campo obbligatorio.</label>
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Sono richiesti almeno 4 caratteri.</label>
+            </div>
+            <div class="form-group required">
+                <label>Confirm Password</label>
+                <input type="password"  class="form-control" formControlName="ConfirmPassword">
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">Campo obbligatorio.</label>
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">La password di conferma non corrisponde.</label>
+            </div>
+        </div>
+
+       
+          <div class="form-group required">
+            <label>UserName</label>
+            <input class="form-control" formControlName="UserName" >
+            <label class="text-danger" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">Campo obbligatorio</label>
+          </div>
+        
+
+        
+          <ion-item>
+            <ion-label position="stacked">USERNAME <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="text"   name="UserName"  >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">EMAIL <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="text"   name="EMail"  >
+            </ion-input>
+          </ion-item>
+
+ 
+          <ion-item>
+            <ion-label position="stacked">Email <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="text" #UserName="ngModel" name="EMail" [(ngModel)]="UserName">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">PASSWORD <ion-text color="#FFF">*</ion-text>
+            </ion-label>
+            <ion-input required type="password" #Password="ngModel" name="Password" [(ngModel)]="Password">
+            </ion-input>
+          </ion-item>
+          
+      -->
+          <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="!uService.formModel.valid" >Register</ion-button>
+          <ion-button  href="/login"  expand="block" class="ion-margin-top">Torna a login</ion-button>
+
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+</ion-row>
+<!-- <ion-spinner name="dots" *ngIf="loading"></ion-spinner> -->
+</ion-content>

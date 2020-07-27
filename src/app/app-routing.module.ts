@@ -5,7 +5,15 @@ import { AuthGuardService } from './services/authGuard.service';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
-  { path: 'login', loadChildren: './public/login/login.module#LoginPageModule' },
+  { 
+    path: 'login', 
+    //loadChildren: './public/login/login.module#LoginPageModule' 
+    loadChildren: () => import('./public/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'registration',
+    loadChildren: () => import('./public/registration/registration.module').then( m => m.RegistrationPageModule)
+  },
   {
     path: 'todo',
     canActivate: [AuthGuardService],
@@ -20,8 +28,7 @@ const routes: Routes = [
     path: 'todo-detail/:id',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./todo-detail/todo-detail.module').then( m => m.TodoDetailPageModule)
-  },
-
+  }
 ];
 
 
