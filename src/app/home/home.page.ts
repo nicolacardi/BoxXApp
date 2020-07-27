@@ -106,7 +106,7 @@ export class HomePage {
     chunkHoverGradient.addColorStop(0, 'rgba(104, 104, 104, 1)');
 
     const bar_chart = new Chart(ctx, {
-      type: "pie",
+      type: "doughnut",
       data: {
 
         labels: ["Assistenza", "Installazione", "Revisione"],
