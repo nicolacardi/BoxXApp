@@ -1,5 +1,4 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
-
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
@@ -14,7 +13,7 @@ export class AppComponent {
 
   @ViewChild('splashlogo', { static: false }) splashlogo: ElementRef;
 
-  public routerHidden = false;
+  public routerHidden = false;  //per attivare lo splash screen mettere TRUE qui
   selectedPath = "";
   public appPages = [
     {
@@ -29,12 +28,14 @@ export class AppComponent {
     }
   ];
 
-
+  // INIZIALMENTE C'ERA UN GRUPPO "members" di pagine accessibili se autenticati
+  // ora sono individualmente "schermate" con authguard (vedi app.routing.module.ts)
   // {
   //   title: "Home",
   //   url: "/members/tabs/tabHome",
   //   icon: "home"
   // },
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -56,8 +57,8 @@ export class AppComponent {
 
       setTimeout(() => {
         this.routerHidden = false;
-        this.splashlogo.nativeElement.style.display = 'none';
-      }, 100);
+        //this.splashlogo.nativeElement.style.display = 'none';
+      }, 3000);
     });
   }
 }

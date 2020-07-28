@@ -1,38 +1,53 @@
-
-
 <ion-content class="ion-padding">
 
-  <!-- Model driven-->
+
   <ion-row>
     <ion-col center size-lg="4" size-md="12" offset-lg="4">
       <ion-card>
         <ion-card-content>
-
-          <form  [formGroup]='frmRegister'>
+          <!-- 
+            FORM MODEL DRIVEN : 
+            usa FormGroup e formControlName nell'html
+            e può così fare la validazione nel model (file .ts)
+          -->
+          <form [formGroup]='frmRegister'>
             <ion-item>
-              <ion-label  position="stacked">USER NAME</ion-label>
+              <ion-label position="stacked">USER NAME <ion-text color="#FFF">*</ion-text>
+              </ion-label>
               <ion-input type="text" formControlName="UserName1"></ion-input>
             </ion-item>
 
             <ion-item>
               <ion-label position="stacked">EMAIL <ion-text color="#FFF">*</ion-text>
               </ion-label>
-              <ion-input type="text"  formControlName="Email1">
+              <ion-input type="text" formControlName="Email1">
               </ion-input>
             </ion-item>
 
+            <ion-item>
+              <ion-label position="stacked">PASSWORD <ion-text color="#FFF">*</ion-text>
+              </ion-label>
+              <ion-input type="password" formControlName="Password1">
+              </ion-input>
+            </ion-item>
 
-            <ion-button color="secondary" type="submit" expand="block" class="ion-margin-top"  >Register</ion-button>
-            <ion-button  href="/login"  expand="block" class="ion-margin-top">Torna a login</ion-button>
-  
+            <ion-item>
+              <ion-label position="stacked">RIPETI PASSWORD <ion-text color="#FFF">*</ion-text>
+              </ion-label>
+              <ion-input type="password" formControlName="ConfirmPassword1">
+              </ion-input>
+            </ion-item>
+
+            <ion-button color="secondary" type="submit" expand="block" class="ion-margin-top">Register</ion-button>
+            <ion-button href="/login" expand="block" class="ion-margin-top">Torna a login</ion-button>
+
           </form>
-
-        </ion-card-content> 
+        </ion-card-content>
       </ion-card>
-    </ion-col>  
+    </ion-col>
   </ion-row>
 
- <!--
+  <!--
    
   <ion-row>
     <ion-col center size-lg="4" size-md="12" offset-lg="4">
@@ -85,5 +100,5 @@
 </ion-row>
 -->
 
-<!-- <ion-spinner name="dots" *ngIf="loading"></ion-spinner> -->
+  <!-- <ion-spinner name="dots" *ngIf="loading"></ion-spinner> -->
 </ion-content>
