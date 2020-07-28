@@ -19,7 +19,7 @@
         <ion-card-content>
           <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
             <ion-item>
-              <ion-label position="stacked">USERNAME <ion-text color="#FFF">*</ion-text>
+              <ion-label position="stacked">UTENTE <ion-text color="#FFF">*</ion-text>
               </ion-label>
               <ion-input required type="text" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName">
               </ion-input>
@@ -30,9 +30,9 @@
               <ion-input required type="password" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password">
               </ion-input>
             </ion-item>
-            <ion-button type="submit" expand="block" class="ion-margin-top">Login</ion-button>
-            <ion-button expand="block" color="secondary" href="/registration" routerDirection="forward"
-              class="ion-margin-top">Register</ion-button>
+            <ion-button type="submit" expand="block" class="ion-margin-top ion-margin-bottom">Login</ion-button>
+            <a color="#FFF" routerLink="/registration" routerDirection="forward"
+              class="ion-margin-top">Registrati</a>
           </form>
         </ion-card-content>
       </ion-card>
