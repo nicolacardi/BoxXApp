@@ -31,7 +31,10 @@ export class TodoPage implements OnInit {
           this.addTodoEventsForm();
         else {
           //sort per far comparire i todo chiusi sotto
-          res.sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
+          //res.sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0)
+
+          res.sort((a, b) => new Date(b.dt).getTime() - new Date(a.dt).getTime())
+          .sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
 
           (res as []).forEach((todo: todoEvent) => {
             this.todoEventsForms.push(this.fb.group({
@@ -68,7 +71,8 @@ export class TodoPage implements OnInit {
       titolo: ['', Validators.required],
       dettagli: ['', Validators.required],
       isClosed: false,
-      dt : [0, Validators.min(1)],
+      dt : [null],
+      //dt : [0, Validators.min(1)],
       //h_Ini : ['', Validators.required]
     }))
   }

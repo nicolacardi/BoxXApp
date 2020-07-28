@@ -19,6 +19,6 @@ export interface todoEvent{
     isClosed: boolean;
     titolo: string;
     dettagli: string;
-    dt: Date;
-    h_Ini: Date;
+    dt?: Date;
+    h_Ini?: Date;
 }

@@ -14,10 +14,9 @@ export class AppComponent {
 
   @ViewChild('splashlogo', { static: false }) splashlogo: ElementRef;
 
-  public routerHidden = true;
+  public routerHidden = false;
   selectedPath = "";
   public appPages = [
-    
     {
       title: "Home",
       url: "/home",
@@ -58,7 +57,7 @@ export class AppComponent {
       setTimeout(() => {
         this.routerHidden = false;
         this.splashlogo.nativeElement.style.display = 'none';
-      }, 3000);
+      }, 100);
     });
   }
 }

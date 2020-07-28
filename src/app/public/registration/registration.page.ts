@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { NgForm } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
 import { ToastController } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -15,20 +17,28 @@ import { UserService } from 'src/app/services/user.service';
 
 export class RegistrationPage implements OnInit {
 
+  frmRegister : FormGroup;
+
   formModel = {
-    UserName: '',
-    Email:'',
-    Password: '',
-    ConfirmPassword: ''
+    UserName1: '',
+    Email1:'',
+    Password1: '',
+    ConfirmPassword1: ''
   };
+
   public loading = false;
   
-  constructor(public uService: UserService) {
- 
+  constructor(private formBuilder: FormBuilder,  public uService: UserService) {
+    this.frmRegister = this.formBuilder.group({
+      UserName1: ['', Validators.required],
+      Email1: [''],
+    });
   }
 
   ngOnInit() {
-    this.uService.formModel.reset();
+    this.formModel.UserName1="Pippo";
+    
+   // this.uService.formModel.reset();
   }
 
   onSubmit(){
