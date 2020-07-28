@@ -79,21 +79,9 @@ export class RegistrationPage implements OnInit {
     }
   }
 
-  // comparePasswords(formBuilder: FormGroup) {
-  //   let confirmPasswordCtrl = formBuilder.get('ConfirmPassword1');
-  //   //passwordMismatch
-  //   //comfirmPasswordCtrl.errors{passwordMismatch:true};
-  //   if (confirmPasswordCtrl.errors == null || 'passwordMismatch' in confirmPasswordCtrl.errors) {
-  //     if (formBuilder.get('Password1').value != confirmPasswordCtrl.value)
-  //       confirmPasswordCtrl.setErrors({ passwordMismatch: true });
-  //     else
-  //       confirmPasswordCtrl.setErrors(null);
-  //   }
-  // }
-
 
   ngOnInit() {
-    this.formModel.UserName1 = "Pippo";
+
 
     // this.uService.formModel.reset();
   }

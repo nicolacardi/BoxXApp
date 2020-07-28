@@ -22,6 +22,11 @@ export class AppComponent {
       icon: "home"
     },
     {
+      title: "Tickets",
+      url: "/tickets",
+      icon: "albums"
+    },
+    {
       title: "To Do",
       url: "/todo",
       icon: "menu"

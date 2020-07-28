@@ -20,6 +20,11 @@ const routes: Routes = [
     loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
   },
   {
+    path: 'tickets',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./tickets/tickets.module').then( m => m.TicketsPageModule)
+  },
+  {
     path: 'home',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
