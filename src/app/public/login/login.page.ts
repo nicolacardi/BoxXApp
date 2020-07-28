@@ -25,7 +25,10 @@ export class LoginPage implements OnInit {
   };
 
   constructor(private http: HttpClient, private uService: UserService, private router: Router, private auth: AuthenticationService, public toastController: ToastController) { 
+  }
 
+  ionViewDidEnter() {
+    this.loading = false;
   }
 
   ngOnInit() {
@@ -129,21 +132,5 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   }
-
-  /*ShowMessage(msg: string, title?: string, hasErrors: boolean= false ) {
-    let config = new MatSnackBarConfig();
-    config.verticalPosition  = 'bottom';
-    config.horizontalPosition = 'center';
-    config.duration = 2000;
-    if(hasErrors){
-      config.panelClass =  ['error-class'];
-      console.log("ShowMessage: hasErrors");
-    }
-    if(title != null)
-      this.snackBar.open(msg, title, config);
-    else
-      this.snackBar.open(msg,null, config);
-  }*/
-
 
 }

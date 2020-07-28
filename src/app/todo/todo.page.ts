@@ -24,12 +24,14 @@ export class TodoPage implements OnInit {
   }
   
   ionViewDidEnter() {
+    this.loading = true;
     this.todoEventsForms.clear();
     this.todoEventsService.getTodoEventList().subscribe(
       res => {
-        if (res == [])
+        if (res == []) {
           this.addTodoEventsForm();
-        else {
+          this.loading = false;
+        } else {
           //sort per far comparire i todo chiusi sotto
           //res.sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0)
 
@@ -56,9 +58,7 @@ export class TodoPage implements OnInit {
       }
     );
   }
-  logForm() {
-    console.log("aaa");
-  }
+
 
   addTodoEventsForm() {
     //this.todoEventsForms.push(this.fb.group({         //per aggiungere in coda
@@ -97,7 +97,6 @@ export class TodoPage implements OnInit {
         //Insert
         this.todoEventsService.postTodoEvent(fg.value).subscribe(
           (res: any) => {
-            //console.log("OK INSERT");
             fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
             fg.reset(fg.value);
             //this.showNotification('insert');

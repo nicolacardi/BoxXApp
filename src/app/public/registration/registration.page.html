@@ -17,12 +17,26 @@
               <ion-input type="text" formControlName="UserName1"></ion-input>
             </ion-item>
 
+            <ng-container *ngFor="let validation of validation_messages.UserName1">
+              <ion-label class="error-message" *ngIf="frmRegister.get('UserName1').hasError(validation.type) && (frmRegister.get('UserName1').dirty || frmRegister.get('UserName1').touched)">
+                <ion-icon name="warning" color="danger"></ion-icon>
+                {{ validation.message }}
+              </ion-label>
+            </ng-container>
+
             <ion-item>
               <ion-label position="stacked">EMAIL <ion-text color="#FFF">*</ion-text>
               </ion-label>
               <ion-input type="text" formControlName="Email1">
               </ion-input>
             </ion-item>
+
+            <ng-container *ngFor="let validation of validation_messages.Email1">
+              <ion-label class="error-message" *ngIf="frmRegister.get('Email1').hasError(validation.type) && (frmRegister.get('Email1').dirty || frmRegister.get('Email1').touched)">
+                <ion-icon name="warning" color="danger"></ion-icon>
+                {{ validation.message }}
+              </ion-label>
+            </ng-container>
 
             <ion-item>
               <ion-label position="stacked">PASSWORD <ion-text color="#FFF">*</ion-text>
@@ -31,12 +45,26 @@
               </ion-input>
             </ion-item>
 
+            <ng-container *ngFor="let validation of validation_messages.Password1">
+              <ion-label class="error-message" *ngIf="frmRegister.get('Password1').hasError(validation.type) && (frmRegister.get('Password1').dirty || frmRegister.get('Password1').touched)">
+                <ion-icon name="warning" color="danger"></ion-icon>
+                {{ validation.message }}
+              </ion-label>
+            </ng-container>
+
             <ion-item>
               <ion-label position="stacked">RIPETI PASSWORD <ion-text color="#FFF">*</ion-text>
               </ion-label>
               <ion-input type="password" formControlName="ConfirmPassword1">
               </ion-input>
             </ion-item>
+
+            <ng-container>
+              <ion-label class="error-message" *ngIf="frmRegister.get('ConfirmPassword1').hasError('notEquivalent') && (frmRegister.get('ConfirmPassword1').dirty || frmRegister.get('ConfirmPassword1').touched)">
+                <ion-icon name="warning" color="danger"></ion-icon>
+                Le password non coincidono
+              </ion-label>
+            </ng-container>
 
             <ion-button color="secondary" type="submit" expand="block" class="ion-margin-top" [disabled]="!frmRegister.valid">Register</ion-button>
             <ion-button href="/login" expand="block" class="ion-margin-top">Torna a login</ion-button>
@@ -46,6 +74,8 @@
       </ion-card>
     </ion-col>
   </ion-row>
+
+
 
   <!--
    

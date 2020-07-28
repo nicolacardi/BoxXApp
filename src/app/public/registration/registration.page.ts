@@ -25,23 +25,40 @@ export class RegistrationPage implements OnInit {
     ConfirmPassword1: ''
   };
 
+
+  validation_messages = {
+    'UserName1': [
+        { type: 'required', message: "Campo utente obbligatorio" },
+        //{ type: 'minlength', message: "L'utente deve essere più lungo di 3 caratteri" },
+        { type: 'maxlength', message: "L'utente deve essere più corto di 20 caratteri" },
+      ],
+      'Email1': [
+        { type: 'required', message: "Campo email obbligatorio" },
+        { type: 'pattern', message: "L'Email non sembra nel formato corretto" }
+      ],
+      'Password1': [
+        { type: 'required', message: "Campo Password obbligatorio" },
+        { type: 'minlength', message: "La Password deve essere più lunga di 3 caratteri" },
+        { type: 'maxlength', message: "La Password deve essere più corta di 20 caratteri" },
+      ],
+      'ConfirmPassword1': [
+        { type: 'required', message: "Campo Ripetizione Password obbligatorio" },
+      ],
+      'validator': [
+        { type: 'required', message: "Campo Ripetizione Password obbligatorio" },
+      ]
+    }
+
+
   public loading = false;
 
   constructor(private formBuilder: FormBuilder, public uService: UserService) {
     this.frmRegister = this.formBuilder.group(
       {
-        UserName1: ['', Validators.required],
-        Email1: ['', Validators.email],
-        Password1: ['', [Validators.required, Validators.minLength(4)]],
-        ConfirmPassword1: ['', Validators.required]
-        // Passwords: this.formBuilder.group({
-        //   Password1: ['', [Validators.required, Validators.minLength(4)]],
-        //   ConfirmPassword1: ['', Validators.required]
-        // },
-          // {
-          //   validator: this.comparePasswords
-          // }
-        //)
+        UserName1: ['', [Validators.required, Validators.maxLength(19)]],
+        Email1: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
+        Password1: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(19)]],
+        ConfirmPassword1: ['', [Validators.required]],
       },
       {validator: this.checkIfMatchingPasswords('Password1', 'ConfirmPassword1')}
       
