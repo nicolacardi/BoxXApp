@@ -14,7 +14,7 @@ export class AppComponent {
 
   @ViewChild('splashlogo', { static: false }) splashlogo: ElementRef;
 
-  routerHidden = true;
+  public routerHidden = true;
   selectedPath = "";
   public appPages = [
     

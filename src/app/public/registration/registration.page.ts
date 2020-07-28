@@ -14,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class RegistrationPage implements OnInit {
-  
+
   formModel = {
     UserName: '',
     Email:'',
