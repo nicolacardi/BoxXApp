@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthenticationService } from "../../services/authentication.service";
 import { UserService } from 'src/app/services/user.service';
-import { PasswordValidator } from './passwordvalidator'
+
 
 @Component({
   selector: 'app-registration',
@@ -43,11 +43,23 @@ export class RegistrationPage implements OnInit {
           // }
         //)
       },
-      (formGroup: FormGroup) => {
-        return PasswordValidator.areEqual(formGroup);
-     }
+      {validator: this.checkIfMatchingPasswords('Password1', 'ConfirmPassword1')}
       
       )
+  }
+
+
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+        let passwordInput = group.controls[passwordKey],
+            passwordConfirmationInput = group.controls[passwordConfirmationKey];
+        if (passwordInput.value !== passwordConfirmationInput.value) {
+            return passwordConfirmationInput.setErrors({notEquivalent: true})
+        }
+        else {
+            return passwordConfirmationInput.setErrors(null);
+        }
+    }
   }
 
   // comparePasswords(formBuilder: FormGroup) {
