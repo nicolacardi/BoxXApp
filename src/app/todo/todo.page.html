@@ -30,11 +30,11 @@
           </ion-col>
           <ion-col size="1" class="ion-padding-top">
             <ion-input #id formControlName="id" hidden></ion-input>
-            <ion-icon *ngIf="titolo.value" size="large" name="create" color="primary"
+            <ion-icon *ngIf="titolo.value" src="../../assets/ionicicons/create-outline.svg" size="large" color="primary"
               [routerLink]="['/todo-detail/'+id.value]"></ion-icon>
           </ion-col>
           <ion-col size="2" class="ion-padding-top">
-            <ion-icon size="large" name="trash" color="danger"
+            <ion-icon src="../../assets/ionicicons/trash-outline.svg" size="large" color="danger"
               [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"
               (click)="onDelete(fgroup.get('id').value,i)"></ion-icon>
           </ion-col>
