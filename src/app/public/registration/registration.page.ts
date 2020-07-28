@@ -31,14 +31,16 @@ export class RegistrationPage implements OnInit {
       {
         UserName1: ['', Validators.required],
         Email1: ['', Validators.email],
-        Passwords: this.formBuilder.group({
-          Password1: ['', [Validators.required, Validators.minLength(4)]],
-          ConfirmPassword1: ['', Validators.required]
-        },
+        Password1: ['', [Validators.required, Validators.minLength(4)]],
+        ConfirmPassword1: ['', Validators.required]
+        // Passwords: this.formBuilder.group({
+        //   Password1: ['', [Validators.required, Validators.minLength(4)]],
+        //   ConfirmPassword1: ['', Validators.required]
+        // },
           // {
           //   validator: this.comparePasswords
           // }
-        )
+        //)
       })
   }
 
