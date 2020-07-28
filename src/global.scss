@@ -55,12 +55,16 @@ ion-toast {
     animation-duration: 3s;
 }
 
+// @keyframes logotopAni {
+//     0% {opacity: 1;}
+//     20% {opacity: 1;}
+//     95% {opacity: 0;}
+//     100% {opacity: 0;}
+// }
+
 @keyframes logotopAni {
-    0% {opacity: 1;}
-    20% {opacity: 1;}
-    //50% {opacity: 1;}
-    95% {opacity: 0;}
-    100% {opacity: 0;}
+    0% {transform: translate(0px,-100px);}
+    100% {transform: translate(0px,0px);}
 }
 
 #logo-dx {
@@ -68,12 +72,16 @@ ion-toast {
     animation-duration: 3s;
 }
 
+// @keyframes logodxAni {
+//     0% {opacity: 0.4;}
+//     20% {opacity: 0.4;}
+//     95% {opacity: 0;}
+//     100% {opacity: 0;}
+// }
+
 @keyframes logodxAni {
-    0% {opacity: 0.4;}
-    20% {opacity: 0.4;}
-    //50% {opacity: 0.4;}
-    95% {opacity: 0;}
-    100% {opacity: 0;}
+    0% {transform: translate(+100px,0px);}
+    100% {transform: translate(0px,0px);}
 }
 
 #logo-sx {
@@ -81,12 +89,17 @@ ion-toast {
     animation-duration: 3s;
 }
 
+// @keyframes logosxAni {
+//     0% {opacity: 0.2;}
+//     20% {opacity: 0.2;}
+//     100% {opacity: 0;}
+// }
+
 @keyframes logosxAni {
-    0% {opacity: 0.2;}
-    20% {opacity: 0.2;}
-    //50% {opacity: 0.2;}
-    100% {opacity: 0;}
+    0% {transform: translate(-100px,0px);}
+    100% {transform: translate(0px,0px);}
 }
+
 .logo-testo-outline {
     stroke: #114369;
     fill: none;
@@ -111,8 +124,6 @@ ion-toast {
 
 @keyframes logotxtAni {
     0% {opacity: 0;}
-    40% {opacity: 1;}
-    80% {opacity: 0;}
-    100% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
