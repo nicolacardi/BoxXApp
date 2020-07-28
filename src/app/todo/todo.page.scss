@@ -20,4 +20,10 @@ ion-content{
 ion-card {
     --background: white;
     margin-bottom: 8px !important;
+
+}
+
+.sc-ion-card-ios-h, .sc-ion-card-md-h {
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
