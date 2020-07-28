@@ -63,8 +63,9 @@ ion-toast {
 // }
 
 @keyframes logotopAni {
-    0% {transform: translate(0px,-100px);}
-    100% {transform: translate(0px,0px);}
+    0% {transform: translate(0px,-100px); opacity:0;}
+    50% {opacity: 1;}
+    100% {transform: translate(0px,0px);opacity: 1;}
 }
 
 #logo-dx {
@@ -80,8 +81,9 @@ ion-toast {
 // }
 
 @keyframes logodxAni {
-    0% {transform: translate(+100px,0px);}
-    100% {transform: translate(0px,0px);}
+    0% {transform: translate(+100px,50px); opacity:0;}
+    50% {opacity: 1;}
+    100% {transform: translate(0px,0px); opacity:1;}
 }
 
 #logo-sx {
@@ -96,8 +98,9 @@ ion-toast {
 // }
 
 @keyframes logosxAni {
-    0% {transform: translate(-100px,0px);}
-    100% {transform: translate(0px,0px);}
+    0% {transform: translate(-100px,50px); opacity:0;}
+    50% {opacity: 1;}
+    100% {transform: translate(0px,0px); opacity:1;}
 }
 
 .logo-testo-outline {
@@ -105,7 +108,7 @@ ion-toast {
     fill: none;
     animation-name: logotxtOutAni;
     animation-duration: 3s;
-    animation-timing-function: ease-in;
+    animation-timing-function: ease-in ease-out;
 }
 
 @keyframes logotxtOutAni {
@@ -119,7 +122,7 @@ ion-toast {
     fill: #114369;
     animation-name: logotxtAni;
     animation-duration: 3s;
-    animation-timing-function: ease-in;
+    animation-timing-function: ease-in ease-out;
 }
 
 @keyframes logotxtAni {

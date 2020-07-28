@@ -15,13 +15,13 @@
   </ion-fab>
  
   <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
-    <ion-card class="ion-no-margin ion-margin-bottom ion-padding-end ion-padding-start">
+    <ion-card class="ion-no-margin ion-margin-bottom ion-padding-start">
       <ion-list class="ion-no-margin">
         <ion-row>
           <ion-col size="1" class="ion-padding-top">
             <ion-checkbox #Chiuso formControlName="isClosed" color="danger" (ionChange)="onChange(fgroup)"></ion-checkbox>
           </ion-col>
-          <ion-col size="9">
+          <ion-col size="8">
             <ion-item>
               <ion-input #titolo formControlName="titolo"
                 [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"
@@ -33,7 +33,7 @@
             <ion-icon *ngIf="titolo.value" size="large" name="create" color="primary"
               [routerLink]="['/todo-detail/'+id.value]"></ion-icon>
           </ion-col>
-          <ion-col size="1" class="ion-padding-top">
+          <ion-col size="2" class="ion-padding-top">
             <ion-icon size="large" name="trash" color="danger"
               [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"
               (click)="onDelete(fgroup.get('id').value,i)"></ion-icon>
