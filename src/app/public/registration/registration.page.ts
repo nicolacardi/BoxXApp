@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthenticationService } from "../../services/authentication.service";
 import { UserService } from 'src/app/services/user.service';
+import { PasswordValidator } from './passwordvalidator'
 
 @Component({
   selector: 'app-registration',
@@ -41,7 +42,12 @@ export class RegistrationPage implements OnInit {
           //   validator: this.comparePasswords
           // }
         //)
-      })
+      },
+      (formGroup: FormGroup) => {
+        return PasswordValidator.areEqual(formGroup);
+     }
+      
+      )
   }
 
   // comparePasswords(formBuilder: FormGroup) {
