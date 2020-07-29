@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthenticationService } from "../../services/authentication.service";
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,32 +17,34 @@ import { UserService } from 'src/app/services/user.service';
 
 export class RegistrationPage implements OnInit {
 
+  public loading = false;
+  
+  /*
   frmRegister: FormGroup;
-
   formModel = {
-    UserName1: '',
-    Email1: '',
-    Password1: '',
-    ConfirmPassword1: ''
+    UserName: '',
+    Email: '',
+    Password: '',
+    ConfirmPassword: ''
   };
-
+  */
 
   validation_messages = {
-    'UserName1': [
+    'UserName': [
         { type: 'required', message: "Campo utente obbligatorio" },
         //{ type: 'minlength', message: "L'utente deve essere più lungo di 3 caratteri" },
         { type: 'maxlength', message: "L'utente deve essere più corto di 20 caratteri" },
       ],
-      'Email1': [
+      'Email': [
         { type: 'required', message: "Campo email obbligatorio" },
         { type: 'pattern', message: "L'Email non sembra nel formato corretto" }
       ],
-      'Password1': [
+      'Password': [
         { type: 'required', message: "Campo Password obbligatorio" },
         { type: 'minlength', message: "La Password deve essere più lunga di 3 caratteri" },
         { type: 'maxlength', message: "La Password deve essere più corta di 20 caratteri" },
       ],
-      'ConfirmPassword1': [
+      'ConfirmPassword': [
         { type: 'required', message: "Campo Ripetizione Password obbligatorio" },
       ],
       'validator': [
@@ -49,54 +52,52 @@ export class RegistrationPage implements OnInit {
       ]
     }
 
-
-  public loading = false;
-
-  constructor(private formBuilder: FormBuilder, public uService: UserService) {
+  //constructor(private formBuilder: FormBuilder, public uService: UserService) {
+  constructor( public uService: UserService, private router: Router) {
+    /*
     this.frmRegister = this.formBuilder.group(
       {
-        UserName1: ['', [Validators.required, Validators.maxLength(19)]],
-        Email1: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
-        Password1: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(19)]],
-        ConfirmPassword1: ['', [Validators.required]],
+        UserName: ['', [Validators.required, Validators.maxLength(19)]],
+        Email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
+        Password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(19)]],
+        ConfirmPassword: ['', [Validators.required]],
       },
-      {validator: this.checkIfMatchingPasswords('Password1', 'ConfirmPassword1')}
+      {validator: this.checkIfMatchingPasswords('Password', 'ConfirmPassword')}
       
       )
+      */
   }
 
+  ngOnInit() {
+    this.uService.formModel.reset();
+  }
 
   checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
     return (group: FormGroup) => {
         let passwordInput = group.controls[passwordKey],
             passwordConfirmationInput = group.controls[passwordConfirmationKey];
-        if (passwordInput.value !== passwordConfirmationInput.value) {
-            return passwordConfirmationInput.setErrors({notEquivalent: true})
-        }
-        else {
-            return passwordConfirmationInput.setErrors(null);
-        }
+        if (passwordInput.value !== passwordConfirmationInput.value) 
+          return passwordConfirmationInput.setErrors({notEquivalent: true})
+        else
+          return passwordConfirmationInput.setErrors(null);
     }
-  }
-
-
-  ngOnInit() {
-
-
-    // this.uService.formModel.reset();
   }
 
   onSubmit() {
 
     this.uService.Register().subscribe(
       (res: any) => {
+        console.log(res);
         if (res.Succeeded) {
           this.uService.formModel.reset();
           //this.toastr.success('Utente creato correttamente', 'Operazione effettuata');
+
+          //AS: fare login ? oppure redirect su login page ?
+          this.router.navigateByUrl('login');
         }
         else {
           //AS: ATTENZIONE maiuscole!!!  
-          res.Errors.forEach(element => {
+          res.errors.forEach(element => {
             switch (element.Code) {
               case 'DuplicateUserName':
                 //username already taken
@@ -114,6 +115,5 @@ export class RegistrationPage implements OnInit {
         console.log(err);
       }
     )
-
   }
 }
