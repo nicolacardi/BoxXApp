@@ -15,6 +15,9 @@ export class TodoPage implements OnInit {
 
   todoEventsForms: FormArray = this.fb.array([]);
   loading = true;
+  saving= false;
+  tmpID=0;
+
   titoloChanged: any;
 
   constructor(private router: Router, private fb: FormBuilder, private todoEventsService: TodoEventsService) {
@@ -75,6 +78,33 @@ export class TodoPage implements OnInit {
     }))
   }
 
+  onClick(id, i){
+    console.log("onClick");
+/*
+    while(this.saving)
+    {
+      setTimeout(() => {
+        
+      }, 500);
+    }
+    
+    while(this.tmpID = 0)
+    {
+      setTimeout(() => {
+        
+      }, 500);
+    }
+    */
+    console.log(this.tmpID);
+
+    if(this.tmpID == 0)  {
+      
+    }
+    else
+      this.router.navigateByUrl('/todo-detail/' + this.tmpID);
+
+  }
+
   onDelete(id, i) {
     if (id == 0)
       this.todoEventsForms.removeAt(i);
@@ -85,19 +115,27 @@ export class TodoPage implements OnInit {
           //this.showNotification('delete');
         });
   }
+
   onChange(fg: FormGroup) {
     if (fg.controls['isClosed'].dirty ||
       fg.controls['titolo'].dirty ||
       fg.controls['dettagli'].dirty) {
 
       this.loading = true;
+      this.saving = true;
+
       if (fg.value.id == 0) {
         //Insert
         this.todoEventsService.postTodoEvent(fg.value).subscribe(
           (res: any) => {
+            this.tmpID = res.id;
+            console.log("BELLA MERDA");
+            console.log(this.tmpID);
+
             fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
             fg.reset(fg.value);
             //this.showNotification('insert');
+            
           },
           err => {
             console.log(err);
@@ -112,6 +150,8 @@ export class TodoPage implements OnInit {
           });
       }
       this.loading = false;
+      this.saving = false;
+      this.tmpID=0;
     }
   }
 
