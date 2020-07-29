@@ -17,3 +17,42 @@ ion-card {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+
+
+.mini-font {
+    font-size: small;
+}
+
+.maxi-font {
+    font-weight: 'strong';
+}
+
+.icona-label-home1 {
+    //float: right;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-bottom: 5px;
+    color: rgba(252, 46, 0, 0.8);
+    font-size: 50px;
+}
+
+.icona-label-home2 {
+    //float: right;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-bottom: 5px;
+    color: rgba(3, 126, 103, 0.8);
+    font-size: 50px;
+}
+
+.ion-card-top-left {
+    background-color: #ff9900;
+}
+
+
+.ion-card-top-right {
+    background-color: #04c582;
+}
