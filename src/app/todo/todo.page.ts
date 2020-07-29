@@ -28,15 +28,13 @@ export class TodoPage implements OnInit {
     this.todoEventsForms.clear();
     this.todoEventsService.getTodoEventList().subscribe(
       res => {
-        if (res == []) {
+        if ( res == [] || res == null || res.length== 0) {
           this.addTodoEventsForm();
           this.loading = false;
         } else {
-          //sort per far comparire i todo chiusi sotto
-          //res.sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0)
-
+          //sort per far comparire i todo chiusi sotto, ordinati per data
           res.sort((a, b) => new Date(b.dt).getTime() - new Date(a.dt).getTime())
-          .sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
+            .sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
 
           (res as []).forEach((todo: todoEvent) => {
             this.todoEventsForms.push(this.fb.group({

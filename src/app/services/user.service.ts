@@ -27,23 +27,29 @@ export class UserService {
     this.obscurrentUser = this.BehaviourSubjectcurrentUser.asObservable();
   }
 
-  formModel = this.fb.group({
-    UserName: ['', Validators.required],
-    Email: ['', Validators.email],
-    FullName: [''],
-    Password: [''],
-    ConfirmPassword: ['']
-    /*
-    Passwords: this.fb.group({
-      Password: ['', [Validators.required, Validators.minLength(4)]],
-      ConfirmPassword: ['', Validators.required]
+  formModel = this.fb.group(
+    {
+      UserName: ['', [Validators.required, Validators.maxLength(19)]],
+      Email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
+      FullName: ['', [Validators.required, Validators.minLength(3)]],
+      Password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(19)]],
+      ConfirmPassword: ['', [Validators.required]],
     },
-      {
-        validator: this.comparePasswords
-      }
-    )
-    */
-  });
+    {
+      validator: this.checkIfMatchingPasswords('Password', 'ConfirmPassword')
+    }
+  );
+
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+        let passwordInput = group.controls[passwordKey],
+            passwordConfirmationInput = group.controls[passwordConfirmationKey];
+        if (passwordInput.value !== passwordConfirmationInput.value) 
+          return passwordConfirmationInput.setErrors({notEquivalent: true})
+        else
+          return passwordConfirmationInput.setErrors(null);
+    }
+  }
 
   Login(formData) {
     return this.http.post<currentUser>(this.BaseURI + '/ApplicationUser/Login', formData)

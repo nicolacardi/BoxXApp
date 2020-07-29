@@ -28,6 +28,19 @@
             </ng-container>
 
             <ion-item>
+              <ion-label position="stacked">NOME COGNOME<ion-text color="#FFF">*</ion-text>
+              </ion-label>
+              <ion-input type="text" formControlName="FullName"></ion-input>
+            </ion-item>
+
+            <ng-container *ngFor="let validation of validation_messages.FullName">
+              <ion-label class="error-message" *ngIf="uService.formModel.get('FullName').hasError(validation.type) && (uService.formModel.get('FullName').dirty || uService.formModel.get('FullName').touched)">
+                <ion-icon name="warning" color="danger"></ion-icon>
+                {{ validation.message }}
+              </ion-label>
+            </ng-container>
+
+            <ion-item>
               <ion-label position="stacked">EMAIL <ion-text color="#FFF">*</ion-text>
               </ion-label>
               <ion-input type="text" formControlName="Email">

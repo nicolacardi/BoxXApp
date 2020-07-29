@@ -19,93 +19,62 @@ export class RegistrationPage implements OnInit {
 
   public loading = false;
   
-  /*
-  frmRegister: FormGroup;
-  formModel = {
-    UserName: '',
-    Email: '',
-    Password: '',
-    ConfirmPassword: ''
-  };
-  */
+  private mError="Campo obbligatorio";
 
   validation_messages = {
     'UserName': [
-        { type: 'required', message: "Campo utente obbligatorio" },
+        { type: 'required', message: this.mError },
         //{ type: 'minlength', message: "L'utente deve essere più lungo di 3 caratteri" },
-        { type: 'maxlength', message: "L'utente deve essere più corto di 20 caratteri" },
+        { type: 'maxlength', message: "Massimo 20 caratteri" },
+      ],
+      'FullName': [
+        { type: 'required', message: this.mError  },
+        { type: 'minlength', message: "Minimo 3 caratteri" },
       ],
       'Email': [
-        { type: 'required', message: "Campo email obbligatorio" },
-        { type: 'pattern', message: "L'Email non sembra nel formato corretto" }
+        { type: 'required', message: this.mError  },
+        { type: 'pattern', message: "Formato non corretto" }
       ],
       'Password': [
-        { type: 'required', message: "Campo Password obbligatorio" },
-        { type: 'minlength', message: "La Password deve essere più lunga di 3 caratteri" },
-        { type: 'maxlength', message: "La Password deve essere più corta di 20 caratteri" },
+        { type: 'required', message: this.mError  },
+        { type: 'minlength', message: "Minimo 4 caratteri" },
+        { type: 'maxlength', message: "Massimo 20 caratteri" },
       ],
       'ConfirmPassword': [
-        { type: 'required', message: "Campo Ripetizione Password obbligatorio" },
+        { type: 'required', message: this.mError  }
       ],
-      'validator': [
-        { type: 'required', message: "Campo Ripetizione Password obbligatorio" },
-      ]
     }
 
   //constructor(private formBuilder: FormBuilder, public uService: UserService) {
-  constructor( public uService: UserService, private router: Router) {
-    /*
-    this.frmRegister = this.formBuilder.group(
-      {
-        UserName: ['', [Validators.required, Validators.maxLength(19)]],
-        Email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
-        Password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(19)]],
-        ConfirmPassword: ['', [Validators.required]],
-      },
-      {validator: this.checkIfMatchingPasswords('Password', 'ConfirmPassword')}
-      
-      )
-      */
+  constructor( public uService: UserService, private router: Router, public toastController: ToastController) {
+    
   }
 
   ngOnInit() {
     this.uService.formModel.reset();
   }
 
-  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-    return (group: FormGroup) => {
-        let passwordInput = group.controls[passwordKey],
-            passwordConfirmationInput = group.controls[passwordConfirmationKey];
-        if (passwordInput.value !== passwordConfirmationInput.value) 
-          return passwordConfirmationInput.setErrors({notEquivalent: true})
-        else
-          return passwordConfirmationInput.setErrors(null);
-    }
-  }
 
   onSubmit() {
 
     this.uService.Register().subscribe(
       (res: any) => {
         console.log(res);
-        if (res.Succeeded) {
+        if (res.succeeded) {
           this.uService.formModel.reset();
-          //this.toastr.success('Utente creato correttamente', 'Operazione effettuata');
-
-          //AS: fare login ? oppure redirect su login page ?
-          this.router.navigateByUrl('login');
+          this.ShowMessage('Utente registrato correttamente', 'Operazione effettuata', 'primary');
+          this.router.navigateByUrl('/login');
         }
         else {
-          //AS: ATTENZIONE maiuscole!!!  
+          //AS: ATTENZIONE maiuscole/minuscole (deve corrispondere al JSON)!!!  
           res.errors.forEach(element => {
-            switch (element.Code) {
+            switch (element.code) {
               case 'DuplicateUserName':
-                //username already taken
-                //this.toastr.error('Utente già registrato', 'Operazione fallita');
+                this.ShowMessage('Utente già registrato', 'Operazione fallita', 'danger');
                 break;
               default:
                 //registration is failed
-                //this.toastr.error(element.Code, 'Operazione fallita');
+                this.ShowMessage(element.code, 'Operazione fallita', 'danger');
                 break;
             }
           });
@@ -115,5 +84,20 @@ export class RegistrationPage implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  async ShowMessage(msg: string, titolo?: string, colore?: string) {
+    var mColor = colore;
+    if(mColor== null)
+      mColor='primary';
+
+    const toast = await this.toastController.create({
+      message: msg,
+      color: mColor,
+      duration: 2000,
+      showCloseButton: true,  
+      closeButtonText: 'OK',  
+    });
+    toast.present();
   }
 }
