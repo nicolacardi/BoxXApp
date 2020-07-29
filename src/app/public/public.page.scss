@@ -1,6 +1,15 @@
-ion-card {
-    --background: url("../../../assets/img/backgrounddark.jpg") no-repeat fixed !important; 
+ion-toolbar {
+    text-align: center;
 }
+
+ion-toolbar {
+    text-align: center;
+}
+
+ion-card {
+    --background: url("../../assets/img/backgrounddark.jpg") no-repeat fixed !important;
+}
+
 
 ion-item {
     --background: transparent;
@@ -12,6 +21,11 @@ ion-button {
     --background: #04c582;
 }
 
+ion-spinner {
+    display: block;
+    margin: auto;
+}
+
 ion-item.item-has-focus>ion-label {
     color: #FFF !important;
 }
@@ -20,6 +34,12 @@ ion-item {
     --border-color: white; // default underline color
     --highlight-color-invalid: red; // invalid underline color
     --highlight-color-valid: #04c582; // valid underline color
+}
+
+a{
+    color: #FFF;
+    float: right;
+    margin-bottom: 10px;
 }
 
 .error-message {

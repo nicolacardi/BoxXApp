@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.page.html',
-  styleUrls: ['./registration.page.scss'],
+  styleUrls: ['../public.page.scss'],
 })
 
 export class RegistrationPage implements OnInit {
