@@ -56,3 +56,13 @@ ion-card {
 .ion-card-top-right {
     background-color: #04c582;
 }
+
+.ellipsis-container {
+    max-width: 50%;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
