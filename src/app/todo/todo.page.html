@@ -26,15 +26,20 @@
             <ion-item>
               <ion-input #titolo formControlName="titolo"
                 [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"
-                (ionBlur)="onChange(fgroup)"></ion-input>
+                (focusout)="onLeave(id.value)"
+                (ionBlur)="onChange(fgroup)"
+                >
+              </ion-input>
             </ion-item>
           </ion-col>
           
           
           <ion-col size="1" class="ion-padding-top">
-            <ion-input #id formControlName="id" ></ion-input>
-            <ion-icon *ngIf="titolo.value" src="../../assets/ionicicons/create-outline.svg" size="large" color="primary"           
-              (onmouseup)="onClick(id.value,i)"></ion-icon>
+            <ion-input #id formControlName="id" hidden ></ion-input>
+            <ion-icon src="../../assets/ionicicons/create-outline.svg"  size="large" color="primary"           
+              *ngIf="titolo.value"   
+              (click)="onClick(id.value,i)">
+            </ion-icon>
           </ion-col>
 
           <ion-col size="2" class="ion-padding-top">

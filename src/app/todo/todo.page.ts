@@ -15,7 +15,8 @@ export class TodoPage implements OnInit {
 
   todoEventsForms: FormArray = this.fb.array([]);
   loading = true;
-  saving= false;
+  detailClicked = false;
+
   tmpID=0;
 
   titoloChanged: any;
@@ -78,31 +79,15 @@ export class TodoPage implements OnInit {
     }))
   }
 
-  onClick(id, i){
-    console.log("onClick");
-/*
-    while(this.saving)
-    {
-      setTimeout(() => {
-        
-      }, 500);
-    }
-    
-    while(this.tmpID = 0)
-    {
-      setTimeout(() => {
-        
-      }, 500);
-    }
-    */
-    console.log(this.tmpID);
+  onLeave(id){
+    this.tmpID = id;
+  }
 
-    if(this.tmpID == 0)  {
-      
-    }
+  onClick(id, i){
+    if(this.tmpID == 0) 
+      this.detailClicked= true;
     else
       this.router.navigateByUrl('/todo-detail/' + this.tmpID);
-
   }
 
   onDelete(id, i) {
@@ -117,25 +102,32 @@ export class TodoPage implements OnInit {
   }
 
   onChange(fg: FormGroup) {
+
+    //console.log("onChange");
+    //console.log(this.tmpID);
+
     if (fg.controls['isClosed'].dirty ||
       fg.controls['titolo'].dirty ||
       fg.controls['dettagli'].dirty) {
 
       this.loading = true;
-      this.saving = true;
 
       if (fg.value.id == 0) {
         //Insert
         this.todoEventsService.postTodoEvent(fg.value).subscribe(
           (res: any) => {
             this.tmpID = res.id;
-            console.log("BELLA MERDA");
-            console.log(this.tmpID);
+            //console.log("onChange - after Post");
+            //console.log(this.tmpID);
 
             fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
             fg.reset(fg.value);
             //this.showNotification('insert');
-            
+   
+            if(this.detailClicked){
+              this.router.navigateByUrl('/todo-detail/' + res.id);
+              this.detailClicked=false;
+            }
           },
           err => {
             console.log(err);
@@ -150,7 +142,6 @@ export class TodoPage implements OnInit {
           });
       }
       this.loading = false;
-      this.saving = false;
       this.tmpID=0;
     }
   }
@@ -163,36 +154,4 @@ export class TodoPage implements OnInit {
   getControls() {
     return (<FormArray>this.todoEventsForms.get('id')).controls;
   }
-
-
-
 }
-
-   //todoEvents: todoEvent[];
-
-   // public todoFormGroup: FormGroup;
-
-
-    //  this.todoFormGroup = fb.group({
-    //   id: [0],
-    //   userID: [''],
-    //   causaleID: [0],
-    //   ticketID: [0],
-
-    //   titolo: ['', Validators.required],
-    //   dettagli: ['', Validators.required],
-    //   isClosed: false
-    //  })
-
-    /*    
-  this.form = this.fb.group({
-    id: [0],
-    userID: [''],
-    causaleID: [0],
-    ticketID: [0],
-
-    titolo: ['', Validators.required],
-    dettagli: ['', Validators.required],
-    isClosed: false
-  });
-*/
