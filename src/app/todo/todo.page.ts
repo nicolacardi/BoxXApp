@@ -80,14 +80,15 @@ export class TodoPage implements OnInit {
   }
 
   onLeave(id){
-    this.tmpID = id;
+    //this.tmpID = id;
   }
 
   onClick(id, i){
-    if(this.tmpID == 0) 
+
+    if(id == 0 ) 
       this.detailClicked= true;
     else
-      this.router.navigateByUrl('/todo-detail/' + this.tmpID);
+      this.router.navigateByUrl('/todo-detail/' + id);
   }
 
   onDelete(id, i) {
@@ -116,7 +117,7 @@ export class TodoPage implements OnInit {
         //Insert
         this.todoEventsService.postTodoEvent(fg.value).subscribe(
           (res: any) => {
-            this.tmpID = res.id;
+            //this.tmpID = res.id;
             //console.log("onChange - after Post");
             //console.log(this.tmpID);
 
