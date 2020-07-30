@@ -7,6 +7,66 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  Benvenuto nella pagina dei ticket
+<ion-content class="ion-padding">
+  <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addTicketForm()">
+    <ion-fab-button color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+ 
+  <form [formGroup]="fgroup" *ngFor="let fgroup of ticketForms.controls; let i=index;">
+    <ion-card class="ion-no-margin ion-margin-bottom ion-padding-start">
+      <ion-list class="ion-no-margin">
+        
+        <ion-row>
+          <ion-col size="8">
+            <ion-item>
+              <ion-input #n_Ticket formControlName="n_Ticket">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+          
+          <ion-col size="1" class="ion-padding-top">
+            <ion-input #id formControlName="id" hidden ></ion-input>
+            <ion-icon src="../../assets/ionicicons/create-outline.svg"  size="large" color="primary"      
+              (click)="onClick(id.value,i)">
+            </ion-icon>
+          </ion-col>
+
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="1">
+          </ion-col>
+          <ion-col size="5">
+            <ion-input #tipoTicket formControlName="tipoTicket"  ></ion-input>
+            <ion-label   class="ion-no-padding ion-input-dettagli">{{tipoTicket.value}}
+            </ion-label>
+          </ion-col>
+
+          <ion-col size="5">
+            <ion-input #statoTicket formControlName="statoTicket"  ></ion-input>
+            <ion-label   class="ion-no-padding ion-input-dettagli">{{statoTicket.value}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="myborder-bottom">
+          <ion-col size="1">
+          </ion-col>
+          
+          <ion-col size="9">
+            <ion-input #data1 formControlName="data1" hidden></ion-input>
+            <ion-label   class="ion-no-padding ion-input-dettagli">Data: {{data1.value| date: 'dd/MM/yyyy'}}
+            </ion-label>
+          </ion-col>
+        
+        </ion-row>
+      
+      </ion-list>
+      <ion-reorder slot="end"></ion-reorder>
+    </ion-card>
+  </form>
 </ion-content>

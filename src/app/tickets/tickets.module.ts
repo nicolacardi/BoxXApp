@@ -18,8 +18,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    //FormsModule,                //AS!!!
-    //ReactiveFormsModule,        //AS!!!!
+    ReactiveFormsModule,         
     TicketsPageRoutingModule,
     RouterModule.forChild(routes)
   ],

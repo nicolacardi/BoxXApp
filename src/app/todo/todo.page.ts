@@ -147,7 +147,7 @@ export class TodoPage implements OnInit {
     }
   }
 
-
+  /*
   getName(i) {
     return this.getControls()[i].value.name;
   }
@@ -155,4 +155,5 @@ export class TodoPage implements OnInit {
   getControls() {
     return (<FormArray>this.todoEventsForms.get('id')).controls;
   }
+  */
 }
