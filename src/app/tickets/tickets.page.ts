@@ -77,11 +77,15 @@ export class TicketsPage implements OnInit {
 
 
 
-  getName(i) {
-    return this.getControls()[i].value.name;
-  }
+  // getName(i) {
+  //   return this.getControls()[i].value.name;
+  // }
 
-  getControls() {
-    return (<FormArray>this.ticketForms.get('id')).controls;
+  // getControls() {
+  //   return (<FormArray>this.ticketForms.get('id')).controls;
+  // }
+
+  openDetail(id){
+    this.router.navigateByUrl('/ticket-detail/' + id);
   }
 }

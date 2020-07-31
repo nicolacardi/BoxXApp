@@ -43,6 +43,11 @@ const routes: Routes = [
   {
     path: 'password-reset',
     loadChildren: () => import('./public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
+  },
+  {
+    path: 'ticket-detail/:id',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./ticket-detail/ticket-detail.module').then( m => m.TicketDetailPageModule)
   }
 
 ];
