@@ -5,10 +5,6 @@
   </ion-toolbar>
 </ion-header> -->
 
-
-
-
-
 <ion-content class="ion-padding">
   <ion-row>
     <ion-col center size-lg="4" size-md="12" offset-lg="4">
@@ -31,9 +27,21 @@
               </ion-input>
             </ion-item>
             <ion-button type="submit" expand="block" class="ion-margin-top ion-margin-bottom">Login</ion-button>
-            <a color="#FFF" routerLink="/registration" routerDirection="forward"
-              class="ion-margin-top">Registrati</a>
+
+            <a color="#FFF" routerLink="/password-reset" routerDirection="forward" 
+              class="ion-margin-top">Hai dimenticato la password ?</a>
+              
           </form>
+         
+
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="left">Non hai un account ?</ion-label>
+            <a color="#FFF" routerLink="/registration" routerDirection="forward"class="ion-margin-top">Registrati</a>
+          </ion-item>
         </ion-card-content>
       </ion-card>
     </ion-col>

@@ -5,6 +5,7 @@ import { AuthGuardService } from './services/authGuard.service';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
+  //Public
   { 
     path: 'login', 
     //loadChildren: './public/login/login.module#LoginPageModule' 
@@ -14,6 +15,11 @@ const routes: Routes = [
     path: 'registration',
     loadChildren: () => import('./public/registration/registration.module').then( m => m.RegistrationPageModule)
   },
+  {
+    path: 'password-reset',
+    loadChildren: () => import('./public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
+  },
+
   {
     path: 'todo',
     canActivate: [AuthGuardService],
@@ -33,7 +39,12 @@ const routes: Routes = [
     path: 'todo-detail/:id',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./todo-detail/todo-detail.module').then( m => m.TodoDetailPageModule)
+  },
+  {
+    path: 'password-reset',
+    loadChildren: () => import('./public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
   }
+
 ];
 
 
