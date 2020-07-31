@@ -15,16 +15,28 @@ import { TicketService } from '../services/ticket.service';
 })
 export class TicketsPage implements OnInit {
 
-  ticketForms: FormArray = this.fb.array([]);
+  tickets: ticket[];
+
+  //ticketForms: FormArray = this.fb.array([]);
   loading = true;
 
   constructor(private router: Router, private fb: FormBuilder, private ticketService: TicketService) {
   }
 
   ngOnInit() {
+    this.ticketService.getTicketList()
+    .subscribe(
+      res=>   { 
+        this.tickets = res as ticket[];
+        res.sort((a, b) =>a.n_Ticket < b.n_Ticket ? -1: 1);
+
+        this.loading = false;
+     }
+    );
   }
   
   ionViewDidEnter() {
+    /*
     this.loading = true;
     this.ticketForms.clear();
     this.ticketService.getTicketList().subscribe(
@@ -55,35 +67,8 @@ export class TicketsPage implements OnInit {
         }
       }
     );
+    */
   }
-
-
-  addTicketForm() {
-    //this.todoEventsForms.push(this.fb.group({         //per aggiungere in coda
-    this.ticketForms.insert(0, this.fb.group({
-      id: [0],
-      n_Ticket: [''],
-      tipoTicket: [''],
-      statoTicket: [''],
-      data1:[0]
-    }))
-  }
-
-
-  onClick(id, i){
-      this.router.navigateByUrl('/ticket-detail/' + id);
-  }
-
-
-
-
-  // getName(i) {
-  //   return this.getControls()[i].value.name;
-  // }
-
-  // getControls() {
-  //   return (<FormArray>this.ticketForms.get('id')).controls;
-  // }
 
   openDetail(id){
     this.router.navigateByUrl('/ticket-detail/' + id);

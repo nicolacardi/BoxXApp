@@ -3,3 +3,8 @@ ion-spinner {
     margin: auto;
     top: 50%;
 }
+
+ion-content{
+    --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
+    background-size: cover;
+}
