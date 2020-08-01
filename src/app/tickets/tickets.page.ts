@@ -73,4 +73,9 @@ export class TicketsPage implements OnInit {
   openDetail(id){
     this.router.navigateByUrl('/ticket-detail/' + id);
   }
+
+  swipeEvent(){
+    console.log ("ciao");
+  }
+
 }

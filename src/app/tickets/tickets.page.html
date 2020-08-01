@@ -7,33 +7,61 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
-  <ion-list >
-    <ion-item *ngFor="let objTicket of tickets; let i=index;"> 
-      <ion-item-sliding >
-        <ion-item-options side="start">
-          <ion-item-option><ion-icon name="star"></ion-icon></ion-item-option>
-        </ion-item-options>
+  <ion-list class="trasparente">
+    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none">
 
-        <ion-item>
-          <div class="ion-text-center">
+      <ion-card style="width: 100%!important" (swipe)="swipeEvent();">
+        <ion-card-header>
+          <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right" [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>
+          <ion-card-subtitle>Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
+          <ion-card-title class="grassetto">{{objTicket.n_Ticket}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-label class="ion-padding-start ion-padding-end stato-tipo" style="float:right" >{{objTicket.statoTicket}} </ion-label>
+          <ion-label>Cliente: <span class="grassetto">{{objTicket.customer.ragsoc}}</span> </ion-label>
+          <ion-label>
+          </ion-label>
+        </ion-card-content>
+      </ion-card>
 
-            <ion-label slot="start"> {{objTicket.n_Ticket}} </ion-label>
-            <ion-label slot="end">{{objTicket.tipoTicket}} </ion-label>
-            <ion-label slot="end">{{objTicket.statoTicket}} </ion-label>
-            <ion-label slot="end">{{objTicket.customer.ragsoc}} </ion-label>
-            <ion-label class="ion-no-padding ion-input-dettagli">Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}</ion-label>
-
-          </div>
-        </ion-item>
-
-        <ion-item-options side="end">
-          <ion-item-option (click)="openDetail(objTicket.id)" >Apri</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-item> 
+    </ion-item>
   </ion-list>
+
+
+
+
+  <!-- <ion-list>
+    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" >
+      <ion-card style="width: 100%">
+        <ion-card-content>
+          <ion-item-sliding>
+            <ion-item-options side="start">
+              <ion-item-option>
+                <ion-icon name="star"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+
+            <ion-item lines="none">
+              <div class="ion-text-center">
+                <ion-label> {{objTicket.n_Ticket}} </ion-label>
+                <ion-label>{{objTicket.tipoTicket}} </ion-label>
+                <ion-label>{{objTicket.statoTicket}} </ion-label>
+                <ion-label>{{objTicket.customer.ragsoc}} </ion-label>
+                <ion-label>Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}
+                </ion-label>
+              </div>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option (click)="openDetail(objTicket.id)">Apri</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list> -->
 
 </ion-content>

@@ -8,3 +8,30 @@ ion-content{
     --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
     background-size: cover;
 }
+
+.grassetto {
+    font-weight: bold;
+}
+
+.tipoticketA{
+    background-color: #3cb3f7;
+}
+
+.tipoticketI{
+    background-color: #ff7843;
+}
+
+.label-tipo{
+    border-radius: 4px;
+    color: white;
+}
+
+.stato-tipo{
+    border: grey solid 1px;
+    border-radius: 4px;
+    color: grey;
+}
+
+.trasparente {
+    background-color: transparent !important;
+}
