@@ -32,6 +32,18 @@ ion-content{
     color: grey;
 }
 
-.trasparente {
-    background-color: transparent !important;
+
+
+ion-card-content {
+    width: 100%;
 }
+
+ion-card {
+    background-color: #FFF;
+}
+
+
+.trasparente {
+    --ion-item-background: transparent !important;
+  }
+

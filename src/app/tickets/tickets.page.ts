@@ -70,12 +70,11 @@ export class TicketsPage implements OnInit {
     */
   }
 
-  openDetail(id){
+  openDetail(id, slideitem){
+    slideitem.close();
     this.router.navigateByUrl('/ticket-detail/' + id);
   }
 
-  swipeEvent(){
-    console.log ("ciao");
-  }
+
 
 }
