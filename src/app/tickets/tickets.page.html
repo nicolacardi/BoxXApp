@@ -4,16 +4,17 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Tickets</ion-title>
+    <img slot="end" width="45px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
-  <ion-list class="trasparente">
+  <ion-list class="trasparente ion-no-padding">
     <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" class="trasparente" >
 
-      <ion-card style="width: 100%!important;" >
+      <ion-card style="width: 100%!important;"  >
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
             <ion-item-option>
