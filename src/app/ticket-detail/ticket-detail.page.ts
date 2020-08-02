@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ticket, ticketDetail, ticketCausale } from '../models/models';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 
 import { TicketService } from '../services/ticket.service';
 import { TicketDetailService } from '../services/ticket-detail.service';
@@ -97,23 +97,27 @@ export class TicketDetailPage implements OnInit {
     );
   }
 
-
   addTicketDetailForm() {
-    /*
-    this.ticketDetailForms.insert(0, this.fb.group({
+    this.ticketDetailsForms.insert(0, this.fb.group({
       id: [0],
       userID: [''],
       causaleID: [0],
       ticketID: [0],
 
-      titolo: ['', Validators.required],
-      dettagli: ['', Validators.required],
-      isClosed: false,
-      dt : [null],
-      //dt : [0, Validators.min(1)],
-      //h_Ini : ['', Validators.required]
-    }))
-    */
+      dt: [null],
+      h_Ini: [null],
+      h_End: [null],
+      note: ['']
+    }))   
   }
 
+  saveTicketDetail(fg: FormGroup){
+      console.log(fg   );
+    if(fg.controls['id'].value == '0' ){
+      console.log("INSERT!!!");
+    }
+    else{
+      console.log("UPDATE!!!");
+    }
+  }
 }
