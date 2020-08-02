@@ -19,6 +19,19 @@ export class TicketDetailService {
   
   }
 
+  public InitFormData(){
+    this.formData ={
+      id: 0,
+      ticketID: 0,
+      causaleID: 0,
+      causale:null,
+      dt: null,
+      h_Ini: null,
+      h_End: null,
+      note: null
+    }
+  }
+
   getTicketDetailList(ticketID): Observable<ticketDetail[]>
   {
     this.ticketID = ticketID;

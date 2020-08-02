@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ticket, ticketDetail, ticketCausale } from '../models/models';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
@@ -6,7 +6,8 @@ import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { TicketService } from '../services/ticket.service';
 import { TicketDetailService } from '../services/ticket-detail.service';
 import { TicketCausaliService } from '../services/ticket-causali.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, IonContent } from '@ionic/angular';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -15,6 +16,8 @@ import { ToastController } from '@ionic/angular';
 })
 export class TicketDetailPage implements OnInit {
 
+  @ViewChild('topPage', {static: false}) topPage: IonContent;
+  
   constructor(private route: ActivatedRoute, private fb: FormBuilder
     , public serviceTicket: TicketService
     , public serviceTicketDetails: TicketDetailService
@@ -102,6 +105,7 @@ export class TicketDetailPage implements OnInit {
   }
 
   addTicketDetailForm() {
+
     this.ticketDetailsForms.insert(0, this.fb.group({
       id: [0],
       userID: [''],
@@ -112,12 +116,13 @@ export class TicketDetailPage implements OnInit {
       h_Ini: [null],
       h_End: [null],
       note: ['']
-    }))   
+    }));  
+
+    this.topPage.scrollToTop();
+
   }
 
   saveTicketDetail(fg: FormGroup){
-    console.log(fg   );
-
     if(fg.controls['id'].value == '0' ){
       this.InsertRecord(fg);
     }
@@ -127,12 +132,23 @@ export class TicketDetailPage implements OnInit {
   }
 
   InsertRecord(fg: FormGroup){
-    console.log("INSERT!!!");
+
+    this.serviceTicketDetails.InitFormData();
+
+    this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
+    this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
+    this.serviceTicketDetails.formData.dt = fg.get("dt").value;
+    this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
+    this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
+    this.serviceTicketDetails.formData.note = fg.get("note").value;
+
     this.serviceTicketDetails.postTicketDetail().subscribe(
       res => {
         //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
         //this.resetForm(form);
-
+        
+        //fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
+        
         this.ShowMessage("Record inserito");
       },
       err => {
@@ -144,6 +160,17 @@ export class TicketDetailPage implements OnInit {
 
   UpdateRecord(fg: FormGroup){
     console.log("UPDATE!!!");
+
+    this.serviceTicketDetails.InitFormData();
+
+    this.serviceTicketDetails.formData.id = fg.get("id").value;
+    this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
+    this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
+    this.serviceTicketDetails.formData.dt = fg.get("dt").value;
+    this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
+    this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
+    this.serviceTicketDetails.formData.note = fg.get("note").value;
+
     this.serviceTicketDetails.putTicketDetail().subscribe(
       res => {
         //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
@@ -156,6 +183,26 @@ export class TicketDetailPage implements OnInit {
         this.ShowMessage("Errore nel salvataggio", 'danger'  );
       }
     )
+  }
+
+  deleteTicketDetail(fg: FormGroup, i){
+    if(fg.controls["id"].value != "0"){
+      this.serviceTicketDetails.deleteTicketDetail(fg.controls["id"].value).subscribe(
+        res => {
+          this.serviceTicketDetails.refreshList(fg.controls["id"].value);
+          this.ticketDetailsForms.removeAt(i);
+
+          this.ShowMessage("Record cancellato");
+        },
+        err => {
+          console.log(err);
+          this.ShowMessage("Errore nella cancellazione", 'danger'  );
+        }
+      )
+    }
+    else{
+      this.ticketDetailsForms.removeAt(i);
+    }
   }
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
