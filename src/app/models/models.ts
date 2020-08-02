@@ -32,6 +32,23 @@ export interface ticket {
     poi: string;
 }
 
+
+export interface ticketDetail {
+    id: number;
+    ticketID: number;
+    causaleID: number;
+    causale: ticketCausale;
+    dt: Date;
+    h_Ini: Date;
+    h_End: Date;
+    note;
+}
+
+export interface ticketCausale {
+    id: number;
+    causaleDesc: string;
+}
+
 export interface Customer {
     id:number;
     codice: string;

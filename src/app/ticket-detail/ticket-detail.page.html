@@ -8,6 +8,111 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   ID del ticket: {{ticketID}}
+  ID del ticket: {{objTicket.n_Ticket}}
+  <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addTicketDetailForm()">
+    <ion-fab-button color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+ 
+  <form [formGroup]="fgroup" *ngFor="let fgroup of ticketDetailsForms.controls; let i=index;">
+
+    <ion-card>
+      <ion-card-header>
+
+      </ion-card-header>
+      <ion-card-content>
+
+        <!--
+        <ion-item>
+          <ion-textarea #tmpCausaleID formControlName="causaleID" style="resize:vertical;width:100%" >
+
+          </ion-textarea>
+        </ion-item>
+        [value]="fgroup.get('causaleID').value" 
+      -->
+
+        <ion-item>
+          <!--************************** COMBO CAUSALE ************************** -->
+          <ion-select  #causaleID formControlName="causaleID"   
+            placeholder="--Selezionare--"  required>
+              <ion-select-option value=0>--Selezionare--</ion-select-option>
+              <ion-select-option *ngFor="let item of ticketCausali" [value]="item.id">{{item.causaleDesc}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-textarea #note formControlName="note" style="resize:vertical;width:100%" >
+
+          </ion-textarea>
+        </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+  </form>
+  <!--
+  <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
+    <ion-card class="ion-no-margin ion-margin-bottom ion-padding-start">
+      <ion-list class="ion-no-margin">
+        <ion-row>
+          <ion-col size="1" class="ion-padding-top">
+            <ion-checkbox #Chiuso formControlName="isClosed" color="danger" (ionChange)="onChange(fgroup)"></ion-checkbox>
+          </ion-col>
+          <ion-col size="8">
+            <ion-item>
+              <ion-input #titolo formControlName="titolo"
+                [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"
+                (focusout)="onLeave(id.value)"
+                (ionBlur)="onChange(fgroup)">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+          
+          <ion-col size="1" class="ion-padding-top">
+            <ion-input #id formControlName="id" hidden ></ion-input>
+            <ion-icon src="../../assets/ionicicons/create-outline.svg"  size="large" color="primary"           
+              *ngIf="titolo.value"   
+              (click)="onClick(id.value,i)">
+            </ion-icon>
+          </ion-col>
+
+          <ion-col size="2" class="ion-padding-top">
+            <ion-icon src="../../assets/ionicicons/trash-outline.svg" size="large" color="danger"
+              [ngStyle]="{'visibility': Chiuso.checked === true ? 'visible' : 'hidden'}"
+              (click)="onDelete(fgroup.get('id').value,i)"
+              *ngIf="!loading"></ion-icon>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="1">
+          </ion-col>
+          <ion-col size="9">
+            <ion-input #dettagli formControlName="dettagli" hidden></ion-input>
+            <ion-label *ngIf="dettagli" class="ion-no-padding ion-input-dettagli"
+              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}">{{dettagli.value}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="myborder-bottom">
+          <ion-col size="1">
+          </ion-col>
+          <ion-col size="9">
+            <ion-input #dt formControlName="dt" hidden></ion-input>
+            <ion-label *ngIf="dt.value != ''" class="ion-no-padding ion-input-dettagli"
+              [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}">Data: {{dt.value| date: 'dd/MM/yyyy'}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      
+      </ion-list>
+      <ion-reorder slot="end"></ion-reorder>
+    </ion-card>
+  </form>
+-->
 </ion-content>
