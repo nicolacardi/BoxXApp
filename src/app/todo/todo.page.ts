@@ -61,7 +61,6 @@ export class TodoPage implements OnInit {
     );
   }
 
-
   addTodoEventsForm() {
     //this.todoEventsForms.push(this.fb.group({         //per aggiungere in coda
     this.todoEventsForms.insert(0, this.fb.group({
