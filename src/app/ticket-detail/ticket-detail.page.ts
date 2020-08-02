@@ -6,6 +6,7 @@ import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { TicketService } from '../services/ticket.service';
 import { TicketDetailService } from '../services/ticket-detail.service';
 import { TicketCausaliService } from '../services/ticket-causali.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -17,7 +18,10 @@ export class TicketDetailPage implements OnInit {
   constructor(private route: ActivatedRoute, private fb: FormBuilder
     , public serviceTicket: TicketService
     , public serviceTicketDetails: TicketDetailService
-    , public serviceTicketCausali: TicketCausaliService) { }
+    , public serviceTicketCausali: TicketCausaliService
+    , public toastController: ToastController) { 
+
+    }
 
   loading = true;
 
@@ -112,12 +116,60 @@ export class TicketDetailPage implements OnInit {
   }
 
   saveTicketDetail(fg: FormGroup){
-      console.log(fg   );
+    console.log(fg   );
+
     if(fg.controls['id'].value == '0' ){
-      console.log("INSERT!!!");
+      this.InsertRecord(fg);
     }
     else{
-      console.log("UPDATE!!!");
+      this.UpdateRecord(fg);
     }
+  }
+
+  InsertRecord(fg: FormGroup){
+    console.log("INSERT!!!");
+    this.serviceTicketDetails.postTicketDetail().subscribe(
+      res => {
+        //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
+        //this.resetForm(form);
+
+        this.ShowMessage("Record inserito");
+      },
+      err => {
+        console.log(err);
+        this.ShowMessage("Errore nel salvataggio",'danger');
+       }
+    )
+  }
+
+  UpdateRecord(fg: FormGroup){
+    console.log("UPDATE!!!");
+    this.serviceTicketDetails.putTicketDetail().subscribe(
+      res => {
+        //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
+        //this.resetForm(form);
+
+        this.ShowMessage("Record aggiornato");
+      },
+      err => {
+        console.log(err);
+        this.ShowMessage("Errore nel salvataggio", 'danger'  );
+      }
+    )
+  }
+
+  async ShowMessage(msg: string, titolo?: string, colore?: string) {
+    var mColor = colore;
+    if(mColor== null)
+      mColor='primary';
+
+    const toast = await this.toastController.create({
+      message: msg,
+      color: mColor,
+      duration: 2000,
+      showCloseButton: true,  
+      closeButtonText: 'OK',  
+    });
+    toast.present();
   }
 }
