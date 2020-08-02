@@ -3,11 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tickets"></ion-back-button>
     </ion-buttons>
-    <ion-title>ticket-detail</ion-title>
+    <ion-title>Ticket {{objTicket.n_Ticket}}</ion-title>
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
+
+<ion-content class="ion-padding" #topPage>
 
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
@@ -20,46 +21,64 @@
   <form [formGroup]="fgroup" *ngFor="let fgroup of ticketDetailsForms.controls; let i=index;">
 
     <ion-card>
-      <ion-card-header>
-
-      </ion-card-header>
+      <!-- <ion-card-header></ion-card-header> -->
       
-      <ion-card-content>
-
-        <!--************************** Causale ************************** -->
-        <ion-item>
-          <ion-select  #causaleID formControlName="causaleID"   
-            placeholder="--Selezionare--"  required>
-              <ion-select-option value=0>--Selezionare--</ion-select-option>
-              <ion-select-option *ngFor="let item of ticketCausali" [value]="item.id">{{item.causaleDesc}}</ion-select-option>
-          </ion-select>
+      <ion-item-sliding #slideitem >
+        <ion-item-options side="start">
+          <ion-item-option>
+            <ion-icon name="save" size="large" ></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item lines="none">
+          <ion-card-content>
+            <!--
+            <ion-item>
+              <ion-textarea #id formControlName="id"   > </ion-textarea>
+            </ion-item>
+            -->
+            <!--************************** Causale ************************** -->
+            <ion-item>
+              <ion-select  #causaleID formControlName="causaleID"   
+                placeholder="--Selezionare--"  required>
+                  <ion-select-option value=0>--Selezionare--</ion-select-option>
+                  <ion-select-option *ngFor="let item of ticketCausali" [value]="item.id">{{item.causaleDesc}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+    
+            <!--************************** Data ************************** -->  
+            <ion-item>
+              <ion-label>Data: </ion-label>
+              <ion-datetime #dt formControlName="dt" displayFormat="DD/MM/YYYY" ></ion-datetime>
+            </ion-item>
+    
+             <!--**************************   ORA Inizio  ************************** -->         
+             <ion-item>
+              <ion-label>Ora inizio: </ion-label>
+              <ion-datetime #h_Ini formControlName="h_Ini" displayFormat="hh:mm" ></ion-datetime>
+            </ion-item>
+    
+             <!--**************************   ORA Fine  ************************** -->
+             <ion-item>
+              <ion-label>Ora fine: </ion-label>
+              <ion-datetime #h_End formControlName="h_End" displayFormat="hh:mm" ></ion-datetime>
+            </ion-item>
+    
+            <!--************************** Note  ************************** -->  
+            <ion-item>
+              <ion-textarea #note formControlName="note" style="resize:vertical;width:100%" > </ion-textarea>
+            </ion-item>
+    
+            <ion-button (click)="saveTicketDetail(fgroup)" color="primary">Salva </ion-button>
+             <!-- <ion-button (click)="deleteTicketDetail(fgroup, i)" color="primary">Cancella </ion-button> -->
+          </ion-card-content>
+          
         </ion-item>
+        <ion-item-options side="end" >
+          <ion-item-option (click)="deleteTicketDetail(fgroup, i)" color="danger"><ion-icon name="trash" size="large" color="light"></ion-icon></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
 
-        <!--************************** Data ************************** -->  
-        <ion-item>
-          <ion-label>Data: </ion-label>
-          <ion-datetime #dt formControlName="dt" displayFormat="DD/MM/YYYY" ></ion-datetime>
-        </ion-item>
-
-         <!--**************************   ORA Inizio  ************************** -->         
-         <ion-item>
-          <ion-label>Ora inizio: </ion-label>
-          <ion-datetime #h_Ini formControlName="h_Ini" displayFormat="hh:mm" ></ion-datetime>
-        </ion-item>
-
-         <!--**************************   ORA Fine  ************************** -->
-         <ion-item>
-          <ion-label>Ora fine: </ion-label>
-          <ion-datetime #h_End formControlName="h_End" displayFormat="hh:mm" ></ion-datetime>
-        </ion-item>
-
-        <!--************************** Note  ************************** -->  
-        <ion-item>
-          <ion-textarea #note formControlName="note" style="resize:vertical;width:100%" > </ion-textarea>
-        </ion-item>
-
-        <ion-button (click)="saveTicketDetail(fgroup)" color="primary">Salva </ion-button>
-      </ion-card-content>
+      
     </ion-card>
   </form>
 
