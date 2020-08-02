@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@angular/forms';
 
 import { todoEvent } from 'src/app/models/models';
 import { TodoEventsService } from 'src/app/services/todoevents.service';
 import { Router } from "@angular/router";
+import { IonContent } from '@ionic/angular';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { Router } from "@angular/router";
 })
 export class TodoPage implements OnInit {
 
+  @ViewChild('topPage', {static: false}) topPage: IonContent;
   todoEventsForms: FormArray = this.fb.array([]);
   loading = true;
   detailClicked = false;
@@ -76,6 +78,7 @@ export class TodoPage implements OnInit {
       //dt : [0, Validators.min(1)],
       //h_Ini : ['', Validators.required]
     }))
+    this.topPage.scrollToTop();
   }
 
   onLeave(id){
@@ -99,6 +102,7 @@ export class TodoPage implements OnInit {
           this.todoEventsForms.removeAt(i);
           //this.showNotification('delete');
         });
+        this.topPage.scrollToTop();
   }
 
   onChange(fg: FormGroup) {
@@ -146,13 +150,4 @@ export class TodoPage implements OnInit {
     }
   }
 
-  /*
-  getName(i) {
-    return this.getControls()[i].value.name;
-  }
-
-  getControls() {
-    return (<FormArray>this.todoEventsForms.get('id')).controls;
-  }
-  */
 }
