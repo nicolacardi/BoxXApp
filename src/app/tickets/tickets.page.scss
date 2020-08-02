@@ -50,10 +50,13 @@ ion-card {
   }
 
 .rotated-text {
-    transform: (rotate 90deg);
+    transform: rotate(-90deg) !important;
 }
 
 ion-item-option{
     font-weight: bold;
 }
 
+.w-40px{
+    width: 50px;
+}

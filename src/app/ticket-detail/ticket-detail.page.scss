@@ -11,3 +11,8 @@ ion-card-content {
 .w100{
     width: 100%;
 }
+
+ion-content{
+    --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
+    background-size: cover;
+}
