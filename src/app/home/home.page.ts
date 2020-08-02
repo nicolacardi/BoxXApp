@@ -1,7 +1,9 @@
 import { Component, ViewChild } from "@angular/core";
-import { AuthenticationService } from "../services/authentication.service";
-import { Router } from "@angular/router";
 import { Chart } from 'chart.js';
+
+import { TodoEventsService } from '../services/todoevents.service';
+import { todoEvent } from '../models/models';
+import { TicketService } from '../services/ticket.service';
 
 @Component({
   selector: "app-home",
@@ -9,7 +11,7 @@ import { Chart } from 'chart.js';
   styleUrls: ["home.page.scss"]
 })
 export class HomePage {
-  constructor(private auth: AuthenticationService, private router: Router) { }
+  constructor(private ticketService: TicketService, private todoEventsService: TodoEventsService  ) { }
 
   @ViewChild('barChart', { static: false }) barChart;
   @ViewChild('pieChart', { static: false }) pieChart;
@@ -17,13 +19,43 @@ export class HomePage {
   bars: any;
   colorArray: any;
 
+  public openTicket: number=0;
+  public totTodo: number=0;
+  public openTodo: number=0;
+  
+
   ionViewDidEnter() {
     this.createBarChart();
     this.createPieChart();
+
+    //Ticket
+    this.openTicket=0;
+    this.ticketService.getTicketList().subscribe(
+      res   => {
+        if ( res != [] && res != null  ) {
+          this.openTicket= res.length;
+        }
+      }
+    );
+    //Todo
+    this.totTodo=0;
+    this.openTodo=0;
+    this.todoEventsService.getTodoEventList().subscribe(
+      res   => {
+        
+        if ( res != [] && res != null && res.length != 0) {
+          this.totTodo= res.length;
+
+          (res as []).forEach((todo: todoEvent) => {
+            if(!todo.isClosed)
+            this.openTodo++;
+          });
+        }
+      }
+    );
   }
 
   createBarChart() {
-
     const ctx = (<HTMLCanvasElement>this.barChart.nativeElement).getContext('2d');
     //const ctx = this.barChart.nativeElement;
     const barGradient = ctx.createLinearGradient(0, 0, 0, 200);

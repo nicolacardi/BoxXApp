@@ -84,11 +84,11 @@
           <!-- <ion-reorder slot="end"></ion-reorder> -->
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option color="primary">
-            <ion-icon name="create" size="large" color="light" (click)="onClick(id.value,i)"></ion-icon>
+          <ion-item-option color="primary" (click)="onClick(id.value,i)">
+            <ion-icon name="create" size="large" color="light" ></ion-icon>
           </ion-item-option>
-          <ion-item-option color="danger">
-            <ion-icon name="trash" size="large" color="light" (click)="onDelete(fgroup.get('id').value,i)"></ion-icon>
+          <ion-item-option color="danger" (click)="onDelete(fgroup.get('id').value,i)">
+            <ion-icon name="trash" size="large" color="light" ></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

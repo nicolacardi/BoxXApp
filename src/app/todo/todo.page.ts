@@ -100,9 +100,10 @@ export class TodoPage implements OnInit {
       this.todoEventsService.deleteTodoEvent(id).subscribe(
         res => {
           this.todoEventsForms.removeAt(i);
+          this.topPage.scrollToTop();
           //this.showNotification('delete');
         });
-        this.topPage.scrollToTop();
+        
   }
 
   onChange(fg: FormGroup) {

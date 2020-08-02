@@ -15,9 +15,9 @@
     <ion-col class="ellipsis-container">
       <ion-card [routerLink]="'/tickets'" class="ion-no-margin ion-margin-start ion-card-top-left" >
         <ion-card-header class="ion-card-top-left ion-no-padding ion-padding-top ion-padding-start ion-padding-end">
-          <ion-card-subtitle class="ion-no-padding ellipsis" color="light">Chiusi/Tot dal 1 Gen</ion-card-subtitle>
+          <ion-card-subtitle class="ion-no-padding ellipsis" color="light">Ticket Aperti</ion-card-subtitle>
           <ion-card-title color="light" font="large">
-            <h1 class="ion-no-margin maxi-font">25<span class="mini-font">/52</span></h1>
+            <h1 class="ion-no-margin maxi-font">{{openTicket}}</h1>
             <ion-icon class="icona-label-home1" name="albums"></ion-icon>
           </ion-card-title>
         </ion-card-header>
@@ -31,7 +31,7 @@
         <ion-card-header class="ion-card-top-right ion-no-padding ion-padding-top ion-padding-start ion-padding-end">
           <ion-card-subtitle class="ion-no-padding ellipsis" color="light">ToDo Aperti/Tot</ion-card-subtitle>
           <ion-card-title color="light" font="large">
-            <h1 class="ion-no-margin maxi-font">5<span class="mini-font">/10</span></h1>
+            <h1 class="ion-no-margin maxi-font">{{openTodo}}<span class="mini-font">/{{totTodo}}</span></h1>
             <ion-icon class="icona-label-home2" name="menu"></ion-icon>
           </ion-card-title>
         </ion-card-header>

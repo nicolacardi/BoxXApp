@@ -129,6 +129,7 @@ export class TicketDetailPage implements OnInit {
     else{
       this.UpdateRecord(fg);
     }
+    fg.markAsPristine();
   }
 
   InsertRecord(fg: FormGroup){
@@ -159,8 +160,6 @@ export class TicketDetailPage implements OnInit {
   }
 
   UpdateRecord(fg: FormGroup){
-    console.log("UPDATE!!!");
-
     this.serviceTicketDetails.InitFormData();
 
     this.serviceTicketDetails.formData.id = fg.get("id").value;
@@ -203,6 +202,11 @@ export class TicketDetailPage implements OnInit {
     else{
       this.ticketDetailsForms.removeAt(i);
     }
+  }
+
+  onChange(fg: FormGroup, i){
+
+
   }
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
