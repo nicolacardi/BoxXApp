@@ -36,7 +36,7 @@
               </ion-col>
               <ion-col size="10">
                 <ion-item>
-                  <ion-input #titolo formControlName="titolo"
+                  <ion-input #titolo formControlName="titolo" class="ellipsis"
                     [ngStyle]="{'text-decoration': Chiuso.checked === true ?'line-through': 'none'}"
                     (focusout)="onLeave(id.value)" (ionBlur)="onChange(fgroup)">
                   </ion-input>

@@ -39,3 +39,8 @@ ion-spinner {
 ion-list {
     width: 100%;
 }
+
+.ellipsis {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
