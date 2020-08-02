@@ -12,10 +12,10 @@
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
   <ion-list class="trasparente ion-no-padding">
-    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" class="trasparente" >
+    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none">
 
       <ion-card style="width: 100%!important;"  >
-        <ion-item-sliding #slideitem>
+        <ion-item-sliding #slideitem >
           <ion-item-options side="start">
             <ion-item-option>
               <ion-icon name="star"></ion-icon>
@@ -29,7 +29,7 @@
               <ion-card-title class="grassetto">{{objTicket.n_Ticket}}</ion-card-title>
             </ion-card-header> -->
 
-            <ion-card-content class="ion-no-padding ion-padding-top ion-padding-bottom">
+            <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
               <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
               [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>
             <ion-card-subtitle>Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
@@ -46,7 +46,6 @@
           </ion-item-options>
         </ion-item-sliding>
       </ion-card>
-
     </ion-item>
   </ion-list>
 
