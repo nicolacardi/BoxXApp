@@ -74,6 +74,8 @@ export class TicketsPage implements OnInit {
     slideitem.close();
     this.router.navigateByUrl('/ticket-detail/' + id);
   }
-
+  openDefault(id){
+    this.router.navigateByUrl('/ticket-detail/' + id);
+  }
 
 }

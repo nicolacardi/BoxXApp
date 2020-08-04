@@ -18,6 +18,16 @@
     </ion-fab-button>
   </ion-fab>
 
+  <ion-card>
+    <ion-item>
+      <ion-text>N° card: {{totCards}} </ion-text>
+    </ion-item>
+    <ion-item>      
+      <ion-label>Totale: {{Ore}} ore, {{Minuti}} minuti</ion-label>
+    </ion-item>
+
+  </ion-card>
+  
   <form [formGroup]="fgroup" *ngFor="let fgroup of ticketDetailsForms.controls; let i=index;">
 
     <ion-card>
@@ -54,13 +64,13 @@
             <!--**************************   ORA Inizio  ************************** -->
             <ion-item>
               <ion-label>Ora inizio: </ion-label>
-              <ion-datetime #h_Ini formControlName="h_Ini" displayFormat="hh:mm"></ion-datetime>
+              <ion-datetime #h_Ini formControlName="h_Ini" displayFormat="HH:mm"></ion-datetime>
             </ion-item>
 
             <!--**************************   ORA Fine  ************************** -->
             <ion-item>
               <ion-label>Ora fine: </ion-label>
-              <ion-datetime #h_End formControlName="h_End" displayFormat="hh:mm"></ion-datetime>
+              <ion-datetime #h_End formControlName="h_End" displayFormat="HH:mm"></ion-datetime>
             </ion-item>
 
             <!--************************** Note  ************************** -->
@@ -68,7 +78,7 @@
               <ion-textarea #note formControlName="note" style="resize:vertical;width:100%"> </ion-textarea>
             </ion-item>
             
-            <div text-center>
+            <div class="ion-text-center">
               <ion-button (click)="saveTicketDetail(fgroup)"  expand="block" color="primary" [disabled]="!fgroup.dirty"  >Salva</ion-button>
             </div>
             <!-- <ion-button (click)="deleteTicketDetail(fgroup, i)" color="primary">Cancella </ion-button> -->

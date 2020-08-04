@@ -8,6 +8,7 @@ import { TicketDetailService } from '../services/ticket-detail.service';
 import { TicketCausaliService } from '../services/ticket-causali.service';
 import { ToastController, IonContent } from '@ionic/angular';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { timestamp } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -17,7 +18,14 @@ import { Content } from '@angular/compiler/src/render3/r3_ast';
 export class TicketDetailPage implements OnInit {
 
   @ViewChild('topPage', {static: false}) topPage: IonContent;
+
+  public  totCards: number;
+  public  totOre: number;
+  public  totMinuti: number ;
+  public  Ore: number;
+  public  Minuti: number ;
   
+
   constructor(private route: ActivatedRoute, private fb: FormBuilder
     , public serviceTicket: TicketService
     , public serviceTicketDetails: TicketDetailService
@@ -74,6 +82,10 @@ export class TicketDetailPage implements OnInit {
         }
       );
 
+    this.totCards=0;
+    this.totOre=0;
+    this.totMinuti=0;
+
     this.ticketDetailsForms.clear();
     this.serviceTicketDetails.getTicketDetailList(this.ticketID).subscribe(
       res => {
@@ -86,6 +98,31 @@ export class TicketDetailPage implements OnInit {
           //  .sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
 
           (res as []).forEach((detail: ticketDetail) => {
+            
+            this.totCards++;
+
+            //let dtEnd = new Date(detail.h_End);
+            //let dtIni = new Date(detail.h_Ini);
+
+            let diffInMs: number = Date.parse(detail.h_End.toString()) - Date.parse(detail.h_Ini.toString())
+            //let diffInHours: number = diffInMs / 1000 / 60 / 60;
+            //let diffInMinutes: number = (diffInMs / 1000 / 60) - (diffInHours * 60) ;
+            //let diffInMinutes: number = (diffInMs / 1000 / 60)  ;
+
+            var mins = Math.floor(diffInMs / 60000);
+            var hrs = Math.floor(mins / 60);
+
+            //var hrs = Math.floor(mins / 60);
+            //mins = mins % 60;
+            this.totMinuti += mins;
+
+            this.Minuti   = mins % 60;
+            this.Ore  = hrs % 24;
+            
+
+            console.log("Mins: " +  mins.toString());
+            console.log("totMinuti: " +  this.totMinuti.toString());
+
             this.ticketDetailsForms.push(this.fb.group({
               id: [detail.id],
               ticketID: [detail.ticketID],
@@ -95,8 +132,9 @@ export class TicketDetailPage implements OnInit {
               h_Ini: [detail.h_Ini],
               h_End: [detail.h_End],
               note: [detail.note]
+            })
+            );
 
-            }));
             this.loading = false;
           });
         }
@@ -119,7 +157,6 @@ export class TicketDetailPage implements OnInit {
     }));  
 
     this.topPage.scrollToTop();
-
   }
 
   saveTicketDetail(fg: FormGroup){

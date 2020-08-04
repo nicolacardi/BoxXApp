@@ -14,7 +14,7 @@
   <ion-list class="trasparente">
     <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" >
 
-      <ion-card style="width: 100%!important;"  >
+      <ion-card style="width: 100%!important;" (click)="openDefault(objTicket.id)"  >
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
             <ion-item-option>
