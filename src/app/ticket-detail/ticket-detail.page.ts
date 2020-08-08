@@ -134,6 +134,9 @@ export class TicketDetailPage implements OnInit {
       }
     );
   }
+
+  //AS: NON FUNZIA!!!!
+  //volevo impostare la data di oggi sul campo in testata su clic di un bottne
   setTodayDate(){
     //this.dtDefault = new Date();
     console.log("this.objTicket.data1",this.objTicket.data1);
@@ -150,7 +153,6 @@ export class TicketDetailPage implements OnInit {
 
     this.ticketDetailsForms.insert(0, this.fb.group({
       id: [0],
-      userID: [''],
       causaleID: [0],
       ticketID: [this.ticketID ],
 

@@ -51,7 +51,7 @@
             -->
             <!--************************** Causale ************************** -->
             <ion-item>
-              <ion-select #causaleID formControlName="causaleID" placeholder="--Selezionare--" required class="w100"  (ionChange)="onChange(fgroup)">
+              <ion-select #causaleID formControlName="causaleID" placeholder="--Selezionare--" required class="w100" (ionChange)="onChange(fgroup)">
                 <ion-select-option value=0>--Selezionare--</ion-select-option>
                 <ion-select-option *ngFor="let item of ticketCausali" [value]="item.id">{{item.causaleDesc}}
                 </ion-select-option>
