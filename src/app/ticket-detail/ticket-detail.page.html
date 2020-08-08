@@ -6,10 +6,26 @@
     <ion-title>Ticket {{objTicket.n_Ticket}}</ion-title>
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
+
+  <!--
+  <ion-button  (click)="setTodayDate()">
+    <ion-icon name="today"></ion-icon>
+  </ion-button>
+-->
+
+  <ion-item>
+    <ion-label>Data Intervento:</ion-label>
+    <ion-datetime #dtDefault [(ngModel)]="objTicket.data1"  displayFormat="DD/MM/YYYY"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-text>N° card: {{totCards}} </ion-text>
+  </ion-item>
+  <ion-item>      
+    <ion-label>Totale: {{Ore}} ore, {{Minuti}} minuti</ion-label>
+  </ion-item>
 </ion-header>
 
 <ion-content class="ion-padding" #topPage>
-
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addTicketDetailForm()">
@@ -18,21 +34,8 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-card>
-    <ion-item>
-      <ion-text>N° card: {{totCards}} </ion-text>
-    </ion-item>
-    <ion-item>      
-      <ion-label>Totale: {{Ore}} ore, {{Minuti}} minuti</ion-label>
-    </ion-item>
-
-  </ion-card>
-  
   <form [formGroup]="fgroup" *ngFor="let fgroup of ticketDetailsForms.controls; let i=index;">
-
     <ion-card>
-      <!-- <ion-card-header></ion-card-header> -->
-
       <ion-item-sliding #slideitem>
         <!-- <ion-item-options side="start">
           <ion-item-option>
