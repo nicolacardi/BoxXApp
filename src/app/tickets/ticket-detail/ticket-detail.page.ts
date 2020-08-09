@@ -3,19 +3,18 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { ToastController, IonContent } from '@ionic/angular';
 
-import { ticket, ticketDetail, ticketCausale } from '../models/models';
-import { TicketService } from '../services/ticket.service';
-import { TicketDetailService } from '../services/ticket-detail.service';
-import { TicketCausaliService } from '../services/ticket-causali.service';
-
-
+import { ticket, ticketDetail, ticketCausale } from '../../models/models';
+import { TicketService } from '../../services/ticket.service';
+import { TicketDetailService } from '../../services/ticket-detail.service';
+import { TicketCausaliService } from '../../services/ticket-causali.service';
 import{TicketDetailCardComponent} from '../ticket-detail-card/ticket-detail-card.component';
+import { take } from 'rxjs/operators';
 
 
 @Component({
   selector: 'app-ticket-detail',
   templateUrl: './ticket-detail.page.html',
-  styleUrls: ['./ticket-detail.page.scss'],
+  styleUrls: ['../tickets.scss'],
 })
 export class TicketDetailPage implements OnInit {
 
@@ -149,8 +148,19 @@ export class TicketDetailPage implements OnInit {
   }
 
   addTicketDetailForm() {
+
+    //AS: ATTENZIONE: bisogna aggiungere un nuovo component !
+
+    this.ticketDetails.push({ id:null, ticketID: this.objTicket.id, causaleID:null, causale: null, dt:this.objTicket.data1, h_Ini:null , h_End:null, note: ''});
+
+    console.log ("N° record: ", this.ticketDetails.length);
+
+    //AS: come fare per aggiornare il DOM ???
+    
+
     console.log("Dt default: ", this.dtDefault);
 
+    /*
     this.ticketDetailsForms.insert(0, this.fb.group({
       id: [0],
       causaleID: [0],
@@ -163,9 +173,8 @@ export class TicketDetailPage implements OnInit {
       h_End: [null],
       note: ['']
     }));  
-
+*/
     this.topPage.scrollToTop();
-
   }
 
   saveTicketDetail(fg: FormGroup){

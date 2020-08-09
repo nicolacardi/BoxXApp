@@ -4,14 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TicketsPageRoutingModule } from './tickets-routing.module';
-import { TicketsPage } from './tickets.page';
+import { TicketsListPageRoutingModule } from './tickets-list-routing.module';
+import { TicketsListPage } from './tickets-list.page';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: TicketsPage
+    component: TicketsListPage
   }
 ];
 
@@ -21,9 +21,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ReactiveFormsModule,         
-    TicketsPageRoutingModule,
+    TicketsListPageRoutingModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TicketsPage]
+  declarations: [TicketsListPage]
 })
-export class TicketsPageModule {}
+export class TicketsListPageModule {}

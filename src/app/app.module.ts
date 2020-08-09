@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -9,9 +11,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
 
 
 

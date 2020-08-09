@@ -19,35 +19,32 @@ const routes: Routes = [
     path: 'password-reset',
     loadChildren: () => import('./public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
   },
-
-  {
-    path: 'todo',
-    canActivate: [AuthGuardService],
-    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
-  },
-  {
-    path: 'tickets',
-    canActivate: [AuthGuardService],
-    loadChildren: () => import('./tickets/tickets.module').then( m => m.TicketsPageModule)
-  },
+  //Private
   {
     path: 'home',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'todo',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
+  },
+  {
     path: 'todo-detail/:id',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./todo-detail/todo-detail.module').then( m => m.TodoDetailPageModule)
   },
+
   {
-    path: 'password-reset',
-    loadChildren: () => import('./public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
+    path: 'tickets',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./tickets/tickets-list/tickets-list.module').then( m => m.TicketsListPageModule)
   },
   {
     path: 'ticket-detail/:id',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./ticket-detail/ticket-detail.module').then( m => m.TicketDetailPageModule)
+    loadChildren: () => import('./tickets/ticket-detail/ticket-detail.module').then( m => m.TicketDetailPageModule)
   }
 
 ];

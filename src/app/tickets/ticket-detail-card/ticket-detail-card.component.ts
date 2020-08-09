@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ticketDetail, ticketCausale } from '../models/models';
+import { ticketDetail, ticketCausale } from '../../models/models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { TicketCausaliService } from '../services/ticket-causali.service';
-import { TicketDetailService } from '../services/ticket-detail.service';
+import { TicketCausaliService } from '../../services/ticket-causali.service';
+import { TicketDetailService } from '../../services/ticket-detail.service';
 import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ticket-detail-card',
   templateUrl: './ticket-detail-card.component.html',
-  styleUrls: ['./ticket-detail-card.component.scss'],
+  styleUrls: ['./../tickets.scss'],
 })
 
 export class TicketDetailCardComponent implements OnInit {

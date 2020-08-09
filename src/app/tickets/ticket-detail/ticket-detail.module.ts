@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { TicketDetailPageRoutingModule } from './ticket-detail-routing.module';
 import { TicketDetailPage } from './ticket-detail.page';
-import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-card.component';
+import { TicketDetailCardComponent } from './../ticket-detail-card/ticket-detail-card.component';
 
 @NgModule({
   imports: [
