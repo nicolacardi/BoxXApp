@@ -1,0 +1,102 @@
+<form [formGroup]="detailForm">
+
+
+  <ion-card>
+    <ion-item-sliding #slideitem>
+      <ion-item lines="none">
+        <ion-card-content class="ion-no-padding ion-padding-top ion-padding-bottom">
+
+          <ion-item>
+            <ion-select #causaleID formControlName="causaleID" placeholder="--Selezionare--" required class="w100">
+              <ion-select-option value=0>--Selezionare--</ion-select-option>
+              <ion-select-option *ngFor="let item of ticketCausali" [value]="item.id">{{item.causaleDesc}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Data: </ion-label>
+            <ion-datetime #dt formControlName="dt" displayFormat="DD/MM/YYYY"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Ora inizio: </ion-label>
+            <ion-datetime #h_Ini formControlName="h_Ini" displayFormat="HH:mm"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Ora fine: </ion-label>
+            <ion-datetime #h_End formControlName="h_End" displayFormat="HH:mm"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-textarea #note formControlName="note" style="resize:vertical;width:100%"> </ion-textarea>
+          </ion-item>
+
+          <div class="ion-text-center">
+            <ion-button (click)="saveTicketDetail(detailForm)"  expand="block" color="primary" 
+              [disabled]="!detailForm.dirty"  >Salva</ion-button>
+          </div>
+
+        </ion-card-content>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteTicketDetail(detailForm)" color="danger">
+          <ion-icon name="trash" size="large" color="light"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-card>
+
+
+
+</form>
+
+<!--
+<ion-card>
+  <ion-item-sliding #slideitem>
+    <ion-item lines="none">
+      <ion-card-content class="ion-no-padding ion-padding-top ion-padding-bottom">
+        
+        <ion-item>
+          <ion-select #causaleID formControlName="causaleID" placeholder="--Selezionare--" required class="w100" (ionChange)="onChange(fgroup)">
+            <ion-select-option value=0>--Selezionare--</ion-select-option>
+            <ion-select-option *ngFor="let item of ticketCausali" [value]="item.id">{{item.causaleDesc}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label>Data: </ion-label>
+          <ion-datetime #dt formControlName="dt" displayFormat="DD/MM/YYYY"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Ora inizio: </ion-label>
+          <ion-datetime #h_Ini formControlName="h_Ini" displayFormat="HH:mm"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Ora fine: </ion-label>
+          <ion-datetime #h_End formControlName="h_End" displayFormat="HH:mm"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-textarea #note formControlName="note" style="resize:vertical;width:100%"> </ion-textarea>
+        </ion-item>
+        
+        <div class="ion-text-center">
+          <ion-button (click)="saveTicketDetail(fgroup)"  expand="block" color="primary" [disabled]="!fgroup.dirty"  >Salva</ion-button>
+        </div>
+      
+      </ion-card-content>
+
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option (click)="deleteTicketDetail(fgroup, i)" color="danger">
+        <ion-icon name="trash" size="large" color="light"></ion-icon>
+      </ion-item-option>
+    
+    </ion-item-options>
+  </ion-item-sliding>
+
+
+</ion-card>
+-->

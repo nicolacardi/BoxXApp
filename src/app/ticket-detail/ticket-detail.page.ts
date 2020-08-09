@@ -1,16 +1,16 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ticket, ticketDetail, ticketCausale } from '../models/models';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { ToastController, IonContent } from '@ionic/angular';
 
+import { ticket, ticketDetail, ticketCausale } from '../models/models';
 import { TicketService } from '../services/ticket.service';
 import { TicketDetailService } from '../services/ticket-detail.service';
 import { TicketCausaliService } from '../services/ticket-causali.service';
-import { ToastController, IonContent } from '@ionic/angular';
 
-import { Content } from '@angular/compiler/src/render3/r3_ast';
-import { timestamp } from 'rxjs/operators';
-import { getLocaleDateTimeFormat } from '@angular/common';
+
+import{TicketDetailCardComponent} from '../ticket-detail-card/ticket-detail-card.component';
+
 
 @Component({
   selector: 'app-ticket-detail',
@@ -157,7 +157,6 @@ export class TicketDetailPage implements OnInit {
       ticketID: [this.ticketID ],
 
       //dt: [null],
-      //dt: [this.dtDefault],
       dt: [this.objTicket.data1],
       
       h_Ini: [null],
@@ -166,6 +165,7 @@ export class TicketDetailPage implements OnInit {
     }));  
 
     this.topPage.scrollToTop();
+
   }
 
   saveTicketDetail(fg: FormGroup){
