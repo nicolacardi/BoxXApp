@@ -156,7 +156,8 @@ export class TicketDetailPage implements OnInit {
     console.log ("N° record: ", this.ticketDetails.length);
 
     //AS: come fare per aggiornare il DOM ???
-    
+    //this.topPage.scrollToTop();
+
 
     console.log("Dt default: ", this.dtDefault);
 
@@ -174,7 +175,7 @@ export class TicketDetailPage implements OnInit {
       note: ['']
     }));  
 */
-    this.topPage.scrollToTop();
+   
   }
 
   saveTicketDetail(fg: FormGroup){
