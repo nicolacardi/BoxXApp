@@ -13,7 +13,7 @@ export class AppComponent {
 
   @ViewChild('splashlogo', { static: false }) splashlogo: ElementRef;
 
-  public routerHidden = false;  //per attivare lo splash screen mettere TRUE qui
+  public routerHidden = true;  //per attivare lo splash screen mettere TRUE qui
   selectedPath = "";
   public appPages = [
     {
