@@ -57,7 +57,9 @@ export class TicketDetailCardComponent implements OnInit {
 
   
   saveTicketDetail(fg: FormGroup){
-    if(fg.controls['id'].value == '0' ){
+    console.log("saveTicketDetail di ticket-detail-card.component.ts");
+    console.log("fg.controls['id'].value"+ fg.controls['id'].value);
+    if(fg.controls['id'].value == '0' || fg.controls['id'].value == null ){
       this.InsertRecord(fg);
     }
     else{
@@ -80,6 +82,12 @@ export class TicketDetailCardComponent implements OnInit {
     this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
     this.serviceTicketDetails.formData.note = fg.get("note").value;
 
+    console.log("InsertRecord di ticket-detail-card.component.ts");
+    console.log("ticketID: ", fg.get("ticketID").value);
+    console.log("causaleID: ", fg.get("causaleID").value);
+    console.log("h_Ini: ", fg.get("h_Ini").value);
+    console.log("h_End: ", fg.get("h_End").value);
+    console.log("note: ", fg.get("note").value);
     this.serviceTicketDetails.postTicketDetail().subscribe(
       res => {
         //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);

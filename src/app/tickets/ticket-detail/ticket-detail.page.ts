@@ -179,6 +179,7 @@ export class TicketDetailPage implements OnInit {
   }
 
   saveTicketDetail(fg: FormGroup){
+
     if(fg.controls['id'].value == '0' ){
       this.InsertRecord(fg);
     }
@@ -195,9 +196,6 @@ export class TicketDetailPage implements OnInit {
     this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
     this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
     this.serviceTicketDetails.formData.dt = fg.get("dt").value;
-
-    //console.log("h_ini: ", fg.get("h_Ini").value);
-    
     this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
     this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
     this.serviceTicketDetails.formData.note = fg.get("note").value;
