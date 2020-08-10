@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@angular/forms';
+import { Router } from "@angular/router";
 
 import { todoEvent, ticket } from 'src/app/models/models';
-import { TodoEventsService } from 'src/app/services/todoevents.service';
-import { Router } from "@angular/router";
-import { TicketService } from '../services/ticket.service';
+import { TicketService } from '../../services/ticket.service';
 
 
 
 @Component({
-  selector: 'app-tickets',
-  templateUrl: './tickets.page.html',
-  styleUrls: ['./tickets.page.scss'],
+  selector: 'app-tickets-list',
+  templateUrl: './tickets-list.page.html',
+  styleUrls: ['./../tickets.scss'],
 })
-export class TicketsPage implements OnInit {
+export class TicketsListPage implements OnInit {
 
   tickets: ticket[];
 
-  //ticketForms: FormArray = this.fb.array([]);
   loading = true;
 
   constructor(private router: Router, private fb: FormBuilder, private ticketService: TicketService) {

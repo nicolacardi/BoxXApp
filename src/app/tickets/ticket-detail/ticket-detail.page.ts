@@ -1,31 +1,33 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ticket, ticketDetail, ticketCausale } from '../models/models';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
-
-import { TicketService } from '../services/ticket.service';
-import { TicketDetailService } from '../services/ticket-detail.service';
-import { TicketCausaliService } from '../services/ticket-causali.service';
 import { ToastController, IonContent } from '@ionic/angular';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
-import { timestamp } from 'rxjs/operators';
+
+import { ticket, ticketDetail, ticketCausale } from '../../models/models';
+import { TicketService } from '../../services/ticket.service';
+import { TicketDetailService } from '../../services/ticket-detail.service';
+import { TicketCausaliService } from '../../services/ticket-causali.service';
+import{TicketDetailCardComponent} from '../ticket-detail-card/ticket-detail-card.component';
+import { take } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-ticket-detail',
   templateUrl: './ticket-detail.page.html',
-  styleUrls: ['./ticket-detail.page.scss'],
+  styleUrls: ['../tickets.scss'],
 })
 export class TicketDetailPage implements OnInit {
 
   @ViewChild('topPage', {static: false}) topPage: IonContent;
 
+  //Data di default impostata in testata (opzionale)  
+  dtDefault: Date;
+
   public  totCards: number;
-  public  totOre: number;
-  public  totMinuti: number ;
+
   public  Ore: number;
   public  Minuti: number ;
   
-
   constructor(private route: ActivatedRoute, private fb: FormBuilder
     , public serviceTicket: TicketService
     , public serviceTicketDetails: TicketDetailService
@@ -82,9 +84,11 @@ export class TicketDetailPage implements OnInit {
         }
       );
 
+    let totOre: number=0;
+    let totMinuti: number=0 ;
     this.totCards=0;
-    this.totOre=0;
-    this.totMinuti=0;
+    //this.totOre=0;
+    //this.totMinuti=0;
 
     this.ticketDetailsForms.clear();
     this.serviceTicketDetails.getTicketDetailList(this.ticketID).subscribe(
@@ -101,62 +105,77 @@ export class TicketDetailPage implements OnInit {
             
             this.totCards++;
 
-            //let dtEnd = new Date(detail.h_End);
-            //let dtIni = new Date(detail.h_Ini);
-
             let diffInMs: number = Date.parse(detail.h_End.toString()) - Date.parse(detail.h_Ini.toString())
-            //let diffInHours: number = diffInMs / 1000 / 60 / 60;
-            //let diffInMinutes: number = (diffInMs / 1000 / 60) - (diffInHours * 60) ;
-            //let diffInMinutes: number = (diffInMs / 1000 / 60)  ;
 
             var mins = Math.floor(diffInMs / 60000);
-            var hrs = Math.floor(mins / 60);
+            totMinuti += mins;
 
-            //var hrs = Math.floor(mins / 60);
-            //mins = mins % 60;
-            this.totMinuti += mins;
-
-            this.Minuti   = mins % 60;
-            this.Ore  = hrs % 24;
-            
-
-            console.log("Mins: " +  mins.toString());
-            console.log("totMinuti: " +  this.totMinuti.toString());
+            console.log("diffInMs: " ,  diffInMs.toString());
+            console.log("Mins: " ,  mins.toString());
+            console.log("totMinuti: " +  totMinuti.toString());
 
             this.ticketDetailsForms.push(this.fb.group({
               id: [detail.id],
               ticketID: [detail.ticketID],
               causaleID: [detail.causaleID],
-              //causale!!!!
               dt: [detail.dt],
               h_Ini: [detail.h_Ini],
               h_End: [detail.h_End],
               note: [detail.note]
             })
             );
-
-            this.loading = false;
           });
+          this.Minuti   = totMinuti % 60;
+          this.Ore = Math.floor( totMinuti / 60) % 24;
+
+          this.loading = false;
         }
       }
     );
   }
 
+  //AS: NON FUNZIA!!!!
+  //volevo impostare la data di oggi sul campo in testata su clic di un bottne
+  setTodayDate(){
+    //this.dtDefault = new Date();
+    console.log("this.objTicket.data1",this.objTicket.data1);
+    console.log("Date()",Date());
+
+    let myDate = Date();
+
+    //this.objTicket.data1 = this.datepipe.transform(this.objTicket.data1, 'dd/MM/yyyy');
+    //this.objTicket.data1.setUTCFullYear(myDate.getFullYear(), mydate.getmon)
+  }
+
   addTicketDetailForm() {
 
+    //AS: ATTENZIONE: bisogna aggiungere un nuovo component !
+
+    this.ticketDetails.push({ id:null, ticketID: this.objTicket.id, causaleID:null, causale: null, dt:this.objTicket.data1, h_Ini:null , h_End:null, note: ''});
+
+    console.log ("N° record: ", this.ticketDetails.length);
+
+    //AS: come fare per aggiornare il DOM ???
+    //this.topPage.scrollToTop();
+
+
+    console.log("Dt default: ", this.dtDefault);
+
+    /*
     this.ticketDetailsForms.insert(0, this.fb.group({
       id: [0],
-      userID: [''],
       causaleID: [0],
-      ticketID: [0],
+      ticketID: [this.ticketID ],
 
-      dt: [null],
+      //dt: [null],
+      dt: [this.objTicket.data1],
+      
       h_Ini: [null],
       h_End: [null],
       note: ['']
     }));  
-
-    this.topPage.scrollToTop();
+*/
+   
   }
 
   saveTicketDetail(fg: FormGroup){
@@ -168,7 +187,7 @@ export class TicketDetailPage implements OnInit {
     }
     fg.markAsPristine();
   }
-
+  
   InsertRecord(fg: FormGroup){
 
     this.serviceTicketDetails.InitFormData();
@@ -176,6 +195,9 @@ export class TicketDetailPage implements OnInit {
     this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
     this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
     this.serviceTicketDetails.formData.dt = fg.get("dt").value;
+
+    //console.log("h_ini: ", fg.get("h_Ini").value);
+    
     this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
     this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
     this.serviceTicketDetails.formData.note = fg.get("note").value;
@@ -195,7 +217,7 @@ export class TicketDetailPage implements OnInit {
        }
     )
   }
-
+  
   UpdateRecord(fg: FormGroup){
     this.serviceTicketDetails.InitFormData();
 
@@ -203,6 +225,10 @@ export class TicketDetailPage implements OnInit {
     this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
     this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
     this.serviceTicketDetails.formData.dt = fg.get("dt").value;
+    
+    console.log("h_ini: ",  fg.get("h_Ini").value);
+    console.log("h_end: ",  fg.get("h_End").value);
+
     this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
     this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
     this.serviceTicketDetails.formData.note = fg.get("note").value;

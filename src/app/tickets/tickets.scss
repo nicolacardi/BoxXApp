@@ -44,6 +44,9 @@ ion-card {
     background-color: #FFF;
 }
 
+ion-back-button {
+    --color: #FFF;
+}
 
 .trasparente {
     --ion-item-background: transparent !important;
@@ -59,4 +62,8 @@ ion-item-option{
 
 .w-40px{
     width: 50px;
+}
+
+.w100{
+    width: 100%;
 }
