@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title></ion-title>
+    <ion-title>Dettaglio To Do</ion-title>
     <ion-buttons slot="start">
       <ion-back-button (click)="backToTodo()" defaultHref="/todo"></ion-back-button>
     </ion-buttons>
@@ -9,6 +9,7 @@
 </ion-header>
 
 <ion-content>
+  <ion-card class="ion-padding-bottom" style="">
   <ion-item class="ion-padding-end ion-padding-start">
     <ion-textarea rows="4" class="ion-no-padding" [(ngModel)]="objTodo.titolo" placeholder="titolo"></ion-textarea>
   </ion-item>
@@ -16,8 +17,9 @@
     <ion-textarea rows="4" #dettagli class="ion-no-padding" [(ngModel)]="objTodo.dettagli" placeholder="dettagli">
     </ion-textarea>
   </ion-item>
-  <ion-item>
+  <ion-item class="ion-padding-end ion-padding-start" lines="none">
     <ion-label>Data: </ion-label>
     <ion-datetime #dt [(ngModel)]="objTodo.dt" displayFormat="DD/MM/YYYY" ></ion-datetime>
   </ion-item>
+  </ion-card>
 </ion-content>

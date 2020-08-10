@@ -6,8 +6,8 @@
       <ion-item lines="none">
         <ion-card-content class="ion-no-padding ion-padding-top ion-padding-bottom">
 
-          <ion-item>
-            <ion-select #causaleID formControlName="causaleID" placeholder="--Selezionare--" required class="w100">
+          <ion-item style="width: 100% !important">
+            <ion-select #causaleID formControlName="causaleID" placeholder="--Selezionare--" required class="w100" style="max-width: 100% !important;">
               <ion-select-option value=0>--Selezionare--</ion-select-option>
               <ion-select-option *ngFor="let item of ticketCausali" [value]="item.id">{{item.causaleDesc}}
               </ion-select-option>

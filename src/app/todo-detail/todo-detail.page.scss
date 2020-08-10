@@ -1,3 +1,20 @@
 ion-back-button {
     --color: #FFF;
 }
+
+ion-content{
+    --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
+    background-size: cover;
+}
+
+ion-card {
+    --background: white;
+    margin-bottom: 8px !important;
+    border: 1px #b1b1b1 solid;
+
+}
+
+.sc-ion-card-ios-h, .sc-ion-card-md-h {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

@@ -40,9 +40,6 @@ ion-card-content {
     padding-right: 5px;
 }
 
-ion-card {
-    background-color: #FFF;
-}
 
 ion-back-button {
     --color: #FFF;
@@ -66,4 +63,33 @@ ion-item-option{
 
 .w100{
     width: 100%;
+}
+
+
+ion-card {
+    --background: white;
+    margin-bottom: 8px !important;
+    border: 1px #b1b1b1 solid;
+
+}
+
+.sc-ion-card-ios-h, .sc-ion-card-md-h {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+header {
+    background-color: white;
+}
+
+.ion-card-top-left {
+    background-color: #57a9d8;
+}
+
+.ion-card-top-right {
+    background-color: #4cc198;
+}
+
+.bk-white {
+    background-color: #FFF;
 }

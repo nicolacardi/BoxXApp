@@ -14,15 +14,40 @@
   -->
 
   <ion-item>
-    <ion-label>Data Intervento:</ion-label>
+    <ion-label>Data Ticket:</ion-label>
     <ion-datetime #dtDefault [(ngModel)]="objTicket.data1"  displayFormat="DD/MM/YYYY"></ion-datetime>
   </ion-item>
-  <ion-item>
+  <!-- <ion-item>
     <ion-text>N° card: {{totCards}} </ion-text>
-  </ion-item>
-  <ion-item>      
+  </ion-item> -->
+  <!-- <ion-item>      
     <ion-label>Totale: {{Ore}} ore, {{Minuti}} minuti</ion-label>
-  </ion-item>
+  </ion-item> -->
+
+<ion-row class="bk-white">
+  <ion-col class="ellipsis-container ion-no-padding ion-padding-top ion-padding-end">
+    <ion-card [routerLink]="'/tickets'" class="ion-no-margin ion-margin-start ion-card-top-left" >
+      <ion-card-header class="ion-card-top-left ion-no-padding ion-padding-start ion-padding-end">
+        <ion-card-subtitle class="ion-no-padding ellipsis" color="light">N° Attività</ion-card-subtitle>
+        <ion-card-title color="light" font="large">
+          <h1 class="ion-no-margin maxi-font">{{totCards}} </h1>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </ion-col>
+  <ion-col class="ellipsis-container ion-no-padding ion-padding-top ion-padding-startd">
+    <ion-card class="ion-no-margin ion-margin-end ion-card-top-right" [routerLink]="'/todo'">
+      <ion-card-header class="ion-card-top-right ion-no-padding ion-padding-start ion-padding-end">
+        <ion-card-subtitle class="ion-no-padding ellipsis" color="light">Tempo Totale</ion-card-subtitle>
+        <ion-card-title color="light" font="large">
+          <h1 class="ion-no-margin maxi-font">{{Ore}} h, {{Minuti}} m</h1>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </ion-col>
+</ion-row>
+
+
 </ion-header>
 
 <ion-content class="ion-padding" #topPage>
