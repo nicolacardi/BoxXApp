@@ -44,7 +44,9 @@ export class TicketDetailService {
   }  
   
   putTicketDetail(){
+    this.formData.id = +this.formData.id;
     this.formData.ticketID = +this.formData.ticketID;
+    
     return this.http.put( environment.apiBaseUrl  + '/TicketDetails/' + this.formData.id , this.formData)    
   }
 

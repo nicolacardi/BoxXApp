@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { ticketDetail, ticketCausale } from '../../models/models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TicketCausaliService } from '../../services/ticket-causali.service';
@@ -11,7 +11,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./../tickets.scss'],
 })
 
-export class TicketDetailCardComponent implements OnInit {
+export class TicketDetailCardComponent implements OnInit, OnDestroy {
 
   @Input()            
   localTicketDetail :  ticketDetail;
@@ -19,6 +19,9 @@ export class TicketDetailCardComponent implements OnInit {
   @Input()            
   ticketCausali: ticketCausale[];
   
+  @Output() removedDetail = new EventEmitter();
+
+
   detailForm: FormGroup;
   
   constructor( private fb: FormBuilder    
@@ -42,10 +45,13 @@ export class TicketDetailCardComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(){
+
+  }
   
   saveTicketDetail(fg: FormGroup){
-    console.log("saveTicketDetail di ticket-detail-card.component.ts");
-    console.log("fg.controls['id'].value"+ fg.controls['id'].value);
+    //console.log("saveTicketDetail di ticket-detail-card.component.ts");
+    //console.log("fg.controls['id'].value"+ fg.controls['id'].value);
     if(fg.controls['id'].value == '0' || fg.controls['id'].value == null ){
       this.InsertRecord(fg);
     }
@@ -62,9 +68,6 @@ export class TicketDetailCardComponent implements OnInit {
     this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
     this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
     this.serviceTicketDetails.formData.dt = fg.get("dt").value;
-
-    //console.log("h_ini: ", fg.get("h_Ini").value);
-    
     this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
     this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
     this.serviceTicketDetails.formData.note = fg.get("note").value;
@@ -75,13 +78,25 @@ export class TicketDetailCardComponent implements OnInit {
     console.log("h_Ini: ", fg.get("h_Ini").value);
     console.log("h_End: ", fg.get("h_End").value);
     console.log("note: ", fg.get("note").value);
+
     this.serviceTicketDetails.postTicketDetail().subscribe(
       res => {
-        //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
         //this.resetForm(form);
         
         //fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
+        console.log("POST result: ",JSON.stringify(res));
+
         
+        fg.patchValue({id: (res as ticketDetail).id});
+
+        console.log("fg.value: " , fg.get("id").value);
+
+        //fg.get("id").value = this.serviceTicketDetails.formData.id ;
+        
+        //AS!!!
+        this.localTicketDetail.id = (res as ticketDetail).id;
+
+
         this.ShowMessage("Record inserito");
       },
       err => {
@@ -98,10 +113,6 @@ export class TicketDetailCardComponent implements OnInit {
     this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
     this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
     this.serviceTicketDetails.formData.dt = fg.get("dt").value;
-    
-    console.log("h_ini: ",  fg.get("h_Ini").value);
-    console.log("h_end: ",  fg.get("h_End").value);
-
     this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
     this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
     this.serviceTicketDetails.formData.note = fg.get("note").value;
@@ -126,7 +137,10 @@ export class TicketDetailCardComponent implements OnInit {
         res => {
           this.serviceTicketDetails.refreshList(fg.controls["id"].value);
           //TODO!!!
-          //this.ticketDetailsForms.removeAt(i);          
+          //this.ticketDetailsForms.removeAt(i);  
+          
+          this.removedDetail.emit(fg.controls["id"].value);
+
           //this.ShowMessage("Record cancellato");
           
         },
@@ -141,6 +155,11 @@ export class TicketDetailCardComponent implements OnInit {
       //this.ticketDetailsForms.removeAt(i);
     }
   }
+
+  
+
+
+
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;

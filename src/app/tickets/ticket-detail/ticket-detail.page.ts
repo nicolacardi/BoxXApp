@@ -7,7 +7,7 @@ import { ticket, ticketDetail, ticketCausale } from '../../models/models';
 import { TicketService } from '../../services/ticket.service';
 import { TicketDetailService } from '../../services/ticket-detail.service';
 import { TicketCausaliService } from '../../services/ticket-causali.service';
-import{TicketDetailCardComponent} from '../ticket-detail-card/ticket-detail-card.component';
+import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-card.component';
 import { take } from 'rxjs/operators';
 
 
@@ -18,23 +18,25 @@ import { take } from 'rxjs/operators';
 })
 export class TicketDetailPage implements OnInit {
 
-  @ViewChild('topPage', {static: false}) topPage: IonContent;
+  @ViewChild('topPage', { static: false }) topPage: IonContent;
+
+  removedDetail:any;
 
   //Data di default impostata in testata (opzionale)  
   dtDefault: Date;
 
-  public  totCards: number;
+  public totCards: number;
 
-  public  Ore: number;
-  public  Minuti: number ;
-  
+  public Ore: number;
+  public Minuti: number;
+
   constructor(private route: ActivatedRoute, private fb: FormBuilder
     , public serviceTicket: TicketService
     , public serviceTicketDetails: TicketDetailService
     , public serviceTicketCausali: TicketCausaliService
-    , public toastController: ToastController) { 
+    , public toastController: ToastController) {
 
-    }
+  }
 
   loading = true;
 
@@ -43,7 +45,7 @@ export class TicketDetailPage implements OnInit {
   ticketDetails: ticketDetail[];
   ticketCausali: ticketCausale[];
 
-  ticketDetailsForms: FormArray = this.fb.array([]);
+  //ticketDetailsForms: FormArray = this.fb.array([]);
 
   ngOnInit() {
     //init oggetto
@@ -84,13 +86,14 @@ export class TicketDetailPage implements OnInit {
         }
       );
 
-    let totOre: number=0;
-    let totMinuti: number=0 ;
-    this.totCards=0;
+    let totOre: number = 0;
+    let totMinuti: number = 0;
+    this.totCards = 0;
     //this.totOre=0;
     //this.totMinuti=0;
 
-    this.ticketDetailsForms.clear();
+    
+    //this.ticketDetailsForms.clear();
     this.serviceTicketDetails.getTicketDetailList(this.ticketID).subscribe(
       res => {
         if (res == [] || res == null || res.length == 0) {
@@ -102,7 +105,7 @@ export class TicketDetailPage implements OnInit {
           //  .sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
 
           (res as []).forEach((detail: ticketDetail) => {
-            
+
             this.totCards++;
 
             let diffInMs: number = Date.parse(detail.h_End.toString()) - Date.parse(detail.h_Ini.toString())
@@ -110,10 +113,10 @@ export class TicketDetailPage implements OnInit {
             var mins = Math.floor(diffInMs / 60000);
             totMinuti += mins;
 
-            console.log("diffInMs: " ,  diffInMs.toString());
-            console.log("Mins: " ,  mins.toString());
-            console.log("totMinuti: " +  totMinuti.toString());
-
+            // console.log("diffInMs: ", diffInMs.toString());
+            // console.log("Mins: ", mins.toString());
+            // console.log("totMinuti: " + totMinuti.toString());
+/*
             this.ticketDetailsForms.push(this.fb.group({
               id: [detail.id],
               ticketID: [detail.ticketID],
@@ -124,9 +127,10 @@ export class TicketDetailPage implements OnInit {
               note: [detail.note]
             })
             );
+            */
           });
-          this.Minuti   = totMinuti % 60;
-          this.Ore = Math.floor( totMinuti / 60) % 24;
+          this.Minuti = totMinuti % 60;
+          this.Ore = Math.floor(totMinuti / 60) % 24;
 
           this.loading = false;
         }
@@ -134,50 +138,29 @@ export class TicketDetailPage implements OnInit {
     );
   }
 
-  //AS: NON FUNZIA!!!!
-  //volevo impostare la data di oggi sul campo in testata su clic di un bottne
-  setTodayDate(){
-    //this.dtDefault = new Date();
-    console.log("this.objTicket.data1",this.objTicket.data1);
-    console.log("Date()",Date());
-
-    let myDate = Date();
-
-    //this.objTicket.data1 = this.datepipe.transform(this.objTicket.data1, 'dd/MM/yyyy');
-    //this.objTicket.data1.setUTCFullYear(myDate.getFullYear(), mydate.getmon)
-  }
-
   addTicketDetailForm() {
-
-    //AS: ATTENZIONE: bisogna aggiungere un nuovo component !
-
-    this.ticketDetails.push({ id:null, ticketID: this.objTicket.id, causaleID:null, causale: null, dt:this.objTicket.data1, h_Ini:null , h_End:null, note: ''});
-
-    console.log ("N° record: ", this.ticketDetails.length);
-
-    //AS: come fare per aggiornare il DOM ???
-    //this.topPage.scrollToTop();
-
-
-    console.log("Dt default: ", this.dtDefault);
-
-    /*
-    this.ticketDetailsForms.insert(0, this.fb.group({
-      id: [0],
-      causaleID: [0],
-      ticketID: [this.ticketID ],
-
-      //dt: [null],
-      dt: [this.objTicket.data1],
-      
-      h_Ini: [null],
-      h_End: [null],
-      note: ['']
-    }));  
-*/
-   
+    //this.ticketDetails.push({ id:null, ticketID: this.objTicket.id, causaleID:null, causale: null, dt:this.objTicket.data1, h_Ini:null , h_End:null, note: ''});
+    this.ticketDetails.unshift({ id: null, ticketID: this.objTicket.id, causaleID: null, causale: null, dt: this.objTicket.data1, h_Ini: null, h_End: null, note: '' });
+    this.topPage.scrollToTop();
   }
 
+
+  removedDetailCard(id){ 
+
+    let j=0;
+    this.ticketDetails.forEach(element => {
+      console.log(JSON.stringify(element));
+
+     console.log("i=", id , "  element.id=", element.id);
+     if(element.id == id){
+       this.ticketDetails.splice(j,1);
+       console.log("TROVATO: ", j);
+     }
+     j++;
+   }); 
+  }
+
+  /*
   saveTicketDetail(fg: FormGroup){
 
     if(fg.controls['id'].value == '0' ){
@@ -245,7 +228,7 @@ export class TicketDetailPage implements OnInit {
     )
   }
 
-  deleteTicketDetail(fg: FormGroup, i){
+  deleteTicketDetail(fg: FormGroup, i){  
     if(fg.controls["id"].value != "0"){
       this.serviceTicketDetails.deleteTicketDetail(fg.controls["id"].value).subscribe(
         res => {
@@ -269,18 +252,19 @@ export class TicketDetailPage implements OnInit {
 
 
   }
+*/
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;
-    if(mColor== null)
-      mColor='primary';
+    if (mColor == null)
+      mColor = 'primary';
 
     const toast = await this.toastController.create({
       message: msg,
       color: mColor,
       duration: 2000,
-      showCloseButton: true,  
-      closeButtonText: 'OK',  
+      showCloseButton: true,
+      closeButtonText: 'OK',
     });
     toast.present();
   }
