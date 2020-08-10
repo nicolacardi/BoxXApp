@@ -23,24 +23,11 @@ export class TicketDetailCardComponent implements OnInit {
   
   constructor( private fb: FormBuilder    
     , public serviceTicketDetails: TicketDetailService
-    //, public serviceTicketCausali: TicketCausaliService
     , public toastController: ToastController) {
      
   }
 
   ngOnInit() {
-    /* le causali vengono passate in @input
-    this.serviceTicketCausali.getCausaliList()
-    .subscribe(
-      res => {
-        this.ticketCausali = res as ticketCausale[];
-        console.log("getCausaliList completed");
-      },
-      err => {
-        console.log("getCausaliList ERROR: ", err);
-      }
-    );
-      */
 
     this.detailForm = this.fb.group({});
     this.detailForm = (this.fb.group({
@@ -133,16 +120,18 @@ export class TicketDetailCardComponent implements OnInit {
     )
   }
 
-  deleteTicketDetail(fg: FormGroup, i){
-    if(fg.controls["id"].value != "0"){
+  deleteTicketDetail(fg: FormGroup){
+    if(fg.controls["id"].value != null && fg.controls["id"].value != "0"){
       this.serviceTicketDetails.deleteTicketDetail(fg.controls["id"].value).subscribe(
         res => {
           this.serviceTicketDetails.refreshList(fg.controls["id"].value);
           //TODO!!!
-          //this.ticketDetailsForms.removeAt(i);          this.ShowMessage("Record cancellato");
+          //this.ticketDetailsForms.removeAt(i);          
+          //this.ShowMessage("Record cancellato");
+          
         },
         err => {
-          console.log(err);
+          console.log("ERRORE: " , err);
           this.ShowMessage("Errore nella cancellazione", 'danger'  );
         }
       )
