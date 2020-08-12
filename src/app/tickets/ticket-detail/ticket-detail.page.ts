@@ -149,12 +149,9 @@ export class TicketDetailPage implements OnInit {
 
     let j=0;
     this.ticketDetails.forEach(element => {
-      console.log(JSON.stringify(element));
-
      console.log("i=", id , "  element.id=", element.id);
      if(element.id == id){
        this.ticketDetails.splice(j,1);
-       console.log("TROVATO: ", j);
      }
      j++;
    }); 
