@@ -29,6 +29,10 @@ export class TicketsHistoryPage implements OnInit {
 
   openDetail(id, slideitem){
     slideitem.close();
+    
+    //AS: come passare al dettaglio il parametro Read-only ??
+    //oppure leggiamo lo stato una volta entrati nel dettaglio ?
+    
     this.router.navigateByUrl('/ticket-detail/' + id);
   }
   openDefault(id){

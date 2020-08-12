@@ -52,7 +52,7 @@
 <ion-content class="ion-padding" #topPage>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addTicketDetailForm()">
+  <ion-fab *ngIf="objTicket.statoTicket!='90'" vertical="bottom" horizontal="end" slot="fixed" (click)="addTicketDetailForm()">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
