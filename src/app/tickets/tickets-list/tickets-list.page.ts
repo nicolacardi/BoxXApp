@@ -15,7 +15,6 @@ import { TicketService } from '../../services/ticket.service';
 export class TicketsListPage implements OnInit {
 
   tickets: ticket[];
-
   loading = true;
 
   constructor(private router: Router, private fb: FormBuilder, private ticketService: TicketService) {

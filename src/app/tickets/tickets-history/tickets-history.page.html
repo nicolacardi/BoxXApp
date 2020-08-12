@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="/tickets"></ion-back-button>
     </ion-buttons>
-    <ion-title>Tickets</ion-title>
+    <ion-title>Storico Ticket</ion-title>
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
@@ -43,36 +44,4 @@
     </ion-item>
   </ion-list>
 
-
-  <!-- Link a storico Ticket -->
-  <ion-row class="bk-white">
-    <ion-col class="ellipsis-container ion-no-padding ion-padding-top ion-padding-end">
-      <ion-card [routerLink]="'/tickets-history'" class="ion-no-margin ion-margin-start ion-card-top-left">
-        <ion-card-header class="ion-card-top-left ion-no-padding ion-padding-start ion-padding-end">
-          <ion-card-title color="light" font="large">
-            <h1 class="ion-no-margin maxi-font">Storico ticket</h1>
-          </ion-card-title>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>  
-  </ion-row>
-
-  <!--
-  <ion-tabs>
-    <ion-tab-bar slot="bottom" color="primary">
-      <ion-tab-button tab="tickets-history">
-        <ion-icon name="pricetags"></ion-icon>
-        <ion-label>Rimborso spese</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="/tickets-history">
-        <ion-icon name="archive"></ion-icon>
-        <ion-label>Storico Ticket</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
--->
-
 </ion-content>
-
-
