@@ -50,6 +50,15 @@ const routes: Routes = [
     path: 'tickets-history',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./tickets/tickets-history/tickets-history.module').then( m => m.TicketsHistoryPageModule)
+  },
+  {
+    path: 'rimborsi-list',
+    loadChildren: () => import('./rimborsi/rimborsi-list/rimborsi-list.module').then( m => m.RimborsiListPageModule)
+  },
+
+  {
+    path: 'rimborsi-card',
+    loadChildren: () => import('./rimborsi/rimborsi-card/rimborsi-card.module').then( m => m.RimborsiCardPageModule)
   }
 
 
