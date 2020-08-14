@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 
 import { todoEvent, ticket } from 'src/app/models/models';
 import { TicketService } from '../../services/ticket.service';
-
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -17,7 +17,10 @@ export class TicketsListPage implements OnInit {
   tickets: ticket[];
   loading = true;
 
-  constructor(private router: Router, private fb: FormBuilder, private ticketService: TicketService) {
+  constructor(private router: Router,
+    private fb: FormBuilder,
+    private ticketService: TicketService,
+    public alertController: AlertController) {
   }
 
   ngOnInit() {
@@ -32,6 +35,19 @@ export class TicketsListPage implements OnInit {
     );
   }
   
+
+
+
+
+  async closeTicket() {
+    const alert = await this.alertController.create({
+      header: 'CHIUSURA TICKET',
+      message: 'Si desidera chiudere il ticket?<br/>(operazione irreversibile)',
+      buttons: ['NO', 'CHIUDI IL TICKET']
+    });
+    await alert.present();
+  }
+
   ionViewDidEnter() {
     /*
     this.loading = true;
