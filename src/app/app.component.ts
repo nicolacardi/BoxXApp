@@ -27,6 +27,11 @@ export class AppComponent {
       icon: "albums"
     },
     {
+      title: "Trasferte",
+      url: "/missions-list",
+      icon: "briefcase"
+    },
+    {
       title: "To Do",
       url: "/todo",
       icon: "menu"

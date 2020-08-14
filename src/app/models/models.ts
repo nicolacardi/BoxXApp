@@ -60,17 +60,15 @@ export interface Customer {
     poi: string;
 }
 
-export interface rimborso{
+export interface mission{
     id: number;
     userID: string;
-    causaleID: number;
-    valutaID: number;
-    ticketID: number;
-    //objTicket: ticket;
-    importo: number;
-    note: string;
-    dt?: Date;
+    descrizione: string;
+    stato: string;
 
-    isClosed: boolean;
+    valutaID: number;
+    dtIns?: Date;
+    dtSub?: Date;
     dtClosed?: Date;
 }
+

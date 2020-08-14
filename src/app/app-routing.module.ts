@@ -57,13 +57,15 @@ const routes: Routes = [
     loadChildren: () => import('./tickets/tickets-history/tickets-history.module').then( m => m.TicketsHistoryPageModule)
   },
   {
-    path: 'rimborsi-list',
-    loadChildren: () => import('./rimborsi/rimborsi-list/rimborsi-list.module').then( m => m.RimborsiListPageModule)
+    path: 'missions-list',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./missions/missions-list/missions-list.module').then( m => m.MissionsListPageModule)
   },
 
   {
-    path: 'rimborsi-card',
-    loadChildren: () => import('./rimborsi/rimborsi-card/rimborsi-card.module').then( m => m.RimborsiCardPageModule)
+    path: 'mission-card',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./missions/mission-card/mission-card.module').then( m => m.MissionCardPageModule)
   }
 
 
