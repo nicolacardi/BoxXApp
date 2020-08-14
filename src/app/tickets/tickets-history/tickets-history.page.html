@@ -1,16 +1,25 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tickets"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Storico Ticket</ion-title>
+    <ion-title>Storico Tickets</ion-title>
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
+
+
+  <ion-segment value="closedtickets">
+    <ion-segment-button value="opentickets">
+      <ion-label>Ticket aperti</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="closedtickets">
+      <ion-label >Storico</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
   <ion-list class="trasparente">
     <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" >

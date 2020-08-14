@@ -24,6 +24,7 @@ const routes: Routes = [
     TicketsListPageRoutingModule,
     RouterModule.forChild(routes)
   ],
+  exports: [RouterModule],
   declarations: [TicketsListPage]
 })
 export class TicketsListPageModule {}

@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { TicketsHistoryPageRoutingModule } from './tickets-history-routing.module';
 import { TicketsHistoryPage } from './tickets-history.page';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { TicketsHistoryPage } from './tickets-history.page';
     IonicModule,
     TicketsHistoryPageRoutingModule
   ],
+  exports: [RouterModule],
   declarations: [TicketsHistoryPage]
 })
 export class TicketsHistoryPageModule {}

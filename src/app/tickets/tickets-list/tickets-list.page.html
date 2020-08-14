@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Lista Ticket</ion-title>
+    <ion-title>Ticket Aperti</ion-title>
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
 </ion-header>
@@ -11,22 +11,31 @@
 <ion-content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
-  <ion-list class="trasparente">
-    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" >
+  <ion-segment value="opentickets" >
+    <ion-segment-button value="opentickets">
+      <ion-label>Ticket aperti</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="closedtickets">
+      <ion-label [routerLink]="'/tickets-history'" animation="no-animation">Storico</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-      <ion-card style="width: 100%!important;" (click)="openDefault(objTicket.id)"  >
+  <ion-list class="trasparente">
+    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none">
+
+      <ion-card style="width: 100%!important;" (click)="openDefault(objTicket.id)">
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
             <ion-item-option>
               <ion-icon name="star"></ion-icon>
             </ion-item-option>
           </ion-item-options>
-          <ion-item lines="none" >
+          <ion-item lines="none">
             <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
               <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
-              [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>
-            <ion-card-subtitle>Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
-            <ion-card-title class="grassetto">{{objTicket.n_Ticket}}</ion-card-title>
+                [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>
+              <ion-card-subtitle>Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
+              <ion-card-title class="grassetto">{{objTicket.n_Ticket}}</ion-card-title>
               <ion-label class="ion-padding-start ion-padding-end stato-tipo" style="float:right">
                 {{objTicket.statoTicket}} </ion-label>
               <ion-label>Cliente: <span class="grassetto">{{objTicket.customer.ragsoc}}</span> </ion-label>
@@ -36,7 +45,8 @@
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option color="medium" class="w-40px"><span class="rotated-text">RICAMBI</span></ion-item-option>
-            <ion-item-option (click)="openDetail(objTicket.id, slideitem)" class="w-40px"><span class="rotated-text">ATTIVITA'</span></ion-item-option>
+            <ion-item-option (click)="openDetail(objTicket.id, slideitem)" class="w-40px"><span
+                class="rotated-text">ATTIVITA'</span></ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </ion-card>
@@ -45,7 +55,7 @@
 
 
   <!-- Link a storico Ticket -->
-  <ion-row class="bk-white">
+  <!-- <ion-row class="bk-white">
     <ion-col class="ellipsis-container ion-no-padding ion-padding-top ion-padding-end">
       <ion-card [routerLink]="'/tickets-history'" class="ion-no-margin ion-margin-start ion-card-top-left">
         <ion-card-header class="ion-card-top-left ion-no-padding ion-padding-start ion-padding-end">
@@ -54,8 +64,10 @@
           </ion-card-title>
         </ion-card-header>
       </ion-card>
-    </ion-col>  
-  </ion-row>
+    </ion-col>
+  </ion-row> -->
+
+
 
   <!--
   <ion-tabs>
@@ -74,5 +86,3 @@
 -->
 
 </ion-content>
-
-

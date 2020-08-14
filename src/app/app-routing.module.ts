@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuardService } from './services/authGuard.service';
 
 const routes: Routes = [
@@ -36,10 +36,15 @@ const routes: Routes = [
     loadChildren: () => import('./todo-detail/todo-detail.module').then( m => m.TodoDetailPageModule)
   },
 
-  {
-    path: 'tickets',
+  // {
+  //   path: 'tickets',
+  //   canActivate: [AuthGuardService],
+  //   loadChildren: () => import('./tickets/tickets-list/tickets-list.module').then( m => m.TicketsListPageModule)
+  // },
+    {
+    path: 'tabs',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./tickets/tickets-list/tickets-list.module').then( m => m.TicketsListPageModule)
+    loadChildren: () => import('./tickets/tickets-tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
     path: 'ticket-detail/:id',
@@ -83,7 +88,8 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  //imports: [RouterModule.forRoot(routes)], NC per provare tabs
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
