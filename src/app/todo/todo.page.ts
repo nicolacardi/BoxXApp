@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@angular/forms';
-
-import { todoEvent } from 'src/app/models/models';
-import { TodoEventsService } from 'src/app/services/todoevents.service';
 import { Router } from "@angular/router";
 import { IonContent } from '@ionic/angular';
+
+import { todoEvent } from 'src/app/_models/models';
+import { TodoEventsService } from 'src/app/_services/todoevents.service';
 
 
 @Component({

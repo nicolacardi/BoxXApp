@@ -4,20 +4,17 @@ import { NgForm } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AuthenticationService } from "../../services/authentication.service";
-import { UserService } from 'src/app/services/user.service';
+import { AuthenticationService } from "../../_services/authentication.service";
+import { UserService } from 'src/app/_services/user.service';
 
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.page.html",
   styleUrls: ['../public.page.scss']
-  //styleUrls: ["./login.page.scss"]
 })
 
 export class LoginPage implements OnInit {
-
-
 
   public loading = false;
   formModel = {

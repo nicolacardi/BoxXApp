@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { currentUser } from '../models/models';
-import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastController } from '@ionic/angular';
+
+import { environment } from 'src/environments/environment';
+import { currentUser } from '../_models/models';
 
 
 @Injectable({
@@ -104,6 +105,4 @@ export class UserService {
         confirmPasswordCtrl.setErrors(null);
     }
   }
-
-
 }

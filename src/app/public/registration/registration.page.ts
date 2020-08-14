@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-
 import { ToastController } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { AuthenticationService } from "../../services/authentication.service";
-import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+
+import { AuthenticationService } from "../../_services/authentication.service";
+import { UserService } from 'src/app/_services/user.service';
+
 
 
 @Component({

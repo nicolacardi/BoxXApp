@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TicketService } from 'src/app/services/ticket.service';
-import { ticket } from 'src/app/models/models';
+
+import { TicketService } from 'src/app/_services/ticket.service';
+import { ticket } from 'src/app/_models/models';
 
 @Component({
   selector: 'app-ticket-history',

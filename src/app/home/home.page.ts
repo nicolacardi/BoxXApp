@@ -1,16 +1,19 @@
 import { Component, ViewChild } from "@angular/core";
 import { Chart } from 'chart.js';
 
-import { TodoEventsService } from '../services/todoevents.service';
-import { todoEvent } from '../models/models';
-import { TicketService } from '../services/ticket.service';
+import { todoEvent } from '../_models/models';
+
+import { TicketService } from '../_services/ticket.service';
+import { TodoEventsService } from '../_services/todoevents.service';
 
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
   styleUrls: ["home.page.scss"]
 })
+
 export class HomePage {
+  
   constructor(private ticketService: TicketService, private todoEventsService: TodoEventsService  ) { }
 
   @ViewChild('barChart', { static: false }) barChart;

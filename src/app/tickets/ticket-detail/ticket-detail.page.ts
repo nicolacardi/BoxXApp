@@ -3,12 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { ToastController, IonContent } from '@ionic/angular';
 
-import { ticket, ticketDetail, ticketCausale } from '../../models/models';
-import { TicketService } from '../../services/ticket.service';
-import { TicketDetailService } from '../../services/ticket-detail.service';
-import { TicketCausaliService } from '../../services/ticket-causali.service';
+import { ticket, ticketDetail, ticketCausale } from '../../_models/models';
+import { TicketService } from '../../_services/ticket.service';
+import { TicketDetailService } from '../../_services/ticket-detail.service';
+import { TicketCausaliService } from '../../_services/ticket-causali.service';
 import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-card.component';
-import { take } from 'rxjs/operators';
 
 
 @Component({

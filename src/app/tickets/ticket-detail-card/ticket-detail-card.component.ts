@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { ticketDetail, ticketCausale } from '../../models/models';
+import { ticketDetail, ticketCausale } from '../../_models/models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { TicketCausaliService } from '../../services/ticket-causali.service';
-import { TicketDetailService } from '../../services/ticket-detail.service';
 import { ToastController } from '@ionic/angular';
+
+import { TicketDetailService } from '../../_services/ticket-detail.service';
 
 @Component({
   selector: 'app-ticket-detail-card',
@@ -84,23 +84,11 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
 
     this.serviceTicketDetails.postTicketDetail().subscribe(
       res => {
-        //this.resetForm(form);
-        
-        //fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
-        console.log("POST result: ",JSON.stringify(res));
-
-        
         fg.patchValue({id: (res as ticketDetail).id});
-
-        console.log("fg.value: " , fg.get("id").value);
-
-        //fg.get("id").value = this.serviceTicketDetails.formData.id ;
-        
         //AS!!!
         this.localTicketDetail.id = (res as ticketDetail).id;
 
-
-        this.ShowMessage("Record inserito");
+        this.ShowMessage("Dato salvato");
       },
       err => {
         console.log(err);
@@ -125,7 +113,7 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
         //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
         //this.resetForm(form);
 
-        this.ShowMessage("Record aggiornato");
+        this.ShowMessage("Dato salvato");
       },
       err => {
         console.log(err);
@@ -139,13 +127,9 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
       this.serviceTicketDetails.deleteTicketDetail(fg.controls["id"].value).subscribe(
         res => {
           this.serviceTicketDetails.refreshList(fg.controls["id"].value);
-          //TODO!!!
-          //this.ticketDetailsForms.removeAt(i);  
-          
           this.removedDetail.emit(fg.controls["id"].value);
 
           //this.ShowMessage("Record cancellato");
-          
         },
         err => {
           console.log("ERRORE: " , err);
@@ -158,11 +142,6 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
       //this.ticketDetailsForms.removeAt(i);
     }
   }
-
-  
-
-
-
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;

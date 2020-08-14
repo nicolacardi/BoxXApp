@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-
-import { mission, ticket } from 'src/app/models/models';
-import { MissionService } from '../../services/mission.service';
 import { AlertController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
+
+import { mission, ticket } from 'src/app/_models/models';
+import { MissionService } from '../../_services/mission.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-missions-list',
@@ -44,6 +45,43 @@ export class MissionsListPage implements OnInit {
     await alert.present();
   }
 
+  async deleteMission(id) {
+
+    let retValue: boolean;
+
+    const alert = await this.alertController.create({
+      header: 'CANCELLAZIONE TRASFERTA',
+      message: 'Si desidera cancellare la trasferta?<br/>(operazione irreversibile)',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel'
+        },
+        {
+          text: 'CANCELLA LA TRASFERTA',
+          handler: () => {
+            this.missionService.deleteMission(id).subscribe(
+              res=>{
+
+                let j=0;
+                this.missions.forEach(element => {
+                  if(element.id == id){
+                    this.missions.splice(j,1);
+                  }
+                  j++;
+                }); 
+              },
+              err=>{
+                console.log('ERRORE IN CANCELLAZIONE');
+              }
+            )
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   openDetail(id, slideitem){
     slideitem.close();
     this.router.navigateByUrl('/mission-detail/' + id);
@@ -53,6 +91,19 @@ export class MissionsListPage implements OnInit {
   }
 
   addMission(){
-    this.missionService.postMission();
+    this.missionService.postMission().subscribe(
+      res  => {
+        this.missions.push(
+          { id:(res as mission).id, userID: (res as mission).userID, descrizione: null, stato: 'I', valutaID:1, dtIns: new Date() , dtSub:null, dtClosed:null }
+        )
+        
+        //this.ShowMessage("Dato salvato");
+      },
+      err => {
+        console.log(err);
+        //this.ShowMessage("Errore nel salvataggio",'danger');
+       }
+    )
+    // this.topPage.scrollToTop();
   }
 }

@@ -4,9 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import {  currentUser, mission } from '../models/models';
-import { JsonPipe } from '@angular/common';
-import { catchError, map } from 'rxjs/operators';
+import {  currentUser, mission } from '../_models/models';
 
 
 @Injectable({
@@ -36,6 +34,8 @@ export class MissionService {
 
   postMission(){
 
+    console.log("postMission");
+
     this.currUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.formData ={
@@ -48,62 +48,20 @@ export class MissionService {
       'dtSub': null,
       'dtClosed': null
     };
-
-    // this.formData.id=0;
-    // this.formData.userID= this.currUser.userID;
-    // this.formData.descrizione=null;
-    // this.formData.stato = "I";
-    // this.formData.valutaID =1;
-    // this.formData.dtIns = null;
-    // this.formData.dtSub = null;
-    // this.formData.dtClosed = null;
     
-/*
-    let newMission = {
-      "id": 0,
-      "userID": this.currUser.userID,
-      "descrizione": null,
-      "stato": "I",
-      "valutaID": 1,
-      "dtIns": null,
-      "dtSub": null,
-      "dtClosed": null
-    } ;
-*/
-    //console.log("DEBUG: " ,environment.apiBaseUrl   + '/Missions/' , this.formData );
-    //return this.http.post( environment.apiBaseUrl   + '/Missions' , this.currUser.userID );
-    //{responseType: 'text' }
-    //let test_this = { 'id': 0,  'userID': "75b01815-1282-4459-bbf5-61bc877a9100", 'stato': "I", 'valutaID': 1 };
-    //console.log("DEBUG:  test_this" ,JSON.stringify(test_this) );
-    // return this.http.post( environment.apiBaseUrl   + '/Missions' ,JSON.stringify( test_this), httpOptions);
-    //return this.http.post<mission>(environment.apiBaseUrl   + '/Missions', newMission, httpOptions)
-    //return this.http.post(environment.apiBaseUrl   + '/Missions', this.currUser.userID, httpOptions);
-    /*
-    .pipe(
-      catchError(this.handleError)
-    );
-*/
-                    //https://www.youtube.com/watch?v=74X18AoZ2Gk
-                    // let mypostData = {
-                    //   test: 'miodato'
-                    // }
-                    
-                    // let myURL = 'http://httpbin.org/post';
-                    // this.http.post(myURL, mypostData).toPromise().then( (data:any) => {
-                    //   console.log(data);
-                    //   let myjson=data.json;
-                    // });
-
   // return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).toPromise().then( data => {
   //   console.log("RITORNO DA PROMISE:",data);
   // });
-  //   console.log("FINITO");
-  return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).subscribe(
-    res   => {
-      console.log(res);
-    }
-  );
-    /*
+  // return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).subscribe(
+  //   res   => {
+  //     console.log(res);
+  //   }
+  // );
+
+  //AS
+  return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData);
+
+  /*
     .pipe(
       catchError(this.handleError('postMission'))
     );
