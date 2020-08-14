@@ -19,6 +19,9 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
   @Input()            
   ticketCausali: ticketCausale[];
   
+  @Input()            
+  statoTicket : string;
+
   @Output() removedDetail = new EventEmitter();
 
 

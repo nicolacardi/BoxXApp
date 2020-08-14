@@ -59,3 +59,18 @@ export interface Customer {
     nazione: string;
     poi: string;
 }
+
+export interface rimborso{
+    id: number;
+    userID: string;
+    causaleID: number;
+    valutaID: number;
+    ticketID: number;
+    //objTicket: ticket;
+    importo: number;
+    note: string;
+    dt?: Date;
+
+    isClosed: boolean;
+    dtClosed?: Date;
+}
