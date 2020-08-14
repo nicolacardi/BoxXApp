@@ -23,7 +23,7 @@ export class AppComponent {
     },
     {
       title: "Tickets",
-      url: "/tickets",
+      url: "/tabs",
       icon: "albums"
     },
     {
