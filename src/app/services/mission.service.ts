@@ -36,29 +36,27 @@ export class MissionService {
 
   postMission(){
 
-    console.log("posMission - start");
-
     this.currUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.formData ={
       'id': 0,
-      'userID': null,
+      'userID': this.currUser.userID,
       'descrizione': null,
-      'stato':null,
-      'valutaID': 0,
+      'stato':"I",
+      'valutaID': 1,
       'dtIns': null,
       'dtSub': null,
       'dtClosed': null
-    }
+    };
 
-    this.formData.id=0;
-    this.formData.userID= this.currUser.userID;
-    this.formData.descrizione=null;
-    this.formData.stato = "I";
-    this.formData.valutaID =1;
-    this.formData.dtIns = null;
-    this.formData.dtSub = null;
-    this.formData.dtClosed = null;
+    // this.formData.id=0;
+    // this.formData.userID= this.currUser.userID;
+    // this.formData.descrizione=null;
+    // this.formData.stato = "I";
+    // this.formData.valutaID =1;
+    // this.formData.dtIns = null;
+    // this.formData.dtSub = null;
+    // this.formData.dtClosed = null;
     
 /*
     let newMission = {
@@ -72,53 +70,39 @@ export class MissionService {
       "dtClosed": null
     } ;
 */
-
-
-//    console.log("json: ", JSON.stringify(newMission));
- //   console.log( environment.apiBaseUrl   + '/Missions/',newMission);
- //   console.log("STRINGIFY: ",  environment.apiBaseUrl   + '/Missions/', JSON.stringify(newMission));
-
-  console.log("DEBUG: " ,environment.apiBaseUrl   + '/Missions/' , this.formData );
-
+    //console.log("DEBUG: " ,environment.apiBaseUrl   + '/Missions/' , this.formData );
     //return this.http.post( environment.apiBaseUrl   + '/Missions' , this.currUser.userID );
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        
-        //'Content-Type': 'application/x-www-form-urlencoded',
-        
-        Authorization: localStorage.getItem('token') 
-      })
-    };
-
     //{responseType: 'text' }
-
-    let test_this = { 'id': 0,  'userID': "75b01815-1282-4459-bbf5-61bc877a9100", 'stato': "I", 'valutaID': 1 };
-    console.log("DEBUG:  test_this" ,JSON.stringify(test_this) );
-
-    //return this.http.post( environment.apiBaseUrl   + '/Missions' , this.formData, httpOptions);
-    
-    //return this.http.post( environment.apiBaseUrl   + '/Missions' , JSON.stringify(test_this), httpOptions)
-    //  .pipe(map((res:Response) => (res.text())));
-    
-
-      return this.http.post( environment.apiBaseUrl   + '/Missions' ,JSON.stringify( test_this), httpOptions);
-      
-
-   
-
-    
+    //let test_this = { 'id': 0,  'userID': "75b01815-1282-4459-bbf5-61bc877a9100", 'stato': "I", 'valutaID': 1 };
+    //console.log("DEBUG:  test_this" ,JSON.stringify(test_this) );
+    // return this.http.post( environment.apiBaseUrl   + '/Missions' ,JSON.stringify( test_this), httpOptions);
     //return this.http.post<mission>(environment.apiBaseUrl   + '/Missions', newMission, httpOptions)
-    return this.http.post(environment.apiBaseUrl   + '/Missions', this.currUser.userID, httpOptions);
-
+    //return this.http.post(environment.apiBaseUrl   + '/Missions', this.currUser.userID, httpOptions);
     /*
     .pipe(
       catchError(this.handleError)
     );
 */
-    console.log("FINITO");
+                    //https://www.youtube.com/watch?v=74X18AoZ2Gk
+                    // let mypostData = {
+                    //   test: 'miodato'
+                    // }
+                    
+                    // let myURL = 'http://httpbin.org/post';
+                    // this.http.post(myURL, mypostData).toPromise().then( (data:any) => {
+                    //   console.log(data);
+                    //   let myjson=data.json;
+                    // });
 
+  // return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).toPromise().then( data => {
+  //   console.log("RITORNO DA PROMISE:",data);
+  // });
+  //   console.log("FINITO");
+  return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).subscribe(
+    res   => {
+      console.log(res);
+    }
+  );
     /*
     .pipe(
       catchError(this.handleError('postMission'))

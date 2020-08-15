@@ -54,6 +54,5 @@ export class MissionsListPage implements OnInit {
 
   addMission(){
     this.missionService.postMission();
-
   }
 }

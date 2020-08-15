@@ -11,20 +11,10 @@
 <ion-content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
+  <ion-list class="trasparente ion-no-padding">
+    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
 
-  <!-- <ion-segment value="closedtickets">
-    <ion-segment-button value="opentickets">
-      <ion-label>Ticket aperti</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="closedtickets">
-      <ion-label >Storico</ion-label>
-    </ion-segment-button>
-  </ion-segment> -->
-
-  <ion-list class="trasparente">
-    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" >
-
-      <ion-card style="width: 100%!important;" (click)="openDefault(objTicket.id)"  >
+      <ion-card style="width: 100%!important;" class="my-margins" (click)="openDefault(objTicket.id)"  >
         <ion-item-sliding #slideitem>
 
           <ion-item lines="none" >

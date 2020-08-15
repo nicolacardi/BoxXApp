@@ -18,18 +18,17 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list class="trasparente">
-    
-    <ion-item *ngFor="let obj of missions; let i=index;" lines="none">
+  <ion-list class="trasparente ion-no-padding">
+    <ion-item *ngFor="let obj of missions; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
 
-      <ion-card style="width: 100%!important;" >
+      <ion-card style="width: 100%!important;" class="my-margins">
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
             <ion-item-option (click)="closeMission()">
               <ion-icon src="../../assets/ionicicons/complete.svg" size="large"></ion-icon>
             </ion-item-option>
           </ion-item-options>
-          <ion-item lines="none">
+          <ion-item lines="none" >
             <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
 
               <ion-card-subtitle>Data: {{obj.dtIns| date: 'dd/MM/yyyy'}}</ion-card-subtitle>

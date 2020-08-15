@@ -21,7 +21,7 @@
   <form [formGroup]="fgroup" *ngFor="let fgroup of todoEventsForms.controls; let i=index;">
     
       
-    <ion-card class="ion-no-margin ion-margin-bottom ion-padding-start">
+    <ion-card class="ion-no-margin ion-margin-bottom ">
       
       <ion-item-sliding #slideitem>
         <!-- <ion-item-options side="start">
@@ -34,7 +34,7 @@
           <ion-list class="ion-no-margin">
             <ion-row>
              
-              <ion-col size="1" class="ion-padding-top">
+              <ion-col size="1" class="ion-no-padding ion-padding-top">
                 <ion-checkbox #Chiuso formControlName="isClosed" color="danger" (ionChange)="onChange(fgroup)">
                 </ion-checkbox>
               </ion-col>

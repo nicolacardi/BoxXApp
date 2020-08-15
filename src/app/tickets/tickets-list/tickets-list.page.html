@@ -8,29 +8,21 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
-  <!-- <ion-segment value="opentickets" >
-    <ion-segment-button value="opentickets">
-      <ion-label>Ticket aperti</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="closedtickets">
-      <ion-label [routerLink]="'/tickets-history'" animation="no-animation">Storico</ion-label>
-    </ion-segment-button>
-  </ion-segment> -->
+  <ion-list class="trasparente ion-no-padding">
+    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
 
-  <ion-list class="trasparente">
-    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none">
-
-      <ion-card style="width: 100%!important;" >
+      <ion-card style="width: 100%!important;" class="my-margins" >
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
             <ion-item-option (click)="closeTicket()">
               <ion-icon src="../../assets/ionicicons/complete.svg" size="large"></ion-icon>
             </ion-item-option>
           </ion-item-options>
-          <ion-item lines="none">
+          <ion-item lines="none" >
             <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
               <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
                 [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>

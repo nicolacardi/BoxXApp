@@ -1,0 +1,42 @@
+ion-spinner {
+    display: block;
+    margin: auto;
+    top: 50%;
+}
+
+ion-content{
+    --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
+    background-size: cover;
+}
+
+.sc-ion-card-ios-h, .sc-ion-card-md-h {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+ion-card {
+    --background: white;
+    margin-bottom: 8px !important;
+    border: 1px #b1b1b1 solid;
+}
+
+.trasparente {
+    --ion-item-background: transparent !important;
+}
+
+.my-margins{
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.rotated-text {
+    transform: rotate(-90deg) !important;
+}
+
+.w-40px{
+    width: 50px;
+}
+
+ion-item-option{
+    font-weight: bold;
+}
