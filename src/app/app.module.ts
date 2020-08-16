@@ -11,7 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { UserService } from './services/user.service';
+import { UserService } from './_services/user.service';
 import { Camera } from '@ionic-native/camera/ngx';
 
 
