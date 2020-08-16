@@ -62,12 +62,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () => import('./missions/missions-list/missions-list.module').then( m => m.MissionsListPageModule)
   },
-
   {
-    path: 'mission-card',
-    canActivate: [AuthGuardService],
-    loadChildren: () => import('./missions/mission-card/mission-card.module').then( m => m.MissionCardPageModule)
-  }
+    path: 'mission-details/:id',
+    loadChildren: () => import('./missions/mission-details/mission-details.module').then( m => m.MissionDetailsPageModule)
+  } 
+
 
 
 ];

@@ -72,3 +72,43 @@ export interface mission{
     dtClosed?: Date;
 }
 
+
+export interface missionDetail{
+    id: number;
+    missionID: number;
+
+    causaleID: number;
+    objCausale: missionCausale;
+
+    valutaID: number;
+    objValuta: currency;
+
+    ticketID: number;
+    objTicket: ticket;
+
+    tipoPagamento: string;
+    importo: number;
+    dt: Date;
+
+    stato: string;
+    note: string;
+
+    dtIns: Date;
+    dtSub: Date;
+    dtClosed: Date;
+}
+
+
+export interface missionCausale{
+    id: number;
+    causaleDesc: string;
+    seq: number;
+}
+
+export interface currency{
+    id: number;
+    codice: string;
+    descrizione: string;
+}
+	 
+ 

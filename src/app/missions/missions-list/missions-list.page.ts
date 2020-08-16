@@ -84,10 +84,10 @@ export class MissionsListPage implements OnInit {
 
   openDetail(id){
     //slideitem.close();
-    this.router.navigateByUrl('/mission-detail/' + id);
+    this.router.navigateByUrl('/mission-details/' + id);
   }
   openDefault(id){
-    this.router.navigateByUrl('/mission-detail/' + id);
+    this.router.navigateByUrl('/mission-details/' + id);
   }
 
   addMission(){

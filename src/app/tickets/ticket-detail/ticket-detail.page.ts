@@ -15,17 +15,16 @@ import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-c
   templateUrl: './ticket-detail.page.html',
   styleUrls: ['../tickets.scss'],
 })
+
 export class TicketDetailPage implements OnInit {
 
   @ViewChild('topPage', { static: false }) topPage: IonContent;
-
   removedDetail:any;
 
   //Data di default impostata in testata (opzionale)  
   dtDefault: Date;
 
   public totCards: number;
-
   public Ore: number;
   public Minuti: number;
 
@@ -47,7 +46,7 @@ export class TicketDetailPage implements OnInit {
   //ticketDetailsForms: FormArray = this.fb.array([]);
 
   ngOnInit() {
-    //init oggetto
+    //init oggetto [ticket]
     if (this.objTicket == null) {
       this.objTicket = {
         id: 0,
@@ -88,9 +87,6 @@ export class TicketDetailPage implements OnInit {
     let totOre: number = 0;
     let totMinuti: number = 0;
     this.totCards = 0;
-    //this.totOre=0;
-    //this.totMinuti=0;
-
     
     //this.ticketDetailsForms.clear();
     this.serviceTicketDetails.getTicketDetailList(this.ticketID).subscribe(
@@ -111,22 +107,6 @@ export class TicketDetailPage implements OnInit {
 
             var mins = Math.floor(diffInMs / 60000);
             totMinuti += mins;
-
-            // console.log("diffInMs: ", diffInMs.toString());
-            // console.log("Mins: ", mins.toString());
-            // console.log("totMinuti: " + totMinuti.toString());
-/*
-            this.ticketDetailsForms.push(this.fb.group({
-              id: [detail.id],
-              ticketID: [detail.ticketID],
-              causaleID: [detail.causaleID],
-              dt: [detail.dt],
-              h_Ini: [detail.h_Ini],
-              h_End: [detail.h_End],
-              note: [detail.note]
-            })
-            );
-            */
           });
           this.Minuti = totMinuti % 60;
           this.Ore = Math.floor(totMinuti / 60) % 24;

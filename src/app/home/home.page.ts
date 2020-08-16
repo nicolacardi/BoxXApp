@@ -12,13 +12,13 @@ import { TodoEventsService } from '../_services/todoevents.service';
   styleUrls: ["home.page.scss"]
 })
 
+//,public camera: Camera 
 export class HomePage {
   constructor(
     private ticketService: TicketService,
     private todoEventsService: TodoEventsService
-    //,public camera: Camera   
     ) {
-
+      
   }
 
   @ViewChild('barChart', { static: false }) barChart;
