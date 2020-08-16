@@ -2,11 +2,8 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { ticketDetail, ticketCausale } from '../../_models/models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { TicketDetailService } from 'src/app/_services/ticket-detail.service';
 
-<<<<<<< HEAD
-=======
-import { TicketDetailService } from '../../_services/ticket-detail.service';
->>>>>>> b545e1579c27ac388fd7d738ba1f1d9ac7f602b3
 
 @Component({
   selector: 'app-ticket-detail-card',
