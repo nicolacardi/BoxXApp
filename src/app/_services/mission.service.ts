@@ -44,7 +44,7 @@ export class MissionService {
       'descrizione': null,
       'stato':"I",
       'valutaID': 1,
-      'dtIns': null,
+      'dtIns': new Date() ,
       'dtSub': null,
       'dtClosed': null
     };

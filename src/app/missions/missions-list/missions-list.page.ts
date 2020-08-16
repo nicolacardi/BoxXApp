@@ -82,8 +82,8 @@ export class MissionsListPage implements OnInit {
     await alert.present();
   }
 
-  openDetail(id, slideitem){
-    slideitem.close();
+  openDetail(id){
+    //slideitem.close();
     this.router.navigateByUrl('/mission-detail/' + id);
   }
   openDefault(id){
@@ -94,7 +94,7 @@ export class MissionsListPage implements OnInit {
     this.missionService.postMission().subscribe(
       res  => {
         this.missions.push(
-          { id:(res as mission).id, userID: (res as mission).userID, descrizione: null, stato: 'I', valutaID:1, dtIns: new Date() , dtSub:null, dtClosed:null }
+          { id:(res as mission).id, userID: (res as mission).userID, descrizione: null, stato: 'I', valutaID:1, dtIns: (res as mission).dtIns , dtSub:null, dtClosed:null }
         )
         
         //this.ShowMessage("Dato salvato");
