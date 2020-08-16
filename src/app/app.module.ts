@@ -12,8 +12,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { UserService } from './services/user.service';
-
-
+import { Camera } from '@ionic-native/camera/ngx';
 
 
 @NgModule({
@@ -25,12 +24,13 @@ import { UserService } from './services/user.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     UserService,
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 
   ],

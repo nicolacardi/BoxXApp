@@ -5,6 +5,7 @@ import { TicketCausaliService } from '../../services/ticket-causali.service';
 import { TicketDetailService } from '../../services/ticket-detail.service';
 import { ToastController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-ticket-detail-card',
   templateUrl: './ticket-detail-card.component.html',
@@ -29,7 +30,8 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
   
   constructor( private fb: FormBuilder    
     , public serviceTicketDetails: TicketDetailService
-    , public toastController: ToastController) {
+    , public toastController: ToastController
+    ) {
      
   }
 
@@ -178,4 +180,6 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
     });
     toast.present();
   }
+
+
 }
