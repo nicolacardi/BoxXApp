@@ -2,8 +2,8 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { ticketDetail, ticketCausale } from '../../_models/models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { TicketDetailService } from 'src/app/_services/ticket-detail.service';
 
-import { TicketDetailService } from '../../_services/ticket-detail.service';
 
 @Component({
   selector: 'app-ticket-detail-card',
@@ -29,7 +29,8 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
   
   constructor( private fb: FormBuilder    
     , public serviceTicketDetails: TicketDetailService
-    , public toastController: ToastController) {
+    , public toastController: ToastController
+    ) {
      
   }
 
@@ -157,4 +158,6 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
     });
     toast.present();
   }
+
+
 }

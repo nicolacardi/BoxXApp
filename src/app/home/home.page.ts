@@ -1,6 +1,8 @@
 import { Component, ViewChild } from "@angular/core";
 import { Chart } from 'chart.js';
 
+
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { todoEvent } from '../_models/models';
 
 import { TicketService } from '../_services/ticket.service';
@@ -13,8 +15,11 @@ import { TodoEventsService } from '../_services/todoevents.service';
 })
 
 export class HomePage {
-  
-  constructor(private ticketService: TicketService, private todoEventsService: TodoEventsService  ) { }
+  constructor(
+    private ticketService: TicketService,
+    private todoEventsService: TodoEventsService,
+    public camera: Camera   
+      ) { }
 
   @ViewChild('barChart', { static: false }) barChart;
   @ViewChild('pieChart', { static: false }) pieChart;
@@ -193,4 +198,35 @@ export class HomePage {
 
   //   });
   // }
+
+  public immagine: any;
+  takePicture() {
+    const options: CameraOptions = {
+      quality: 70,
+      //destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    //this.immagine = await this.camera.getPicture(options); //richiede async
+    //alert (this.immagine);
+     this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      this.immagine = 'data:image/jpeg;base64,' + imageData;
+      //this.immagine = imageData;
+      //alert (this.immagine);
+     }, (err) => {
+      // Handle error
+     });
+  }
+
+
+
+  //after that implement into the container
+
+
+
+
 }
