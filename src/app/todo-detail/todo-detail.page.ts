@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TodoEventsService } from '../services/todoevents.service';
-import { todoEvent } from '../models/models';
-import { stringify } from 'querystring';
+
+import { TodoEventsService } from '../_services/todoevents.service';
+import { todoEvent } from '../_models/models';
 
 @Component({
   selector: 'app-todo-detail',

@@ -10,9 +10,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+<<<<<<< HEAD
 
 import { UserService } from './services/user.service';
 import { Camera } from '@ionic-native/camera/ngx';
+=======
+import { UserService } from './_services/user.service';
+>>>>>>> b545e1579c27ac388fd7d738ba1f1d9ac7f602b3
 
 
 @NgModule({

@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addMission()">
@@ -22,11 +22,11 @@
       <ion-card style="width: 100%!important;" class="my-margins">
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
-            <ion-item-option (click)="closeMission()">
-              <ion-icon src="../../assets/ionicicons/complete.svg" size="large"></ion-icon>
+            <ion-item-option (click)="deleteMission(obj.id)">
+              <ion-icon src="../../assets/ionicicons/trash-outline.svg" size="large"></ion-icon>
             </ion-item-option>
           </ion-item-options>
-          <ion-item lines="none">
+          <ion-item lines="none"  (click)="openDetail(obj.id)">
             <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
               <ion-card-subtitle>Data: {{obj.dtIns| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
               <ion-card-title class="grassetto">Trasferta n° {{obj.id}}</ion-card-title>
@@ -37,12 +37,18 @@
             </ion-card-content>
           </ion-item>
           <ion-item-options side="end">
+            <!--
             <ion-item-option color="medium" class="w-40px">
               <span class="rotated-text">RICAMBI</span>
             </ion-item-option>
             <ion-item-option (click)="openDetail(obj.id, slideitem)" class="w-40px">
               <span class="rotated-text">ATTIVITA'</span>
             </ion-item-option>
+          -->
+            <ion-item-option (click)="openDetail(obj.id)">
+              <ion-icon src="../../assets/ionicicons/complete.svg" size="large"></ion-icon>
+            </ion-item-option>
+
           </ion-item-options>
         </ion-item-sliding>
       </ion-card>

@@ -1,22 +1,35 @@
 import { Component, ViewChild } from "@angular/core";
 import { Chart } from 'chart.js';
 
+<<<<<<< HEAD
 import { TodoEventsService } from '../services/todoevents.service';
 import { todoEvent } from '../models/models';
 import { TicketService } from '../services/ticket.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+=======
+import { todoEvent } from '../_models/models';
+
+import { TicketService } from '../_services/ticket.service';
+import { TodoEventsService } from '../_services/todoevents.service';
+>>>>>>> b545e1579c27ac388fd7d738ba1f1d9ac7f602b3
 
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
   styleUrls: ["home.page.scss"]
 })
+
 export class HomePage {
+<<<<<<< HEAD
   constructor(
     private ticketService: TicketService,
     private todoEventsService: TodoEventsService,
     public camera: Camera   
       ) { }
+=======
+  
+  constructor(private ticketService: TicketService, private todoEventsService: TodoEventsService  ) { }
+>>>>>>> b545e1579c27ac388fd7d738ba1f1d9ac7f602b3
 
   @ViewChild('barChart', { static: false }) barChart;
   @ViewChild('pieChart', { static: false }) pieChart;

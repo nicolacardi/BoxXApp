@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
-
-import { todoEvent, ticket } from 'src/app/models/models';
-import { TicketService } from '../../services/ticket.service';
 import { AlertController } from '@ionic/angular';
 
+import { todoEvent, ticket } from 'src/app/_models/models';
+import { TicketService } from '../../_services/ticket.service';
 
 @Component({
   selector: 'app-tickets-list',
