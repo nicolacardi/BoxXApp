@@ -44,3 +44,22 @@ ion-item-option{
 .grassetto {
     font-weight: bold;
 }
+
+.tipostatoC{
+    background-color: #0ccd59;
+}
+
+.tipostatoI{
+    background-color: rgb(215, 0, 0);
+}
+
+.label-tipo{
+    border-radius: 4px;
+    color: white;
+}
+
+ion-card-content {
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}

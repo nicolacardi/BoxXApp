@@ -28,12 +28,11 @@
           </ion-item-options>
           <ion-item lines="none"  (click)="openDetail(obj.id)">
             <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
+              <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
+              [ngClass]="'tipostato'+obj.stato">{{obj.stato}} </ion-label>
               <ion-card-subtitle>Data: {{obj.dtIns| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
               <ion-card-title class="grassetto">Trasferta n° {{obj.id}}</ion-card-title>
               <ion-label>{{obj.descrizione}}</ion-label>
-              <ion-label class="ion-padding-start ion-padding-end stato-tipo" style="float:right">
-                Stato: {{obj.stato}}
-              </ion-label>
             </ion-card-content>
           </ion-item>
           <ion-item-options side="end">

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
-import { IonContent } from '@ionic/angular';
+import { IonContent, AlertController } from '@ionic/angular';
 
 import { todoEvent } from 'src/app/_models/models';
 import { TodoEventsService } from 'src/app/_services/todoevents.service';
@@ -23,7 +23,11 @@ export class TodoPage implements OnInit {
 
   titoloChanged: any;
 
-  constructor(private router: Router, private fb: FormBuilder, private todoEventsService: TodoEventsService) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private todoEventsService: TodoEventsService,
+    public alertController: AlertController) {
   }
 
   ngOnInit() {
@@ -93,18 +97,55 @@ export class TodoPage implements OnInit {
       this.router.navigateByUrl('/todo-detail/' + id);
   }
 
-  onDelete(id, i) {
-    if (id == 0)
-      this.todoEventsForms.removeAt(i);
-    else if (confirm('Si conferma la cancellazione del record ?'))
-      this.todoEventsService.deleteTodoEvent(id).subscribe(
-        res => {
-          this.todoEventsForms.removeAt(i);
-          this.topPage.scrollToTop();
-          //this.showNotification('delete');
-        });
+  // ____cancellare____onDelete(id, i) {
+  //   if (id == 0)
+  //     this.todoEventsForms.removeAt(i);
+  //   else if (confirm('Si conferma la cancellazione del record ?'))
+  //     this.todoEventsService.deleteTodoEvent(id).subscribe(
+  //       res => {
+  //         this.todoEventsForms.removeAt(i);
+  //         this.topPage.scrollToTop();
+  //         //this.showNotification('delete');
+  //       });
         
+  // }
+
+
+
+  async onDelete(id, i) {
+
+    let retValue: boolean;
+    if (id == 0){
+      this.todoEventsForms.removeAt(i);
+    } else {
+      let retValue: boolean;
+
+      const alert = await this.alertController.create({
+        header: 'CANCELLAZIONE TRASFERTA',
+        message: 'Si desidera cancellare la trasferta?<br/>(operazione irreversibile)',
+        buttons: [
+          {
+            text: 'NO',
+            role: 'cancel'
+          },
+          {
+            text: 'CANCELLA LA TRASFERTA',
+            handler: () => {
+              this.todoEventsService.deleteTodoEvent(id).subscribe(
+                res => {
+                  this.todoEventsForms.removeAt(i);
+                  this.topPage.scrollToTop();
+                  //this.showNotification('delete');
+                });
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
   }
+
+
 
   onChange(fg: FormGroup) {
 

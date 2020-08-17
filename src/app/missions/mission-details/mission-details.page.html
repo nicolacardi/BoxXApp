@@ -4,9 +4,14 @@
       <ion-back-button defaultHref="/missions"></ion-back-button>
     </ion-buttons>
     <!-- <ion-title>Trasferta {{objMission.id}}</ion-title> -->
-    <ion-title>Trasferta N°...</ion-title>
+    <ion-title>Trasferta N° {{objMission.id}}</ion-title>
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
+
+  <ion-item>
+    <ion-label>Descrizione: </ion-label>
+    <ion-input #dtDefault [(ngModel)]="objMission.descrizione"></ion-input>
+  </ion-item>
 
   <!--
   <ion-button  (click)="setTodayDate()">
@@ -32,15 +37,15 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+-->
 
-
-  <app-mission-detail-card *ngFor="let missionDetail of missionDetails;" 
+  <!-- <app-mission-detail-card *ngFor="let missionDetail of missionDetails;" 
     (removedDetail)="removedDetailCard($event)"
     [missionCausali]="this.missionCausali"
     [statoMission]="objMission.stato"
     [localMissionDetail]="missionDetail"> 
-  </app-ticket-detail-card>
--->
+  </app-ticket-detail-card> -->
+
 <div *ngFor="let missionDetail of missionDetails;" >
   test
 </div>

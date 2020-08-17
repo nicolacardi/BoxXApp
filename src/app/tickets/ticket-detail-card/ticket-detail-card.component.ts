@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { ticketDetail, ticketCausale } from '../../_models/models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { TicketDetailService } from 'src/app/_services/ticket-detail.service';
 
 
@@ -29,7 +29,8 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
   
   constructor( private fb: FormBuilder    
     , public serviceTicketDetails: TicketDetailService
-    , public toastController: ToastController
+    , public toastController: ToastController,
+    public alertController: AlertController
     ) {
      
   }
@@ -122,6 +123,13 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
       }
     )
   }
+
+
+
+
+
+
+
 
   deleteTicketDetail(fg: FormGroup){
     if(fg.controls["id"].value != null && fg.controls["id"].value != "0"){
