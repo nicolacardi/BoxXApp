@@ -36,7 +36,7 @@ export class MissionsListPage implements OnInit {
     );
   }
 
-  async closeMission() {
+  async closeMission(id) {
     const alert = await this.alertController.create({
       header: 'CHIUSURA TRASFERTA',
       message: 'Si desidera chiudere la trasferta?<br/>(operazione irreversibile)',
@@ -106,4 +106,6 @@ export class MissionsListPage implements OnInit {
     )
     // this.topPage.scrollToTop();
   }
+
+
 }

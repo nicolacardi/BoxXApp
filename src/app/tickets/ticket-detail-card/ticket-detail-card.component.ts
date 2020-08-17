@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { ticketDetail, ticketCausale } from '../../_models/models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ToastController, AlertController } from '@ionic/angular';
+
+import { ticketDetail, ticketCausale } from '../../_models/models';
 import { TicketDetailService } from 'src/app/_services/ticket-detail.service';
 
 
