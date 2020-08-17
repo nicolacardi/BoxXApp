@@ -2,6 +2,11 @@
 
   <ion-card>
     <ion-item-sliding #slideitem>
+      <ion-item-options side="start"  *ngIf="statoTicket !='90'">
+        <ion-item-option (click)="deleteTicketDetail(detailForm)" color="danger">
+          <ion-icon src="../../assets/ionicicons/delete.svg" size="large" color="light"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
       <ion-item lines="none">
         <ion-card-content class="ion-no-padding ion-padding-top ion-padding-bottom">
 
@@ -47,11 +52,7 @@
 
         </ion-card-content>
       </ion-item>
-      <ion-item-options side="end"  *ngIf="statoTicket !='90'">
-        <ion-item-option (click)="deleteTicketDetail(detailForm)" color="danger">
-          <ion-icon name="trash" size="large" color="light"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
+
     </ion-item-sliding>
   </ion-card>
 </form>

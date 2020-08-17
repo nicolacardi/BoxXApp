@@ -22,8 +22,8 @@
       <ion-card style="width: 100%!important;" class="my-margins">
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
-            <ion-item-option (click)="deleteMission(obj.id)">
-              <ion-icon src="../../assets/ionicicons/trash-outline.svg" size="large"></ion-icon>
+            <ion-item-option color="danger" (click)="deleteMission(obj.id)">
+              <ion-icon src="../../assets/ionicicons/delete.svg" size="large" color="light" ></ion-icon>
             </ion-item-option>
           </ion-item-options>
           <ion-item lines="none"  (click)="openDetail(obj.id)">

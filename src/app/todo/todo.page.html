@@ -29,6 +29,11 @@
             <ion-icon name="save" size="large"></ion-icon>
           </ion-item-option>
         </ion-item-options> -->
+        <ion-item-options side="start">
+          <ion-item-option color="danger" (click)="onDelete(fgroup.get('id').value,i)">
+            <ion-icon src="../../assets/ionicicons/delete.svg"  size="large" color="light" ></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
         <ion-item lines="none">
 
           <ion-list class="ion-no-margin">
@@ -90,9 +95,6 @@
         <ion-item-options side="end">
           <ion-item-option color="primary" (click)="onClick(id.value,i)">
             <ion-icon name="create" size="large" color="light" ></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="onDelete(fgroup.get('id').value,i)">
-            <ion-icon name="trash" size="large" color="light" ></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
