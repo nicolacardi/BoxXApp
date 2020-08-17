@@ -9,7 +9,6 @@ const routes: Routes = [
   //Public
   { 
     path: 'login', 
-    //loadChildren: './public/login/login.module#LoginPageModule' 
     loadChildren: () => import('./public/login/login.module').then( m => m.LoginPageModule)
   },
   {
@@ -20,20 +19,21 @@ const routes: Routes = [
     path: 'password-reset',
     loadChildren: () => import('./public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
   },
-  //Private
+  //Private       
+  //ATTENZIONE! riattivare AuthGuard prima della Build/Release
   {
     path: 'home',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],          
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'todo',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
   },
   {
     path: 'todo-detail/:id',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./todo-detail/todo-detail.module').then( m => m.TodoDetailPageModule)
   },
 
@@ -44,26 +44,27 @@ const routes: Routes = [
   // },
     {
     path: 'tabs',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./tickets/tickets-tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
     path: 'ticket-detail/:id',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./tickets/ticket-detail/ticket-detail.module').then( m => m.TicketDetailPageModule)
   },
   {
     path: 'tickets-history',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./tickets/tickets-history/tickets-history.module').then( m => m.TicketsHistoryPageModule)
   },
   {
     path: 'missions-list',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./missions/missions-list/missions-list.module').then( m => m.MissionsListPageModule)
   },
   {
     path: 'mission-details/:id',
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./missions/mission-details/mission-details.module').then( m => m.MissionDetailsPageModule)
   } 
 

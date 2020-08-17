@@ -3,11 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { ToastController, IonContent } from '@ionic/angular';
 
-import { mission, missionDetail, missionCausale } from '../../_models/models';
+import { mission, missionDetail, missionCausale, currency } from '../../_models/models';
 import { MissionService } from '../../_services/mission.service';
 import { MissionDetailsService } from '../../_services/mission-details.service';
 import { MissionCausaliService } from '../../_services/mission-causali.service';
 import { MissionDetailCardComponent } from '../mission-detail-card/mission-detail-card.component';
+
+import { CurrenciesService } from 'src/app/_services/currencies.service';
+import { DatePipe, NumberSymbol } from '@angular/common';
 
 
 @Component({
@@ -19,10 +22,12 @@ import { MissionDetailCardComponent } from '../mission-detail-card/mission-detai
 export class MissionDetailsPage implements OnInit {
 
   @ViewChild('topPage', { static: false }) topPage: IonContent;
+  @ViewChild('dtDefault', { static: false }) dtDefault: ElementRef;
+
   removedDetail:any;
 
   //Data di default impostata in testata (opzionale)  
-  dtDefault: Date;
+  //dtDefault: Date;
 
   public totCards: number;
   public totImporto: number;
@@ -31,6 +36,7 @@ export class MissionDetailsPage implements OnInit {
     , public serviceMission: MissionService
     , public serviceMissionDetails: MissionDetailsService
     , public serviceMissionCausali: MissionCausaliService
+    , public serviceMissionValute: CurrenciesService
     , public toastController: ToastController) {
 
   }
@@ -41,6 +47,7 @@ export class MissionDetailsPage implements OnInit {
   missionID: any;
   missionDetails: missionDetail[];
   missionCausali: missionCausale[];
+  missionValute: currency[];
 
 
   ngOnInit() {
@@ -65,6 +72,11 @@ export class MissionDetailsPage implements OnInit {
       res => this.missionCausali = res as missionCausale[]
     );
 
+    this.serviceMissionValute.getCurrenciesList()
+    .subscribe(
+      res => this.missionValute = res as currency[]
+    );
+
     this.serviceMission.getMission(this.missionID)
     .subscribe(
       res => {
@@ -86,7 +98,7 @@ export class MissionDetailsPage implements OnInit {
     this.serviceMissionDetails.getMissionDetailList(this.missionID).subscribe(
       res => {
         if (res == [] || res == null || res.length == 0) {
-          this.addMissionDetailForm();
+          this.addMissionDetail();
           this.loading = false;
         } else {
           //sort per far comparire i todo chiusi sotto, ordinati per data
@@ -110,57 +122,105 @@ export class MissionDetailsPage implements OnInit {
       }
     );
   }
-  addMissionDetailForm() {
-    this.missionDetails.unshift({ id: null, missionID: this.objMission.id,
+
+  addMissionDetail() {
+
+    this.missionDetails.unshift({ 
+      id: null, 
+      missionID: this.objMission.id,
       causaleID: null, objCausale: null, 
-      valutaID: null, objValuta: null,
+      //valutaID: null, objValuta: null,
+      valutaID: this.objMission.valutaID, objValuta: null,
       ticketID: null, objTicket: null,
       tipoPagamento:null,
       importo:0,
-      dt:null,
+      dt:this.objMission.dtIns,
       stato:null,
       note:null,
-      dtIns: null,
+      dtIns: new Date(),
       dtSub: null,
       dtClosed: null
     });
+
+
     this.topPage.scrollToTop();
   }
-  /*
-   id: number;
-    missionID: number;
 
-    causaleID: number;
-    objCausale: missionCausale;
-
-    valutaID: number;
-    objValuta: currency;
-
-    ticketID: number;
-    objTicket: ticket;
-
-    tipoPagamento: string;
-    importo: number;
-    dt: Date;
-
-    stato: string;
-    note: string;
-
-    dtIns: Date;
-    dtSub: Date;
-    dtClosed: Date;
-  
-  */
   removedDetailCard(id){ 
-
     let j=0;
     this.missionDetails.forEach(element => {
-     console.log("i=", id , "  element.id=", element.id);
+     //console.log("i=", id , "  element.id=", element.id);
      if(element.id == id){
        this.missionDetails.splice(j,1);
      }
      j++;
    }); 
+  }
+
+  setTodayDate(){
+
+    let oggi = new Date();
+
+    //this.objMission.dtIns = new Date();
+  }
+
+  onChange(data: string, descrizione: string ) {
+
+
+    // if (fg.controls['isClosed'].dirty ||
+    //   fg.controls['titolo'].dirty ||
+    //   fg.controls['dettagli'].dirty) {
+
+      this.loading = true;
+    
+      //Update
+      let fd =  {
+        'id': this.objMission.id,
+        'userID': this.objMission.userID,
+
+        'descrizione': descrizione,
+        'stato':this.objMission.stato,
+        'valutaID': this.objMission.valutaID,
+        
+        'dtIns': data,
+        'dtSub': this.objMission.dtSub,
+        'dtClosed':this.objMission.dtClosed
+      };
+      
+      this.serviceMission.putMission(fd).subscribe(
+        (res: any) => {
+          //fg.reset(fg.value);
+          //this.showNotification('update');
+        });
+    
+      this.loading = false;
+  }
+
+  onChangeValuta( valutaID: string) {
+
+      this.loading = true;
+    
+      //Update
+      let fd =  {
+        'id': this.objMission.id,
+        'userID': this.objMission.userID,
+        
+        'descrizione': this.objMission.descrizione,
+        'stato':this.objMission.stato,
+        'valutaID':  parseInt( valutaID),
+        
+        'dtIns': this.objMission.dtIns,
+        'dtSub': this.objMission.dtSub,
+        'dtClosed':this.objMission.dtClosed
+      };
+      
+      this.serviceMission.putMission(fd).subscribe(
+        (res: any) => {
+          //fg.reset(fg.value);
+          //this.showNotification('update');
+        });
+    
+      this.loading = false;
   }
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {

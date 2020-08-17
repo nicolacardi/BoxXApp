@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 
-import { missionDetail, missionCausale } from '../../_models/models';
+import { missionDetail, missionCausale, currency } from '../../_models/models';
 import { MissionDetailsService } from 'src/app/_services/mission-details.service';
 
 
@@ -21,6 +21,9 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
   missionCausali: missionCausale[];
   
   @Input()            
+  missionValute: currency[];
+
+  @Input()            
   statoMission : string;
 
   @Output() removedDetail = new EventEmitter();
@@ -37,7 +40,7 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.detailForm = this.fb.group({});
+    //this.detailForm = this.fb.group({});
     this.detailForm = (this.fb.group({
       id: [this.localMissionDetail.id],
       missionID: [this.localMissionDetail.missionID],
@@ -66,7 +69,9 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
   saveMissionDetail(fg: FormGroup){
     //console.log("saveTicketDetail di ticket-detail-card.component.ts");
     //console.log("fg.controls['id'].value"+ fg.controls['id'].value);
-    if(fg.controls['id'].value == '0' || fg.controls['id'].value == null ){
+
+    console.log("saveMissionDetail: " , fg.controls['id'].value);
+    if( fg.controls['id'].value == null || fg.controls['id'].value == '0' ){
       this.InsertRecord(fg);
     }
     else{
@@ -77,9 +82,13 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
   
   InsertRecord(fg: FormGroup){
 
+    console.log("InsertRecord: " , fg );
+
     this.serviceMissionDetails.InitFormData();
 
-    this.serviceMissionDetails.formData.missionID = fg.get("missionID").value;
+    this.serviceMissionDetails.formData.id = 0;
+    this.serviceMissionDetails.formData.missionID = this.localMissionDetail.missionID;
+
     this.serviceMissionDetails.formData.causaleID = fg.get("causaleID").value;
     this.serviceMissionDetails.formData.valutaID = fg.get("valutaID").value;
     this.serviceMissionDetails.formData.ticketID = fg.get("ticketID").value;
@@ -94,8 +103,12 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
     this.serviceMissionDetails.formData.dtSub = fg.get("dtSub").value;
     this.serviceMissionDetails.formData.dtClosed = fg.get("dtClosed").value;
 
+    console.log("POST start");
+
     this.serviceMissionDetails.postMissionDetail().subscribe(
       res => {
+        console.log("POST result:", res);
+
         fg.patchValue({id: (res as missionDetail).id});
         //AS!!!
         this.localMissionDetail.id = (res as missionDetail).id;
@@ -110,9 +123,15 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
   }
   
   UpdateRecord(fg: FormGroup){
-    this.serviceMissionDetails.InitFormData();
 
-    this.serviceMissionDetails.formData.missionID = fg.get("missionID").value;
+    console.log("UpdateRecord: " , fg );
+    console.log("missionID: ", this.localMissionDetail.missionID);
+
+
+    this.serviceMissionDetails.InitFormData();
+    this.serviceMissionDetails.formData.id =  fg.get("id").value;
+    this.serviceMissionDetails.formData.missionID = this.localMissionDetail.missionID;
+
     this.serviceMissionDetails.formData.causaleID = fg.get("causaleID").value;
     this.serviceMissionDetails.formData.valutaID = fg.get("valutaID").value;
     this.serviceMissionDetails.formData.ticketID = fg.get("ticketID").value;

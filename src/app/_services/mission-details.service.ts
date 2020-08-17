@@ -49,17 +49,22 @@ export class MissionDetailsService {
 
   getMissionDetailList(missionID): Observable<missionDetail[]>
   {
-    this.missionID = missionID;
+    //this.missionID = missionID;
     return this.http.get<missionDetail[]>(environment.apiBaseUrl + '/MissionDetails/GetByMissionID/' + missionID); 
   }
 
   postMissionDetail(){
 
+    console.log("postMissionDetail:", "START");
+
     this.formData.missionID = +this.formData.missionID;
     this.formData.causaleID = +this.formData.causaleID;
     this.formData.valutaID = +this.formData.valutaID;
 
+    console.log("postMissionDetail:", this.formData);
+
     return this.http.post( environment.apiBaseUrl   + '/MissionDetails',this.formData)  
+
   }  
   
   putMissionDetail(){

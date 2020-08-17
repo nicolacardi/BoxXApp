@@ -125,13 +125,6 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
     )
   }
 
-
-
-
-
-
-
-
   deleteTicketDetail(fg: FormGroup){
     if(fg.controls["id"].value != null && fg.controls["id"].value != "0"){
       this.serviceTicketDetails.deleteTicketDetail(fg.controls["id"].value).subscribe(

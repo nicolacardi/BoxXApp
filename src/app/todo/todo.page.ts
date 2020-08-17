@@ -85,9 +85,7 @@ export class TodoPage implements OnInit {
     this.topPage.scrollToTop();
   }
 
-  onLeave(id){
-    //this.tmpID = id;
-  }
+ 
 
   onClick(id, i){
 
