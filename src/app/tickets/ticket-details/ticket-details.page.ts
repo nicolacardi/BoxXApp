@@ -12,11 +12,11 @@ import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-c
 
 @Component({
   selector: 'app-ticket-detail',
-  templateUrl: './ticket-detail.page.html',
+  templateUrl: './ticket-details.page.html',
   styleUrls: ['../tickets.scss'],
 })
 
-export class TicketDetailPage implements OnInit {
+export class TicketDetailsPage implements OnInit {
 
   @ViewChild('topPage', { static: false }) topPage: IonContent;
   removedDetail:any;

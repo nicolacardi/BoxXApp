@@ -39,7 +39,7 @@
             <ion-textarea #note type="text" formControlName="note"></ion-textarea>
           </ion-item>
 
-          <div   class="ion-text-center"> 
+          <div *ngIf="statoMission == 'I'"  class="ion-text-center"> 
             <ion-button (click)="saveMissionDetail(detailForm)"  expand="block" color="primary" 
             [disabled]="!detailForm.dirty"  >Salva</ion-button>
           </div>

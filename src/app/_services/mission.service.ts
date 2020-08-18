@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import {  currentUser, mission } from '../_models/models';
+import { formatDate } from '@angular/common';
 
 
 @Injectable({
@@ -34,8 +35,6 @@ export class MissionService {
 
   postMission(){
 
-    console.log("postMission");
-
     this.currUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.formData ={
@@ -48,24 +47,24 @@ export class MissionService {
       'dtSub': null,
       'dtClosed': null
     };
-    
-  // return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).toPromise().then( data => {
-  //   console.log("RITORNO DA PROMISE:",data);
-  // });
-  // return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).subscribe(
-  //   res   => {
-  //     console.log(res);
-  //   }
-  // );
+      
+    // return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).toPromise().then( data => {
+    //   console.log("RITORNO DA PROMISE:",data);
+    // });
+    // return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData).subscribe(
+    //   res   => {
+    //     console.log(res);
+    //   }
+    // );
 
-  //AS
-  return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData);
+    //AS
+    return this.http.post(environment.apiBaseUrl+ '/Missions', this.formData);
 
-  /*
-    .pipe(
-      catchError(this.handleError('postMission'))
-    );
-    */
+    /*
+      .pipe(
+        catchError(this.handleError('postMission'))
+      );
+      */
   }  
  
 
@@ -77,6 +76,31 @@ export class MissionService {
     }
     formData.missionID = +formData.missionID;
     return this.http.put( environment.apiBaseUrl  + '/Missions/' + formData.id , formData)    
+  }
+
+/*
+  confirmMission(formData){
+    if(formData.userID == null || formData.userID =="" ){
+      this.currUser = JSON.parse(localStorage.getItem('currentUser'));
+      formData.userID = this.currUser.userID;
+    }
+    formData.missionID = +formData.missionID;
+    formData.stato = 'S';
+    return this.http.put( environment.apiBaseUrl  + '/Missions/' + formData.id , formData)
+  }
+  */
+  
+  confirmMission(id:number){
+    //{ "op": "replace", "path": "/stato", "value": “S” },
+
+    var patchformData ={
+      'id': id,
+      'stato':"I",
+      'dtSub': new Date() 
+    };
+
+    return this.http.patch( environment.apiBaseUrl  + '/Missions/' + id , patchformData);
+    //return this.http.get<ticketDetail[]>(environment.apiBaseUrl + '/TicketDetails/GetByTicketID/' + ticketID); 
   }
 
   deleteMission(id:number){

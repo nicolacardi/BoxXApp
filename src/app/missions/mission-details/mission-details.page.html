@@ -25,11 +25,6 @@
       [(ngModel)]="objMission.descrizione"></ion-input>
   </ion-item>
 
-
-
-
-
-
   <!--  <ion-button  (click)="setTodayDate()">
     <ion-icon name="today"></ion-icon>
   </ion-button>
@@ -47,7 +42,7 @@
 <ion-content class="ion-padding" #topPage>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addMissionDetail()">
+  <ion-fab *ngIf="objMission.stato == 'I'"  vertical="bottom" horizontal="end" slot="fixed" (click)="addMissionDetail()">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

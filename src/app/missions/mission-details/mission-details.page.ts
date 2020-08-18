@@ -178,61 +178,64 @@ export class MissionDetailsPage implements OnInit {
 
   onChange(data: string, descrizione: string ) {
 
+    if(this.objMission.stato != "I") return  ;
 
     // if (fg.controls['isClosed'].dirty ||
     //   fg.controls['titolo'].dirty ||
     //   fg.controls['dettagli'].dirty) {
 
-      this.loading = true;
-    
-      //Update
-      let fd =  {
-        'id': this.objMission.id,
-        'userID': this.objMission.userID,
+    this.loading = true;
+  
+    //Update
+    let fd =  {
+      'id': this.objMission.id,
+      'userID': this.objMission.userID,
 
-        'descrizione': descrizione,
-        'stato':this.objMission.stato,
-        'valutaID': this.objMission.valutaID,
-        
-        'dtIns': data,
-        'dtSub': this.objMission.dtSub,
-        'dtClosed':this.objMission.dtClosed
-      };
+      'descrizione': descrizione,
+      'stato':this.objMission.stato,
+      'valutaID': this.objMission.valutaID,
       
-      this.serviceMission.putMission(fd).subscribe(
-        (res: any) => {
-          //fg.reset(fg.value);
-          //this.showNotification('update');
-        });
+      'dtIns': data,
+      'dtSub': this.objMission.dtSub,
+      'dtClosed':this.objMission.dtClosed
+    };
     
-      this.loading = false;
+    this.serviceMission.putMission(fd).subscribe(
+      (res: any) => {
+        //fg.reset(fg.value);
+        //this.showNotification('update');
+      });
+    
+    this.loading = false;
   }
 
   onChangeValuta( valutaID: string) {
 
-      this.loading = true;
-    
-      //Update
-      let fd =  {
-        'id': this.objMission.id,
-        'userID': this.objMission.userID,
-        
-        'descrizione': this.objMission.descrizione,
-        'stato':this.objMission.stato,
-        'valutaID':  parseInt( valutaID),
-        
-        'dtIns': this.objMission.dtIns,
-        'dtSub': this.objMission.dtSub,
-        'dtClosed':this.objMission.dtClosed
-      };
+    if(this.objMission.stato != "I") return  ;
       
-      this.serviceMission.putMission(fd).subscribe(
-        (res: any) => {
-          //fg.reset(fg.value);
-          //this.showNotification('update');
-        });
+    this.loading = true;
     
-      this.loading = false;
+    //Update
+    let fd =  {
+      'id': this.objMission.id,
+      'userID': this.objMission.userID,
+      
+      'descrizione': this.objMission.descrizione,
+      'stato':this.objMission.stato,
+      'valutaID':  parseInt( valutaID),
+      
+      'dtIns': this.objMission.dtIns,
+      'dtSub': this.objMission.dtSub,
+      'dtClosed':this.objMission.dtClosed
+    };
+    
+    this.serviceMission.putMission(fd).subscribe(
+      (res: any) => {
+        //fg.reset(fg.value);
+        //this.showNotification('update');
+      });
+  
+    this.loading = false;
   }
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {

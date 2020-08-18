@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { TicketDetailPageRoutingModule } from './ticket-detail-routing.module';
-import { TicketDetailPage } from './ticket-detail.page';
-import { TicketDetailCardComponent } from './../ticket-detail-card/ticket-detail-card.component';
+import { TicketDetailsPageRoutingModule } from './ticket-details-routing.module';
+import { TicketDetailsPage } from './ticket-details.page';
+import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-card.component';
 
 @NgModule({
   imports: [
@@ -13,9 +13,9 @@ import { TicketDetailCardComponent } from './../ticket-detail-card/ticket-detail
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    TicketDetailPageRoutingModule
+    TicketDetailsPageRoutingModule
   ],
-  declarations: [TicketDetailPage, TicketDetailCardComponent],
+  declarations: [TicketDetailsPage, TicketDetailCardComponent],
 
   entryComponents: [TicketDetailCardComponent]                //AS - component
   

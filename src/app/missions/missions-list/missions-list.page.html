@@ -18,7 +18,7 @@
   </ion-fab>
 
   <ion-list class="trasparente ion-no-padding">
-    <ion-item *ngFor="let obj of missions; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
+    <ion-item *ngFor="let obj of missions_I; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
       <ion-card style="width: 100%!important;" class="my-margins">
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
@@ -51,6 +51,26 @@
 
           </ion-item-options>
         </ion-item-sliding>
+      </ion-card>
+    </ion-item>
+
+  </ion-list>
+
+
+  <div style="color:blue">IN ATTESA DI RIMBORSO</div>
+  <ion-list class="trasparente ion-no-padding">
+    <ion-item *ngFor="let obj of missions_S; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
+      <ion-card style="width: 100%!important;" class="my-margins">
+          
+          <ion-item lines="none"  (click)="openDetail(obj.id)">
+            <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
+              <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
+              [ngClass]="'tipostato'+obj.stato">{{obj.stato}} </ion-label>
+              <ion-card-subtitle>Data: {{obj.dtIns| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
+              <ion-card-title class="grassetto">Trasferta n° {{obj.id}}</ion-card-title>
+              <ion-label>{{obj.descrizione}}</ion-label>
+            </ion-card-content>
+          </ion-item>
       </ion-card>
     </ion-item>
 

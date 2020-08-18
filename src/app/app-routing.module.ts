@@ -50,7 +50,7 @@ const routes: Routes = [
   {
     path: 'ticket-detail/:id',
     //canActivate: [AuthGuardService],
-    loadChildren: () => import('./tickets/ticket-detail/ticket-detail.module').then( m => m.TicketDetailPageModule)
+    loadChildren: () => import('./tickets/ticket-details/ticket-details.module').then( m => m.TicketDetailPageModule)
   },
   {
     path: 'tickets-history',

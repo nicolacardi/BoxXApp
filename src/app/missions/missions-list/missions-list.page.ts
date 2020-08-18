@@ -15,6 +15,9 @@ import { formatDate } from '@angular/common';
 export class MissionsListPage implements OnInit {
 
   missions: mission[];
+  missions_I: mission[];
+  missions_S: mission[];
+
   loading = true;
 
   constructor(private router: Router,
@@ -28,19 +31,59 @@ export class MissionsListPage implements OnInit {
     this.missionService.getMissionsList()
     .subscribe(
       res=>   { 
+
         this.missions = res as mission[];
         res.sort((a, b) =>a.id < b.id ? -1: 1);
+        
+        this.missions_I = this.missions.filter( item =>{
+          return item.stato.toUpperCase() == "I";
+        });
 
+        this.missions_S = this.missions.filter( item =>{
+          return item.stato.toUpperCase() == "S";
+        });
         this.loading = false;
      }
     );
   }
 
   async closeMission(id) {
+
+console.log("CloseMission: id=", id);
+
+
     const alert = await this.alertController.create({
       header: 'CHIUSURA TRASFERTA',
       message: 'Si desidera chiudere la trasferta?<br/>(operazione irreversibile)',
-      buttons: ['NO', 'CHIUDI LA TRASFERTA']
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel'
+        },
+        {
+          text: 'CHIUDI LA TRASFERTA',
+          handler: () => {
+            this.missionService.confirmMission(id)
+              .subscribe(
+              res=>{
+                
+                console.log('CHIUSURA EFFETTUATA');
+
+                // let j=0;
+                // this.missions.forEach(element => {
+                //   if(element.id == id){
+                //     this.missions.splice(j,1);
+                //   }
+                //   j++;
+                // }); 
+              },
+              err=>{
+                console.log('ERRORE IN CHIUSURA');
+              }
+            )
+          }
+        }
+      ]
     });
     await alert.present();
   }
