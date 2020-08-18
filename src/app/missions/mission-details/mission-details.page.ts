@@ -111,22 +111,13 @@ export class MissionDetailsPage implements OnInit {
           (res as []).forEach((detail: missionDetail) => {
 
             this.totCards++;
-
-            //let diffInMs: number = Date.parse(detail.h_End.toString()) - Date.parse(detail.h_Ini.toString())
-
-            //var mins = Math.floor(diffInMs / 60000);
-            //totMinuti += mins;
+            this.totImporto += Number.parseFloat(detail.importo.toString());
           });
-          //this.Minuti = totMinuti % 60;
-          //this.Ore = Math.floor(totMinuti / 60) % 24;
-
           this.loading = false;
         }
       }
     );
   }
-
-
 
   @ViewChildren('missioncard') components: QueryList<MissionDetailCardComponent>;
   
@@ -156,8 +147,6 @@ export class MissionDetailsPage implements OnInit {
       //console.log(this.components.first.cardSelect);
       this.components.first.cardSelect.open();
     });
-
-
   }
 
   removedDetailCard(id){ 

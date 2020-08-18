@@ -7,28 +7,7 @@
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
 
-  <ion-item>
-    <ion-label>Data: </ion-label>
-    <ion-datetime #dtDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
-      [(ngModel)]="objMission.dtIns" displayFormat="DD/MM/YYYY"></ion-datetime>
-
-    <ion-select #valutaDefault (ionChange)="onChangeValuta(valutaDefault.value)" [(ngModel)]="objMission.valutaID"
-      class="w30">
-      <ion-select-option *ngFor="let item of missionValute" [value]="item.id">{{item.codice}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Descrizione: </ion-label>
-    <ion-input #descrizioneDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
-      [(ngModel)]="objMission.descrizione"></ion-input>
-  </ion-item>
-
-  <ion-button  *ngIf="objMission.stato == 'I'" (click)="ConfirmMission()">
-
-  </ion-button>
-  
+ 
   <!--  <ion-button  (click)="setTodayDate()">
     <ion-icon name="today"></ion-icon>
   </ion-button>
@@ -41,6 +20,58 @@
   </ion-item>
 -->
 
+  <ion-row class="bk-white">
+    <ion-col class="ellipsis-container ion-no-padding ion-padding-top ion-padding-end">
+      <ion-card class="ion-no-margin ion-margin-start ion-card-top-left">
+        <ion-card-header class="ion-card-top-left ion-no-padding ion-padding-start ion-padding-end">
+          <ion-card-subtitle class="ion-no-padding ellipsis" color="light">N° rimborsi</ion-card-subtitle>
+          <ion-card-title color="light" font="large">
+            <h1 class="ion-no-margin maxi-font">{{totCards}} </h1>
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+    <ion-col class="ellipsis-container ion-no-padding ion-padding-top ion-padding-startd">
+      <ion-card class="ion-no-margin ion-margin-end ion-card-top-right">
+        <ion-card-header class="ion-card-top-right ion-no-padding ion-padding-start ion-padding-end">
+          <ion-card-subtitle class="ion-no-padding ellipsis" color="light">Importo Totale</ion-card-subtitle>
+          <ion-card-title color="light" font="large">
+            <h1 class="ion-no-margin maxi-font">{{totImporto}} </h1>
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Data: </ion-label>
+        <ion-datetime #dtDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
+          [(ngModel)]="objMission.dtIns" displayFormat="DD/MM/YYYY"></ion-datetime>
+      </ion-item> 
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label>Valuta: </ion-label>
+        <ion-select #valutaDefault class="w50" (ionChange)="onChangeValuta(valutaDefault.value)" [(ngModel)]="objMission.valutaID">
+          <ion-select-option *ngFor="let item of missionValute" [value]="item.id">{{item.codice}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-item>
+    <ion-label>Descrizione: </ion-label>
+    <ion-input #descrizioneDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
+      [(ngModel)]="objMission.descrizione"></ion-input>
+  </ion-item>
+
+  <ion-button  *ngIf="objMission.stato == 'I'" (click)="ConfirmMission()">
+
+  </ion-button>
+  
 </ion-header>
 
 <ion-content class="ion-padding" #topPage>
