@@ -95,3 +95,10 @@ ion-back-button{
 .bk-complete{
     background-color: #51b892;
 }
+
+
+.titolo-in-attesa {
+    border-top: 1px grey solid;
+    --background: transparent !important;
+    border-bottom: 0px;
+}
