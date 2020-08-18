@@ -26,7 +26,9 @@
             </ion-item-option>
           </ion-item-options>
           <ion-item lines="none" >
-            <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
+            <ion-card-content style="background-color: #FFF" 
+                (click)="openDefault(objTicket.id)"
+                class="ion-no-padding ion-padding-top ion-padding-bottom">
               <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
                 [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>
               <ion-card-subtitle>Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}</ion-card-subtitle>

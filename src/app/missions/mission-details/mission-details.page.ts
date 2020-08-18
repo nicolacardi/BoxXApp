@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { ToastController, IonContent } from '@ionic/angular';
+import { ToastController, IonContent, AlertController } from '@ionic/angular';
 
 import { mission, missionDetail, missionCausale, currency } from '../../_models/models';
 import { MissionService } from '../../_services/mission.service';
@@ -33,12 +33,14 @@ export class MissionDetailsPage implements OnInit {
   public totCards: number;
   public totImporto: number;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder
+  constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder
     , public serviceMission: MissionService
     , public serviceMissionDetails: MissionDetailsService
     , public serviceMissionCausali: MissionCausaliService
     , public serviceMissionValute: CurrenciesService
-    , public toastController: ToastController) {
+    //, public toastController: ToastController
+    , public alertController: AlertController
+    ) {
 
   }
 
@@ -169,6 +171,7 @@ export class MissionDetailsPage implements OnInit {
    }); 
   }
 
+  //AS: NON VA!!!!
   setTodayDate(){
 
     let oggi = new Date();
@@ -238,6 +241,50 @@ export class MissionDetailsPage implements OnInit {
     this.loading = false;
   }
 
+  async ConfirmMission(){
+
+    let fd =  {
+      'id': this.objMission.id,
+      'userID': this.objMission.userID,
+      
+      'descrizione': this.objMission.descrizione,
+      'stato':this.objMission.stato,
+      'valutaID':  this.objMission.valutaID,
+      
+      'dtIns': this.objMission.dtIns,
+      'dtSub': this.objMission.dtSub,
+      'dtClosed':this.objMission.dtClosed
+    };
+
+    const alert = await this.alertController.create({
+      header: 'CHIUSURA TRASFERTA',
+      message: 'Si desidera chiudere la trasferta?<br/>(operazione irreversibile)',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel'
+        },
+        {
+          text: 'CHIUDI LA TRASFERTA',
+          
+          handler: () => {
+            this.serviceMission.confirmMission(fd)
+              .subscribe(
+              res=>{
+                this.router.navigateByUrl('/missions-list');
+              },
+              err=>{
+                console.log('ERRORE IN CHIUSURA');
+              }
+            )
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  /*
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;
     if (mColor == null)
@@ -252,4 +299,5 @@ export class MissionDetailsPage implements OnInit {
     });
     toast.present();
   }
+*/
 }
