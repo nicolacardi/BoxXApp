@@ -56,8 +56,12 @@
 
   </ion-list>
 
+  <ion-header *ngIf="missions_S">
+    <ion-title size="large" text-center >IN ATTESA DI RIMBORSO<ion-icon src="../../assets/ionicicons/chevron-down-outline.svg"></ion-icon></ion-title>
+  </ion-header>
 
-  <div style="color:blue">IN ATTESA DI RIMBORSO</div>
+  <!-- <div style="color:blue">IN ATTESA DI RIMBORSO</div> -->
+
   <ion-list class="trasparente ion-no-padding">
     <ion-item *ngFor="let obj of missions_S; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
       <ion-card style="width: 100%!important;" class="my-margins">
