@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { ToastController, IonContent } from '@ionic/angular';
@@ -11,6 +11,7 @@ import { MissionDetailCardComponent } from '../mission-detail-card/mission-detai
 
 import { CurrenciesService } from 'src/app/_services/currencies.service';
 import { DatePipe, NumberSymbol } from '@angular/common';
+
 
 
 @Component({
@@ -123,6 +124,10 @@ export class MissionDetailsPage implements OnInit {
     );
   }
 
+
+
+  @ViewChildren('missioncard') components: QueryList<MissionDetailCardComponent>;
+  
   addMissionDetail() {
 
     this.missionDetails.unshift({ 
@@ -142,8 +147,16 @@ export class MissionDetailsPage implements OnInit {
       dtClosed: null
     });
 
-
     this.topPage.scrollToTop();
+
+    this.components.changes.subscribe( res => {
+      //console.log('cards: ', this.components.toArray().length)
+      //console.log(this.components.first.cardSelect);
+      this.components.first.cardSelect.open();
+      //console.log(this.components)
+    });
+
+
   }
 
   removedDetailCard(id){ 

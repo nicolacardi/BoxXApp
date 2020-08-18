@@ -18,8 +18,11 @@
       <ion-card style="width: 100%!important;" class="my-margins" >
         <ion-item-sliding #slideitem>
           <ion-item-options side="start">
-            <ion-item-option (click)="closeTicket()">
-              <ion-icon src="../../assets/ionicicons/complete.svg" size="large"></ion-icon>
+            <ion-item-option color="medium" class="w-40px">
+              <span class="rotated-text">RICAMBI</span>
+            </ion-item-option>
+            <ion-item-option (click)="openDetail(objTicket.id, slideitem)" class="w-40px">
+              <span class="rotated-text">ATTIVITA'</span>
             </ion-item-option>
           </ion-item-options>
           <ion-item lines="none" >
@@ -36,11 +39,8 @@
             </ion-card-content>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="medium" class="w-40px">
-              <span class="rotated-text">RICAMBI</span>
-            </ion-item-option>
-            <ion-item-option (click)="openDetail(objTicket.id, slideitem)" class="w-40px">
-              <span class="rotated-text">ATTIVITA'</span>
+            <ion-item-option (click)="closeTicket()" class="bk-complete">
+              <ion-icon src="../../assets/ionicicons/complete.svg" size="large"></ion-icon>
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>

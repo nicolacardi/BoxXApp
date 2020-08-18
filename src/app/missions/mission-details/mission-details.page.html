@@ -9,20 +9,23 @@
 
   <ion-item>
     <ion-label>Data: </ion-label>
-    <ion-datetime #dtDefault  (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"  [(ngModel)]="objMission.dtIns" displayFormat="DD/MM/YYYY"></ion-datetime>
+    <ion-datetime #dtDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
+      [(ngModel)]="objMission.dtIns" displayFormat="DD/MM/YYYY"></ion-datetime>
 
-    <ion-select #valutaDefault (ionChange)="onChangeValuta(valutaDefault.value)" [(ngModel)]="objMission.valutaID" class="w30" >
-      <ion-select-option  *ngFor="let item of missionValute" [value]="item.id">{{item.codice}}
+    <ion-select #valutaDefault (ionChange)="onChangeValuta(valutaDefault.value)" [(ngModel)]="objMission.valutaID"
+      class="w30">
+      <ion-select-option *ngFor="let item of missionValute" [value]="item.id">{{item.codice}}
       </ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label>Descrizione: </ion-label>
-    <ion-input #descrizioneDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)" [(ngModel)]="objMission.descrizione"></ion-input>
+    <ion-input #descrizioneDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
+      [(ngModel)]="objMission.descrizione"></ion-input>
   </ion-item>
 
-  
+
 
 
 
@@ -38,27 +41,22 @@
     <ion-datetime #dtDefault [(ngModel)]="objTicket.data1" displayFormat="DD/MM/YYYY"></ion-datetime>
   </ion-item>
 -->
-  
+
 </ion-header>
 
 <ion-content class="ion-padding" #topPage>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
-  <ion-fab  vertical="bottom" horizontal="end" slot="fixed" (click)="addMissionDetail()">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addMissionDetail()">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <app-mission-detail-card *ngFor="let missionDetail of missionDetails;" 
-    (removedDetail)="removedDetailCard($event)"
-    [missionCausali]="this.missionCausali"
-    [missionValute]="this.missionValute"
-    [statoMission]="objMission.stato"
-    [localMissionDetail]="missionDetail"> 
-  </app-mission-detail-card>
-
+  <div *ngFor="let missionDetail of missionDetails;">
+    <app-mission-detail-card #missioncard (removedDetail)="removedDetailCard($event)" [missionCausali]="this.missionCausali"
+      [missionValute]="this.missionValute" [statoMission]="objMission.stato" [localMissionDetail]="missionDetail">
+    </app-mission-detail-card>
+  </div>
 
 </ion-content>
-
- 

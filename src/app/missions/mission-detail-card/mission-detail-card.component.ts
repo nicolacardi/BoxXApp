@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastController, IonSelect } from '@ionic/angular';
 
 import { missionDetail, missionCausale, currency } from '../../_models/models';
 import { MissionDetailsService } from 'src/app/_services/mission-details.service';
@@ -28,7 +28,8 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
 
   @Output() removedDetail = new EventEmitter();
 
-
+  @ViewChild('causaleID', {static: false}) cardSelect: IonSelect;
+  
   detailForm: FormGroup;
   
   constructor( private fb: FormBuilder    
@@ -39,7 +40,7 @@ export class MissionDetailCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    
     //this.detailForm = this.fb.group({});
     this.detailForm = (this.fb.group({
       id: [this.localMissionDetail.id],
