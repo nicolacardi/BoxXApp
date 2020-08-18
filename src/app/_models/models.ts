@@ -1,3 +1,5 @@
+import { MissionsListPage } from '../missions/missions-list/missions-list.page'
+
 export interface currentUser {
     userID: string;
     fullname: string;
@@ -5,6 +7,23 @@ export interface currentUser {
     username: string;
     badge: string;
     token?: string;
+}
+
+export interface customer {
+    id:number;
+    codice: string;
+    ragsoc: string;
+    indirizzo: string;
+    citta: string;
+    prov: string;
+    nazione: string;
+    poi: string;
+}
+
+export interface currency{
+    id: number;
+    codice: string;
+    descrizione: string;
 }
 
 export interface todoEvent{
@@ -20,6 +39,8 @@ export interface todoEvent{
     h_Ini?: Date;
 }
 
+//#region Tickets
+
 export interface ticket {
     id: number;
     n_Ticket: string;
@@ -28,10 +49,9 @@ export interface ticket {
     badge: string;
     data1: Date;
     customerID: number;
-    customer: Customer;
+    customer: customer;
     poi: string;
 }
-
 
 export interface ticketDetail {
     id: number;
@@ -49,17 +69,9 @@ export interface ticketCausale {
     causaleDesc: string;
 }
 
-export interface Customer {
-    id:number;
-    codice: string;
-    ragsoc: string;
-    indirizzo: string;
-    citta: string;
-    prov: string;
-    nazione: string;
-    poi: string;
-}
+//#endregion
 
+//#region Missions
 export interface mission{
     id: number;
     userID: string;
@@ -71,7 +83,6 @@ export interface mission{
     dtSub?: Date;
     dtClosed?: Date;
 }
-
 
 export interface missionDetail{
     id: number;
@@ -98,17 +109,13 @@ export interface missionDetail{
     dtClosed: Date;
 }
 
-
 export interface missionCausale{
     id: number;
     causaleDesc: string;
     seq: number;
 }
 
-export interface currency{
-    id: number;
-    codice: string;
-    descrizione: string;
-}
+//#endregion
+
 	 
  
