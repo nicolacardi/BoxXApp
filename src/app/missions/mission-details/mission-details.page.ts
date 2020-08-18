@@ -153,7 +153,6 @@ export class MissionDetailsPage implements OnInit {
       //console.log('cards: ', this.components.toArray().length)
       //console.log(this.components.first.cardSelect);
       this.components.first.cardSelect.open();
-      //console.log(this.components)
     });
 
 
