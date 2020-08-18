@@ -3,12 +3,15 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Trasferte Aperte</ion-title>
+    <ion-title>Trasferte</ion-title>
     <img slot="end" width="40px" class="ion-margin-end" src="../../assets/img/BoxX.svg" />
   </ion-toolbar>
 </ion-header>
 
 <ion-content #content>
+  <ion-header class="ion-margin-top ion-padding-bottom titolo-missions-group">
+    <ion-title text-center  >APERTE</ion-title>
+  </ion-header>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addMission()">
@@ -56,9 +59,9 @@
 
   </ion-list>
 
-  <ion-item *ngIf="missions_S" class="titolo-in-attesa"  >
-    <ion-title size="large" text-center style="background-color: transparent" >IN ATTESA DI RIMBORSO<ion-icon src="../../assets/ionicicons/chevron-down-outline.svg"></ion-icon></ion-title>
-  </ion-item>
+<ion-header class="ion-margin-top ion-margin-bottom ion-padding-bottom">
+    <ion-title class="titolo-missions-group" text-center >IN ATTESA DI RIMBORSO</ion-title>
+</ion-header>
 
   <!-- <div style="color:blue">IN ATTESA DI RIMBORSO</div> -->
 

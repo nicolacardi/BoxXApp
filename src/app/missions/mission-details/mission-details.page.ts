@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { ToastController, IonContent, AlertController } from '@ionic/angular';
+import { ToastController, IonContent, AlertController, IonToggle } from '@ionic/angular';
 
 import { mission, missionDetail, missionCausale, currency } from '../../_models/models';
 import { MissionService } from '../../_services/mission.service';
@@ -32,6 +32,7 @@ export class MissionDetailsPage implements OnInit {
 
   public totCards: number;
   public totImporto: number;
+  public missionClosed: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder
     , public serviceMission: MissionService
@@ -84,6 +85,9 @@ export class MissionDetailsPage implements OnInit {
     .subscribe(
       res => {
         this.objMission = res as mission;
+        if (this.objMission.stato != 'I' ) {
+          this.missionClosed = true ;
+        }
         this.loading = false;
       }
     );
@@ -120,9 +124,10 @@ export class MissionDetailsPage implements OnInit {
   }
 
   @ViewChildren('missioncard') components: QueryList<MissionDetailCardComponent>;
-  
-  addMissionDetail() {
+  @ViewChild ('toggleStato', {static: false}) togglestato: IonToggle;
 
+  addMissionDetail() {
+    
     this.missionDetails.unshift({ 
       id: null, 
       missionID: this.objMission.id,
@@ -251,7 +256,10 @@ export class MissionDetailsPage implements OnInit {
       buttons: [
         {
           text: 'NO',
-          role: 'cancel'
+          role: 'cancel',
+          handler: () => {
+            this.togglestato.checked = false;
+          }
         },
         {
           text: 'CHIUDI LA TRASFERTA',
@@ -261,6 +269,7 @@ export class MissionDetailsPage implements OnInit {
               .subscribe(
               res=>{
                 this.router.navigateByUrl('/missions-list');
+                this.missionClosed = true;
               },
               err=>{
                 console.log('ERRORE IN CHIUSURA');
