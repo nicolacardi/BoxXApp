@@ -33,9 +33,7 @@ ion-card {
     transform: rotate(-90deg) !important;
 }
 
-.w-40px{
-    width: 50px;
-}
+
 
 ion-item-option{
     font-weight: bold;
@@ -68,12 +66,16 @@ ion-card-content {
     padding-right: 5px;
 }
 
-.w100{
-    width: 100%;
-}
 .w30{
     width: 30%;
 }
+.w-40px{
+    width: 50px;
+}
+.w100{
+    width: 100%;
+}
+
 ion-back-button{
     --color:#fff;
 }

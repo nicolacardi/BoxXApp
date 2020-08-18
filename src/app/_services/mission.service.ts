@@ -78,7 +78,7 @@ export class MissionService {
     return this.http.put( environment.apiBaseUrl  + '/Missions/' + formData.id , formData)    
   }
 
-/*
+
   confirmMission(formData){
     if(formData.userID == null || formData.userID =="" ){
       this.currUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -88,8 +88,8 @@ export class MissionService {
     formData.stato = 'S';
     return this.http.put( environment.apiBaseUrl  + '/Missions/' + formData.id , formData)
   }
-  */
   
+  /*
   confirmMission(id:number){
     //{ "op": "replace", "path": "/stato", "value": “S” },
 
@@ -102,7 +102,7 @@ export class MissionService {
     return this.http.patch( environment.apiBaseUrl  + '/Missions/' + id , patchformData);
     //return this.http.get<ticketDetail[]>(environment.apiBaseUrl + '/TicketDetails/GetByTicketID/' + ticketID); 
   }
-
+*/
   deleteMission(id:number){
     return this.http.delete(  environment.apiBaseUrl  + '/Missions/' + id ) ;
   }

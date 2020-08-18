@@ -25,6 +25,10 @@
       [(ngModel)]="objMission.descrizione"></ion-input>
   </ion-item>
 
+  <ion-button  *ngIf="objMission.stato == 'I'" (click)="ConfirmMission()">
+
+  </ion-button>
+  
   <!--  <ion-button  (click)="setTodayDate()">
     <ion-icon name="today"></ion-icon>
   </ion-button>
