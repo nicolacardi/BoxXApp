@@ -106,8 +106,21 @@ ion-back-button{
     text-align: center;
 }
 
-.titolo-missions-group{
-    background-color: #565f65d4;
+.titolo-missions-group1{
+    margin: auto;
+    margin-top:10px;
+    width: 95%;
+    background: url("../../assets/img/backgroundcellred.jpg");
     color: white;
     height: 30px;
+    border-radius: 6px 6px 0px 0px;
+
+}
+.titolo-missions-group2{
+    margin: auto;
+    width: 95%;
+    background: url("../../assets/img/backgroundcellorange.jpg");
+    color: white;
+    height: 30px;
+    border-radius: 6px 6px 0px 0px;
 }

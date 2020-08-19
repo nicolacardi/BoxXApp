@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content #content>
-  <ion-header class="ion-margin-top ion-padding-bottom titolo-missions-group">
+  <ion-header class="ion-padding-bottom titolo-missions-group1">
     <ion-title text-center  >APERTE</ion-title>
   </ion-header>
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
@@ -20,7 +20,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list class="trasparente ion-no-padding">
+  <ion-list class="trasparente ion-no-padding ion-no-margin">
     <ion-item *ngFor="let obj of missions_I; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
       <ion-card style="width: 100%!important;" class="my-margins">
         <ion-item-sliding #slideitem>
@@ -59,8 +59,8 @@
 
   </ion-list>
 
-<ion-header class="ion-margin-top ion-margin-bottom ion-padding-bottom">
-    <ion-title class="titolo-missions-group" text-center >IN ATTESA DI RIMBORSO</ion-title>
+<ion-header class="ion-padding-bottom titolo-missions-group2">
+    <ion-title class="w-100 ion-no-margin ion-no-padding" text-center >IN ATTESA DI RIMBORSO</ion-title>
 </ion-header>
 
   <!-- <div style="color:blue">IN ATTESA DI RIMBORSO</div> -->
