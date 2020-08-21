@@ -3,9 +3,8 @@ import { Router } from "@angular/router";
 import { AlertController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
 
-import { mission, ticket } from 'src/app/_models/models';
+import { mission } from 'src/app/_models/models';
 import { MissionService } from '../../_services/mission.service';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-missions-list',
@@ -48,9 +47,6 @@ export class MissionsListPage implements OnInit {
   }
 
   async closeMission(id) {
-
-console.log("CloseMission: id=", id);
-
 
     const alert = await this.alertController.create({
       header: 'CHIUSURA TRASFERTA',
@@ -139,7 +135,6 @@ console.log("CloseMission: id=", id);
         this.missions.push(
           { id:(res as mission).id, userID: (res as mission).userID, descrizione: null, stato: 'I', valutaID:1, dtIns: (res as mission).dtIns , dtSub:null, dtClosed:null }
         )
-        
         //this.ShowMessage("Dato salvato");
       },
       err => {
@@ -149,7 +144,4 @@ console.log("CloseMission: id=", id);
     )
     // this.topPage.scrollToTop();
   }
-
-
-
 }

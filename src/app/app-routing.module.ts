@@ -23,17 +23,17 @@ const routes: Routes = [
   //ATTENZIONE! riattivare AuthGuard prima della Build/Release
   {
     path: 'home',
-    //canActivate: [AuthGuardService],          
+    canActivate: [AuthGuardService],          
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'todo',
-    //canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
   },
   {
     path: 'todo-detail/:id',
-    //canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./todo-detail/todo-detail.module').then( m => m.TodoDetailPageModule)
   },
 
@@ -49,36 +49,29 @@ const routes: Routes = [
   },
   {
     path: 'ticket-detail/:id',
-    //canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./tickets/ticket-details/ticket-details.module').then( m => m.TicketDetailPageModule)
   },
   {
     path: 'tickets-history',
-    //canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./tickets/tickets-history/tickets-history.module').then( m => m.TicketsHistoryPageModule)
   },
   {
     path: 'missions-list',
-    //canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./missions/missions-list/missions-list.module').then( m => m.MissionsListPageModule)
   },
   {
     path: 'mission-details/:id',
-    //canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./missions/mission-details/mission-details.module').then( m => m.MissionDetailsPageModule)
-  } 
-
-
+  },   {
+    path: 'customers-list',
+    loadChildren: () => import('./customers/customers-list/customers-list.module').then( m => m.CustomersListPageModule)
+  }
 
 ];
-
-
-// { 
-//   path: 'members', 
-//   canActivate: [AuthGuardService],
-//   loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-// },
-
 
 
 // QUESTO MANDAVA ALLA HOME CON LE TABS CHE E' COMPOSTA 

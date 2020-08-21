@@ -57,7 +57,7 @@
     <ion-col>
       <ion-item>
         <ion-label>Data: </ion-label>
-        <ion-datetime #dtDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
+        <ion-datetime #dtDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value)"
           [(ngModel)]="objMission.dtIns" displayFormat="DD/MM/YYYY"></ion-datetime>
       </ion-item> 
     </ion-col>
@@ -74,7 +74,7 @@
 
   <ion-item>
     <ion-label>Descrizione: </ion-label>
-    <ion-input #descrizioneDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value, valutaDefault.value)"
+    <ion-input #descrizioneDefault (ionBlur)="onChange(dtDefault.value, descrizioneDefault.value)"
       [(ngModel)]="objMission.descrizione"></ion-input>
   </ion-item>
 
