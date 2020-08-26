@@ -1,9 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>customers-list</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista Clienti</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <app-customer-card *ngFor="let customer of customers;"
+    [localCustomer]="customer" >
+  </app-customer-card>
 </ion-content>

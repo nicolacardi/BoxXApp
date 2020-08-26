@@ -17,7 +17,7 @@ import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-c
   ],
   declarations: [TicketDetailsPage, TicketDetailCardComponent],
 
-  entryComponents: [TicketDetailCardComponent]                //AS - component
+  entryComponents: [TicketDetailCardComponent]
   
 })
 

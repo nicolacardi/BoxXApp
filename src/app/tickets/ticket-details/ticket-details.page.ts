@@ -7,7 +7,6 @@ import { ticket, ticketDetail, ticketCausale } from '../../_models/models';
 import { TicketService } from '../../_services/ticket.service';
 import { TicketDetailService } from '../../_services/ticket-detail.service';
 import { TicketCausaliService } from '../../_services/ticket-causali.service';
-import { TicketDetailCardComponent } from '../ticket-detail-card/ticket-detail-card.component';
 
 
 @Component({
