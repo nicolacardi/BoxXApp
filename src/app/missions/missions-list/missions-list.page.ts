@@ -103,9 +103,9 @@ export class MissionsListPage implements OnInit {
               res=>{
 
                 let j=0;
-                this.missions.forEach(element => {
+                this.missions_I.forEach(element => {
                   if(element.id == id){
-                    this.missions.splice(j,1);
+                    this.missions_I.splice(j,1);
                   }
                   j++;
                 }); 
@@ -121,21 +121,12 @@ export class MissionsListPage implements OnInit {
     await alert.present();
   }
 
-  openDetail(id){
-    //slideitem.close();
-    this.router.navigateByUrl('/mission-details/' + id);
-  }
-  openDefault(id){
-    this.router.navigateByUrl('/mission-details/' + id);
-  }
-
   addMission(){
     this.missionService.postMission().subscribe(
       res  => {
-        this.missions.push(
+        this.missions_I.push(
           { id:(res as mission).id, userID: (res as mission).userID, descrizione: null, stato: 'I', valutaID:1, dtIns: (res as mission).dtIns , dtSub:null, dtClosed:null }
         )
-        //this.ShowMessage("Dato salvato");
       },
       err => {
         console.log(err);
@@ -143,5 +134,13 @@ export class MissionsListPage implements OnInit {
        }
     )
     // this.topPage.scrollToTop();
+  }
+
+  openDetail(id){
+    //slideitem.close();
+    this.router.navigateByUrl('/mission-details/' + id);
+  }
+  openDefault(id){
+    this.router.navigateByUrl('/mission-details/' + id);
   }
 }
