@@ -36,6 +36,11 @@ export class AppComponent {
       title: "To Do",
       url: "/todo",
       icon: "menu"
+    },
+    {
+      title: "Lista Clienti",
+      url: "/customers-list",
+      icon: "people"
     }
   ];
 
