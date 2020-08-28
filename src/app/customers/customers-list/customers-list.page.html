@@ -8,5 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngFor="let customer of customers;" >cc</div>
+  <app-customer-card *ngFor="let customer of customers;"
+    [localCustomer]="customer" >
+  </app-customer-card>
 </ion-content>

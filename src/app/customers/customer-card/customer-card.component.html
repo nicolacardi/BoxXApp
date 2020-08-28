@@ -1,3 +1,11 @@
-<p>
-  customer-card works!
-</p>
+<ion-card>
+  <ion-card-header (click)="toggleAccordion()">
+    <ion-card-subtitle>cliente N. {{localCustomer.codice}}</ion-card-subtitle>
+    <ion-card-title>{{localCustomer.ragsoc}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [ngStyle]="{'max-height.px': heightDynamic}">
+    {{localCustomer.indirizzo}}<br>
+    {{localCustomer.citta}}-({{localCustomer.prov}})<br>
+    {{localCustomer.nazione}}
+  </ion-card-content>
+</ion-card>
