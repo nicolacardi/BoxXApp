@@ -19,5 +19,14 @@ ion-card {
 ion-card-content {
     padding: 0px 16px;
     max-height: 0px;
-    border-top: 1px rgb(215, 215, 215) solid;
+    /*border-top: 1px rgb(215, 215, 215) solid;*/
 }
+
+.map {
+    height: 450px;
+    margin-bottom: 20px;
+
+    background-image: url("../../assets/img/map.svg");
+    background-repeat: no-repeat;
+}
+

@@ -3,10 +3,20 @@
     <ion-card-subtitle>cliente N. {{localCustomer.codice}}</ion-card-subtitle>
     <ion-card-title>{{localCustomer.ragsoc}}</ion-card-title>
   </ion-card-header>
-  <ion-card-content [ngStyle]="{'max-height.px': heightDynamic}">
-    {{localCustomer.indirizzo}}<br>
-    {{localCustomer.citta}}-({{localCustomer.prov}})<br>
-    {{localCustomer.nazione}}
-    <ion-img src="../../../../assets/img/map.svg"></ion-img>
+  <ion-card-content [ngStyle]="{'max-height.px': heightDynamic}" >
+
+    <ion-item class="ion-margin-bottom" lines="none">
+      {{localCustomer.indirizzo}}<br>
+      {{localCustomer.citta}}-({{localCustomer.prov}})-{{localCustomer.nazione}}<br>
+      {{latlngA}}
+    </ion-item>
+    <div style="position: absolute; top: 10px; right: 20px;">
+      <a href="{{'http://www.google.com/maps/place/' + localCustomer.poi}}" target="_blank">
+        <ion-icon src="../../../assets/ionicicons/navigate-circle-outline.svg" size="large"></ion-icon>
+      </a>
+    </div>
+    <div  #mapElement class="map"></div>
+    <!-- <ion-img src="../../../../assets/img/map.svg"></ion-img> -->
+
   </ion-card-content>
 </ion-card>
