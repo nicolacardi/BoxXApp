@@ -37,7 +37,7 @@ export class CustomerCardComponent implements OnInit, AfterContentInit {
         this.mapelement.nativeElement,
         {
           center: {lat: lat, lng: lng},
-          zoom: 8
+          zoom: 11
         }
       );
     }
