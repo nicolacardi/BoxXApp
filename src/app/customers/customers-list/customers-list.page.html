@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <app-customer-card *ngFor="let customer of customers;"
+  <app-customer-card *ngFor="let customer of customers; let i=index"
+    [currentID]="currentID"
     [localCustomer]="customer" >
   </app-customer-card>
 </ion-content>

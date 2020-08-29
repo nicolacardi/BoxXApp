@@ -21,12 +21,18 @@ export class CustomerCardComponent implements OnInit, AfterContentInit {
   @Input()
   localCustomer :  customer;
 
+  @Input()
+  currentID :  number;
+
   constructor() {}
 
   ngOnInit() {
+    
   }
 
   ngAfterContentInit() : void{
+
+
     this.latlng = this.localCustomer.poi;
     if (this.latlng != null) {
       this.latlng = this.latlng.replace(" ", "");
@@ -40,6 +46,13 @@ export class CustomerCardComponent implements OnInit, AfterContentInit {
           zoom: 11
         }
       );
+    }
+
+    
+    if(this.currentID == this.localCustomer.id) {
+      this.toggleAccordion();
+      //TODO!!!
+      //this.scrollto ....
     }
   }
 
