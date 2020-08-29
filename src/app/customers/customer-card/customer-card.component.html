@@ -1,8 +1,10 @@
 <ion-card>
-  <ion-card-header (click)="toggleAccordion()">
+  <ion-card-header >
     <ion-card-subtitle>cliente N. {{localCustomer.codice}}</ion-card-subtitle>
     <ion-card-title>{{localCustomer.ragsoc}}</ion-card-title>
   </ion-card-header>
+  <ion-icon *ngIf="!accordionExpanded" src="../../../assets/ionicicons/chevron-up-outline.svg" style="position: absolute; top: 35px; right: 32px;" (click)="toggleAccordion()"></ion-icon>
+  <ion-icon *ngIf="accordionExpanded" src="../../../assets/ionicicons/chevron-down-outline.svg" style="position: absolute; top: 35px; right: 32px;" (click)="toggleAccordion()"></ion-icon>
   <ion-card-content [ngStyle]="{'max-height.px': heightDynamic}" >
 
     <ion-item class="ion-margin-bottom" lines="none">
@@ -10,7 +12,7 @@
       {{localCustomer.citta}}-({{localCustomer.prov}})-{{localCustomer.nazione}}<br>
       {{latlngA}}
     </ion-item>
-    <div *ngIf="localCustomer.poi" style="position: absolute; top: 10px; right: 20px;">
+    <div *ngIf="localCustomer.poi" class="linknavigazione">
       <a href="{{'http://www.google.com/maps/place/' + localCustomer.poi}}" target="_blank">
         <ion-icon src="../../../assets/ionicicons/navigate-circle-outline.svg" size="large"></ion-icon>
       </a>
