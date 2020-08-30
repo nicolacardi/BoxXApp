@@ -66,8 +66,9 @@ const routes: Routes = [
     path: 'mission-details/:id',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./missions/mission-details/mission-details.module').then( m => m.MissionDetailsPageModule)
-  },   {
-    path: 'customers-list',
+  },   
+  {
+    path: 'customers-list/:id',
     loadChildren: () => import('./customers/customers-list/customers-list.module').then( m => m.CustomersListPageModule)
   }
 

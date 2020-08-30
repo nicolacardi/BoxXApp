@@ -50,5 +50,7 @@ export class TicketsListPage implements OnInit {
   openDefault(id){
     this.router.navigateByUrl('/ticket-detail/' + id);
   }
-
+  showCustomer(customerID){
+    this.router.navigateByUrl('/customers-list/' + customerID);
+  }
 }

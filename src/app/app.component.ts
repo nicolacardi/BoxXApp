@@ -38,8 +38,8 @@ export class AppComponent {
       icon: "menu"
     },
     {
-      title: "Lista Clienti",
-      url: "/customers-list",
+      title: "Clienti",
+      url: "/customers-list/0",
       icon: "people"
     }
   ];
