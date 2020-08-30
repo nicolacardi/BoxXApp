@@ -9,15 +9,15 @@ const routes: Routes = [
   //Public
   { 
     path: 'login', 
-    loadChildren: () => import('./public/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./_public/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'registration',
-    loadChildren: () => import('./public/registration/registration.module').then( m => m.RegistrationPageModule)
+    loadChildren: () => import('./_public/registration/registration.module').then( m => m.RegistrationPageModule)
   },
   {
     path: 'password-reset',
-    loadChildren: () => import('./public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
+    loadChildren: () => import('./_public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
   },
   //Private       
   //ATTENZIONE! riattivare AuthGuard prima della Build/Release
@@ -70,7 +70,12 @@ const routes: Routes = [
   {
     path: 'customers-list/:id',
     loadChildren: () => import('./customers/customers-list/customers-list.module').then( m => m.CustomersListPageModule)
+  },
+  {
+    path: 'signature',
+    loadChildren: () => import('./signature/signature.module').then( m => m.SignaturePageModule)
   }
+
 
 ];
 

@@ -3,16 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { UserService } from './_services/user.service';
+import { IonicModule, IonicRouteStrategy  } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+//################## On development ....
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 //import { Camera } from '@ionic-native/camera/ngx';
+//################## 
+
+
+import { UserService } from './_services/user.service';
 
 
 @NgModule({
@@ -24,15 +29,18 @@ import { UserService } from './_services/user.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
+    SignaturePadModule
   ],
   providers: [
     UserService,
     StatusBar,
     SplashScreen,
+    ScreenOrientation,
     //Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-
+    //TODO !!! {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],
   bootstrap: [AppComponent]
 })

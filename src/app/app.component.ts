@@ -41,6 +41,11 @@ export class AppComponent {
       title: "Clienti",
       url: "/customers-list/0",
       icon: "people"
+    },
+    {
+      title: "Firma",
+      url: "/signature",
+      icon: "at"
     }
   ];
 

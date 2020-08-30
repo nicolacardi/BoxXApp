@@ -6,7 +6,7 @@ import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-password-reset',
   templateUrl: './password-reset.page.html',
-  styleUrls: ['./../public.page.scss'],
+  styleUrls: ['../public.page.scss'],
 })
 export class PasswordResetPage implements OnInit {
 
