@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { ToastController, IonContent } from '@ionic/angular';
+import { ToastController, IonContent, IonToggle } from '@ionic/angular';
 
 import { ticket, ticketDetail, ticketCausale } from '../../_models/models';
 import { TicketService } from '../../_services/ticket.service';
@@ -18,6 +18,9 @@ import { TicketCausaliService } from '../../_services/ticket-causali.service';
 export class TicketDetailsPage implements OnInit {
 
   @ViewChild('topPage', { static: false }) topPage: IonContent;
+
+  @ViewChild ('toggleStato', {static: false}) togglestato: IonToggle;
+  
   removedDetail:any;
 
   //Data di default impostata in testata (opzionale)  
@@ -228,6 +231,9 @@ export class TicketDetailsPage implements OnInit {
 
   }
 */
+
+
+
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;
