@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { ticketDetail } from '../_models/models';
+import { ticketDetail, currentUser } from '../_models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +53,10 @@ export class TicketDetailService {
   deleteTicketDetail(  id  ){
     return this.http.delete(  environment.apiBaseUrl  + '/TicketDetails/' + id ) ;
   }
+
+
+
+
 
   refreshList(ticketID)
   {

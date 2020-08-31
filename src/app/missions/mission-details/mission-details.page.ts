@@ -34,7 +34,9 @@ export class MissionDetailsPage implements OnInit {
   public totImporto: number;
   public missionClosed: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder
+  constructor(private route: ActivatedRoute
+    , private router: Router
+    , private fb: FormBuilder
     , public serviceMission: MissionService
     , public serviceMissionDetails: MissionDetailsService
     , public serviceMissionCausali: MissionCausaliService
