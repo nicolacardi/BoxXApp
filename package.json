@@ -39,6 +39,7 @@
     "core-js": "^2.5.4",
     "gradle": "^1.2.3",
     "rxjs": "^6.6.0",
+    "signature_pad": "^3.0.0-beta.3",
     "tslib": "^1.13.0",
     "zone.js": "~0.9.1"
   },
