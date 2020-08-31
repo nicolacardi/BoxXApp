@@ -1,13 +1,13 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { ToastController, IonContent } from '@ionic/angular';
+import { ToastController, IonContent, IonToggle } from '@ionic/angular';
 
 import { ticket, ticketDetail, ticketCausale } from '../../_models/models';
 import { TicketService } from '../../_services/ticket.service';
 import { TicketDetailService } from '../../_services/ticket-detail.service';
 import { TicketCausaliService } from '../../_services/ticket-causali.service';
-
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -18,6 +18,9 @@ import { TicketCausaliService } from '../../_services/ticket-causali.service';
 export class TicketDetailsPage implements OnInit {
 
   @ViewChild('topPage', { static: false }) topPage: IonContent;
+
+  @ViewChild ('toggleStato', {static: false}) togglestato: IonToggle;
+  
   removedDetail:any;
 
   //Data di default impostata in testata (opzionale)  
@@ -26,12 +29,17 @@ export class TicketDetailsPage implements OnInit {
   public totCards: number;
   public Ore: number;
   public Minuti: number;
+  public ticketClosed: boolean;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder
+  
+  constructor(private route: ActivatedRoute
+    , private router: Router
+    , private fb: FormBuilder
     , public serviceTicket: TicketService
     , public serviceTicketDetails: TicketDetailService
     , public serviceTicketCausali: TicketCausaliService
-    , public toastController: ToastController) {
+    , public toastController: ToastController
+    , public alertController: AlertController) {
 
   }
 
@@ -72,6 +80,9 @@ export class TicketDetailsPage implements OnInit {
       .subscribe(
         res => {
           this.objTicket = res as ticket;
+          if (this.objTicket.statoTicket == '90' ) {
+            this.ticketClosed = true ;
+          }
           this.loading = false;
         }
       );
@@ -135,7 +146,60 @@ export class TicketDetailsPage implements OnInit {
    }); 
   }
 
-  /*
+  
+
+
+  async ConfirmTicket(){
+
+    let fd =  {
+      'id': this.objTicket.id,
+      'ticketID': this.objTicket.n_Ticket,
+      'tipoTicket': this.objTicket.tipoTicket,
+      'statoTicket': this.objTicket.statoTicket,
+      'badge': this.objTicket.badge,
+      'data1': this.objTicket.data1,
+      'customerID': this.objTicket.customerID,
+      'customer': this.objTicket.customer,
+      'poi': this.objTicket.poi
+    };
+
+    console.log ("toggle");
+    const alert = await this.alertController.create({
+      header: 'CHIUSURA TICKET',
+      message: 'Si desidera chiudere il ticket?<br/>(operazione irreversibile)',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          handler: () => {
+            this.togglestato.checked = false;
+          }
+        },
+        {
+          text: 'CHIUDI IL TICKET',
+          
+          handler: () => {
+            this.serviceTicket.confirmTicket(fd)
+              .subscribe(
+              res=>{
+                this.router.navigateByUrl('/tickets-list');
+                this.ticketClosed = true;
+              },
+              err=>{
+                console.log('ERRORE IN CHIUSURA');
+              }
+            )
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
+
+
+/*
   saveTicketDetail(fg: FormGroup){
 
     if(fg.controls['id'].value == '0' ){
@@ -229,6 +293,10 @@ export class TicketDetailsPage implements OnInit {
   }
 */
 
+
+
+
+//credo si possa togliere insieme a tutta la parte commentata: non si fa uso di toastController qui
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;
     if (mColor == null)

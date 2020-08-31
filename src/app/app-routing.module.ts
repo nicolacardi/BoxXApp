@@ -49,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'ticket-detail/:id',
-    canActivate: [AuthGuardService],
+    //canActivate: [AuthGuardService],
     loadChildren: () => import('./tickets/ticket-details/ticket-details.module').then( m => m.TicketDetailPageModule)
   },
   {

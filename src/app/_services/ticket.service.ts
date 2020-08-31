@@ -31,6 +31,17 @@ export class TicketService {
 
     return this.http.get<ticket[]>(environment.apiBaseUrl + '/Ticket/GetHistoryByTecnicoID/' + this.currUser.userID);
   }
+
+  confirmTicket(formData){
+    if(formData.userID == null || formData.userID =="" ){
+      this.currUser = JSON.parse(localStorage.getItem('currentUser'));
+      formData.userID = this.currUser.userID;
+    }
+    formData.ticketID = +formData.ticketID;
+    formData.statoTicket = '90';
+    return this.http.put( environment.apiBaseUrl  + '/Tickets/' + formData.id , formData)
+  }
+
 }
 
 
