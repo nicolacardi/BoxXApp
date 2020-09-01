@@ -89,12 +89,12 @@ export class SignaturePage implements OnInit {
     this.size2 = platform.height();
     let setwidth = Math.max(this.size1,this.size2);
     let setheight = Math.min(this.size1, this.size2);
-    alert("w"+setwidth);
-    alert("h"+setheight);
+    // alert("w"+setwidth);
+    // alert("h"+setheight);
     this.signaturePadOptions = { 
       'minWidth': 2,
       'canvasWidth': setwidth - setwidth * 0.05, //400
-      'canvasHeight': setheight -  setheight * 0.2 , //200
+      'canvasHeight': setheight -  setheight * 0.3 , //200
       'backgroundColor': 'transparent',
       'penColor': 'black'
     };

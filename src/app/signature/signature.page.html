@@ -1,11 +1,11 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Firma</ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
  
 <ion-content>
  
@@ -19,26 +19,27 @@
  
   </ion-row>
 
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button color="danger" size="small">
-      <ion-back-button defaultHref="/home" (click)="unlockScreenOr()"></ion-back-button>
+      <ion-back-button defaultHref="/home" [text]="" (click)="unlockScreenOr()"></ion-back-button>
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab> -->
 
 
   <ion-row class="ion-padding-start ion-padding-end">
-    <ion-col class="cntr" size="2">
-      <!-- <ion-button class="w-90"  ion-button  color="secondary" (click)="savePad()">Annulla</ion-button> -->
 
-    </ion-col>
-    <ion-col class="cntr" size="6" class="mypadding25">
-      Ticket N. {{objTicket.n_Ticket}} - Cliente: {{objTicket.customer.ragsoc}}
+    <!-- <ion-col class="cntr" size="2">
+ 
+      <ion-back-button class="w-90" defaultHref="/home" (click)="unlockScreenOr()"></ion-back-button>
+    </ion-col> -->
+    <ion-col class="cntr" size="8" class="ion-padding-top">
+      Ticket N. {{objTicket.n_Ticket}} - {{objTicket.customer.ragsoc}}
     </ion-col>
  
-    <ion-col class="cntr" size="2" class="mypadding15">
+    <ion-col class="cntr" size="2" class="ion-no-padding">
       <ion-button class="w-90" (click)="clearPad()">Cancella</ion-button>
     </ion-col>
-    <ion-col class="cntr" size="2" class="mypadding15">
+    <ion-col class="cntr" size="2" class="ion-no-padding">
       <ion-button class="w-90 button-save" ion-button  (click)="savePad()">Salva</ion-button>
     </ion-col>
 
