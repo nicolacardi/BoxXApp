@@ -22,6 +22,8 @@ export class SignaturePage implements OnInit {
   isDrawing = false;
   ticketID: string;
   public objTicket: ticket;
+  size1 : number;
+  size2 : number;
 
   @ViewChild(SignaturePad,{static: false}) signaturePad: SignaturePad;
   public signaturePadOptions: Object;
@@ -83,10 +85,16 @@ export class SignaturePage implements OnInit {
     }
 
 
+    this.size1 = platform.width();
+    this.size2 = platform.height();
+    let setwidth = Math.max(this.size1,this.size2);
+    let setheight = Math.min(this.size1, this.size2);
+    alert("w"+setwidth);
+    alert("h"+setheight);
     this.signaturePadOptions = { 
       'minWidth': 2,
-      'canvasWidth': platform.width() - platform.width() * 0.05, //400
-      'canvasHeight': platform.height() -  platform.height() * 0.2 , //200
+      'canvasWidth': setwidth - setwidth * 0.05, //400
+      'canvasHeight': setheight -  setheight * 0.2 , //200
       'backgroundColor': 'transparent',
       'penColor': 'black'
     };
