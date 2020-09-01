@@ -1,28 +1,40 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Firma</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
  
 <ion-content>
-  <p>Orientation:</p>
-  <p>{{orientation}}</p>
-  
+ 
   <ion-row [ngClass]="{'drawing-active': isDrawing}">
     <ion-col></ion-col>
-    <ion-col>
+    <ion-col class="ion-no-padding backsignaturepad" >
       <!-- <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>-->
-      <signature-pad [options]="signaturePadOptions"></signature-pad>
+      <signature-pad [options]="signaturePadOptions" class="ion-padding-right mypad"></signature-pad>
     </ion-col>
     <ion-col></ion-col>
  
   </ion-row>
-  <button ion-button full color="danger" (click)="clearPad()">Clear</button>
-  <button ion-button full color="secondary" (click)="savePad()">Save</button>
- 
+    <ion-col size="6">
+      Ticket N. {{objTicket.n_Ticket}} - Cliente: {{objTicket.customer.ragsoc}}
+    </ion-col>
+    <ion-col size="2">
+      <ion-button color="danger" (click)="clearPad()">Cancella</ion-button>
+    </ion-col>
+    <ion-col size="2">
+      <ion-button ion-button full color="secondary" (click)="savePad()">Salva</ion-button>
+    </ion-col>
+    <ion-col size="2">
+      <ion-button ion-button full color="secondary" (click)="savePad()">Indietro</ion-button>
+    </ion-col>
+
+
+
+
+
   <ion-row>
     <ion-col></ion-col>
     <ion-col width-80>

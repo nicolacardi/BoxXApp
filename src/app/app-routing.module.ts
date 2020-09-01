@@ -72,7 +72,7 @@ const routes: Routes = [
     loadChildren: () => import('./customers/customers-list/customers-list.module').then( m => m.CustomersListPageModule)
   },
   {
-    path: 'signature',
+    path: 'signature/:ticketId',
     loadChildren: () => import('./signature/signature.module').then( m => m.SignaturePageModule)
   }
 

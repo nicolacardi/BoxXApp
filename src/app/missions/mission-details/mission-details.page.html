@@ -48,7 +48,7 @@
         Trasferta Chiusa
       </ng-template>
 
-      <ion-toggle #toggleStato (click)="ConfirmMission()" [checked]="missionClosed" [disabled]="missionClosed">Chiudi</ion-toggle>
+      <ion-toggle #toggleStato (ionChange)="ConfirmMission()" [checked]="missionClosed" [disabled]="missionClosed">Chiudi</ion-toggle>
       <!-- *ngIf="objMission.stato == 'I'" -->
     </ion-col>
   </ion-row>

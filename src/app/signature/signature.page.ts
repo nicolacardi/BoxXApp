@@ -5,6 +5,9 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { Platform } from '@ionic/angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ActivatedRoute } from '@angular/router';
+import { TicketService } from '../_services/ticket.service';
+import { ticket } from '../_models/models';
 
 
 @Component({
@@ -17,153 +20,83 @@ export class SignaturePage implements OnInit {
 
   signature = '';
   isDrawing = false;
-  isHorizontal : boolean = false;
-  orientation: string;
-  //public screenOrientation: any;
-
-  mPlatform: Platform;
+  ticketID: string;
+  public objTicket: ticket;
 
   @ViewChild(SignaturePad,{static: false}) signaturePad: SignaturePad;
   public signaturePadOptions: Object;
   
-  
-  constructor(platform: Platform, private screenOrientation: ScreenOrientation ) { 
+  constructor(platform: Platform
+    , private screenOrientation: ScreenOrientation
+    , public route: ActivatedRoute
+    , public serviceTicket: TicketService) { 
 
-//console.log("ORIENTATION: " ,window.orientation);
-//console.log(this.screenOrientation.type); // logs the current orientation, example: 'landscape'
 
     // set to landscape
-    //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
 
-    // allow user rotate
-    //this.screenOrientation.unlock();
+    this.objTicket = {
+      id: 0,
+      n_Ticket: "xxxxx",
+      tipoTicket: null,
+      statoTicket: null,
+      data1: null,
 
-    //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
-return;
+      badge: null,
+      customerID: 0,
+      customer: {
 
-    // detect orientation changes
+      id: 0,
+      codice: null,
+      ragsoc: "yyyy",
+      indirizzo: null,
+      citta: null,
+      prov: null,
+      nazione: null,
+      poi: null
+      },
+      poi: null
+    }
 
-    platform.ready().then(() => {
-      this.screenOrientation.onChange().subscribe(() => {
-          console.log("Orientation Changed:",this.screenOrientation.type);
-
-          if(screen.orientation.type == "landscape-primary"){
-           //OK, orizzontale
-           console.log("Bene così",screen.orientation.type, "Height:" , platform.height() );
-           
-           this.signaturePadOptions = { 
-            'minWidth': 2,
-            'canvasWidth': 400, //platform.height() -  platform.height() * 0.2 ,
-            'canvasHeight': 200, //platform.width() -  platform.width() * 0.1 ,
-            
-            'backgroundColor': '#ededed',
-            'penColor': 'red'
-          };
-           //this.signaturePad.options = this.signaturePadOptions;
-
-          }
-          else{
-            this.signaturePadOptions = { 
-              'minWidth': 2,
-              'canvasWidth': 400, //platform.height() -  platform.height() * 0.2 ,
-              'canvasHeight': 200, //platform.width() -  platform.width() * 0.1 ,
-              
-              'backgroundColor': '#ededed',
-              'penColor': 'red'
-            };
-
-            console.log("Gira! sacramento",screen.orientation.type, "Height:" ,platform.height() );
-          }
-      });
-      this.screenOrientation.lock(
-        this.screenOrientation.ORIENTATIONS.LANDSCAPE
-      );
-    }).catch(err=>{
-      console.log('Error while loading platform', err);
-    });
+    this.ticketID = this.route.snapshot.params['ticketId'];
+    if (this.ticketID != '0') {
+      this.serviceTicket.getTicket(this.ticketID)
+      .subscribe(
+        res => {
+          this.objTicket = res as ticket;
+        },
+        err => {
+          this.objTicket = {
+            id: 0,
+            n_Ticket: "errore",
+            tipoTicket: null,
+            statoTicket: null,
+            data1: null,
     
-          /*
-      let w = 0;
-      let h =0;
-      if(window.orientation == 0){
-        w =  platform.width() -  platform.width() * 0.1 ;
-        h= platform.height() -  platform.height() * 0.2 ;
-      }
-      else{
-        h =  platform.width() -  platform.width() * 0.1 ;
-        w= platform.height() -  platform.height() * 0.2 ;
-      }
-      console.log("h: " ,h);
-      console.log("w: " ,w);
+            badge: null,
+            customerID: 0,
+            customer: null,
+            poi: null
+          }
+        }
+      );
+    }
 
-      this.signaturePadOptions = { 
-        'minWidth': 2,
-        'canvasWidth': w ,
-        'canvasHeight': h ,
-        'backgroundColor': '#ff7843',
-        'penColor': 'yellow'
-      };
-      */
-      return;
+
+    this.signaturePadOptions = { 
+      'minWidth': 2,
+      'canvasWidth': platform.width() - platform.width() * 0.05, //400
+      'canvasHeight': platform.height() -  platform.height() * 0.2 , //200
+      'backgroundColor': 'transparent',
+      'penColor': 'black'
+    };
+
   }
 
   ngOnInit() {
   
   }
 
-  /*
-  changeOrientation() {
-    switch (window.orientation) {
-        case 0:
-            this.screenOrientation = 'portrait';
-            break;
-        case 90:
-            this.screenOrientation = 'landscape';
-            break;
-        case 180:
-            this.screenOrientation = 'portrait';
-            break;
-        case -90:
-            this.screenOrientation = 'landscape';
-            break;
-        default:
-            this.screenOrientation = 'unknown';
-    }
-}
-*/
-
-  changeOrientationSettings(){
-    /*
-    if(screen.orientation.type == "landscape-primary"){
-      //OK, orizzontale
-      console.log("Bene così",screen.orientation.type, this.platform.height() );
-
-      this.signaturePadOptions = { 
-        'minWidth': 2,
-        'canvasWidth': platform.height() -  platform.height() * 0.2 ,
-        'canvasHeight': platform.width() -  platform.width() * 0.1 ,
-        
-        'backgroundColor': '#ededed',
-        'penColor': 'black'
-      };
-
-    }
-    else{
-      
-      console.log("Gira! sacramento",screen.orientation.type, platform.height() );
-      this.signaturePadOptions = { 
-        'minWidth': 2,
-        'canvasHeight': platform.height() -  platform.height() * 0.2 ,
-        'canvasWidth': platform.width() -  platform.width() * 0.1 ,
-        
-        'backgroundColor': 'yellow',
-        'penColor': 'black'
-      };
-    }
-    */
-  }
- 
-  
  
 
   ionViewDidEnter() {

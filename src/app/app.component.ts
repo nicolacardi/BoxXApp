@@ -44,7 +44,7 @@ export class AppComponent {
     },
     {
       title: "Firma",
-      url: "/signature",
+      url: "/signature/0",
       icon: "at"
     }
   ];

@@ -49,7 +49,6 @@ export class TicketDetailsPage implements OnInit {
   ticketID: any;
   ticketDetails: ticketDetail[];
   ticketCausali: ticketCausale[];
-
   //ticketDetailsForms: FormArray = this.fb.array([]);
 
   ngOnInit() {
@@ -162,38 +161,46 @@ export class TicketDetailsPage implements OnInit {
       'customer': this.objTicket.customer,
       'poi': this.objTicket.poi
     };
+    
 
-    console.log ("toggle");
-    const alert = await this.alertController.create({
-      header: 'CHIUSURA TICKET',
-      message: 'Si desidera chiudere il ticket?<br/>(operazione irreversibile)',
-      buttons: [
-        {
-          text: 'NO',
-          role: 'cancel',
-          handler: () => {
-            this.togglestato.checked = false;
+      const alert = await this.alertController.create({
+        header: 'CHIUSURA TICKET',
+        message: 'Si desidera chiudere il ticket?<br/>(operazione irreversibile)',
+        buttons: [
+          {
+            text: 'NO',
+            role: 'cancel',
+            handler: () => {
+              this.togglestato.checked = false;
+
+            }
+          },
+          {
+            text: 'CHIUDI IL TICKET',
+            
+            handler: () => {
+              this.serviceTicket.confirmTicket(fd)
+                .subscribe(
+                res=>{
+                  this.router.navigateByUrl('/tickets-list');
+                  this.ticketClosed = true;
+                },
+                err=>{
+                  console.log('ERRORE IN CHIUSURA');
+                }
+              )
+            }
           }
-        },
-        {
-          text: 'CHIUDI IL TICKET',
-          
-          handler: () => {
-            this.serviceTicket.confirmTicket(fd)
-              .subscribe(
-              res=>{
-                this.router.navigateByUrl('/tickets-list');
-                this.ticketClosed = true;
-              },
-              err=>{
-                console.log('ERRORE IN CHIUSURA');
-              }
-            )
-          }
-        }
-      ]
-    });
-    await alert.present();
+        ]
+      });
+      await alert.present();
+    
+  }
+
+
+
+  showSignature() {
+    this.router.navigateByUrl('/signature/'+this.objTicket.id);
   }
 
 
