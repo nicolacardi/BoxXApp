@@ -131,4 +131,7 @@ export class SignaturePage implements OnInit {
     //toast.present();
   }
 
+  unlockScreenOr(){
+    this.screenOrientation.unlock();
+  }
 }
