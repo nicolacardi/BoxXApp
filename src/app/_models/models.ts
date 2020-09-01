@@ -64,6 +64,21 @@ export interface ticketDetail {
     note;
 }
 
+export interface ticketSignature {
+    id: number;
+    ticketID: number;
+    signature: number;
+    dtIns: Date;
+}
+
+export interface ticketPhoto {
+    id: number;
+    ticketID: number;
+    ticketDetailID: number;
+    signature: number;
+    dtIns: Date;
+}
+
 export interface ticketCausale {
     id: number;
     causaleDesc: string;
