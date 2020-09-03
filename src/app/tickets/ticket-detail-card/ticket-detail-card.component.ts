@@ -28,11 +28,10 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
 
   detailForm: FormGroup;
   
-  constructor( private fb: FormBuilder    
-    , public serviceTicketDetails: TicketDetailService
-    , public toastController: ToastController,
-    public alertController: AlertController
-    ) {
+  constructor( private fb: FormBuilder,   
+    public serviceTicketDetails: TicketDetailService,
+    public toastController: ToastController,
+    public alertController: AlertController) {
      
   }
 
@@ -77,14 +76,14 @@ export class TicketDetailCardComponent implements OnInit, OnDestroy {
     this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
     this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
     this.serviceTicketDetails.formData.note = fg.get("note").value;
-
+    /*  
     console.log("InsertRecord di ticket-detail-card.component.ts");
     console.log("ticketID: ", fg.get("ticketID").value);
     console.log("causaleID: ", fg.get("causaleID").value);
     console.log("h_Ini: ", fg.get("h_Ini").value);
     console.log("h_End: ", fg.get("h_End").value);
     console.log("note: ", fg.get("note").value);
-
+    */
     this.serviceTicketDetails.postTicketDetail().subscribe(
       res => {
         fg.patchValue({id: (res as ticketDetail).id});

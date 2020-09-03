@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { ticket, currentUser } from '../_models/models';
+import { ticket, currentUser, ticketSignature } from '../_models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,19 @@ import { ticket, currentUser } from '../_models/models';
 export class TicketService {
   currUser: currentUser;
 
+  formData:ticketSignature;
+  ticketID: number;
+
   constructor(private http: HttpClient) { }
+
+  public InitFormData(){
+    this.formData ={
+      id: 0,
+      ticketID: 0,
+      signature:null,
+      dtIns: null
+    }
+  }
 
   getTicket(ticket: string) {
     return this.http.get(environment.apiBaseUrl + '/Ticket/' + ticket);

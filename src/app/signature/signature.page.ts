@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { SignaturePad } from 'angular2-signaturepad/signature-pad';
-import { SignaturePadModule } from 'angular2-signaturepad';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { Platform } from '@ionic/angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { ActivatedRoute } from '@angular/router';
+import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { SignaturePadModule } from 'angular2-signaturepad';
+
 import { TicketService } from '../_services/ticket.service';
-import { ticket } from '../_models/models';
+import { TicketSignaturesService } from '../_services/ticket-signatures.service';
+import { ticket, ticketSignature } from '../_models/models';
 
 
 @Component({
@@ -18,10 +20,15 @@ import { ticket } from '../_models/models';
 
 export class SignaturePage implements OnInit {
 
+  signatureID: number;
+  ticketID: number;
+  public objTicket: ticket;
+  public objSignature: ticketSignature;
+  detailForm: FormGroup;
+  
   signature = '';
   isDrawing = false;
-  ticketID: string;
-  public objTicket: ticket;
+  
   size1 : number;
   size2 : number;
 
@@ -31,26 +38,31 @@ export class SignaturePage implements OnInit {
   constructor(platform: Platform
     , private screenOrientation: ScreenOrientation
     , public route: ActivatedRoute
-    , public serviceTicket: TicketService) { 
+    , public serviceTicket: TicketService
+    , public serviceSignature: TicketSignaturesService
+    , private fb: FormBuilder
+    ) { 
 
 
     // set to landscape
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
 
+    this.ticketID = this.route.snapshot.params['ticketId'];
+
+    //Carico l'oggetto Ticket (inizializzandolo)
     this.objTicket = {
       id: 0,
-      n_Ticket: "xxxxx",
+      n_Ticket: null,
       tipoTicket: null,
       statoTicket: null,
       data1: null,
-
       badge: null,
       customerID: 0,
       customer: {
 
       id: 0,
       codice: null,
-      ragsoc: "yyyy",
+      ragsoc: null,
       indirizzo: null,
       citta: null,
       prov: null,
@@ -60,9 +72,9 @@ export class SignaturePage implements OnInit {
       poi: null
     }
 
-    this.ticketID = this.route.snapshot.params['ticketId'];
-    if (this.ticketID != '0') {
-      this.serviceTicket.getTicket(this.ticketID)
+    if (this.ticketID > 0) {
+
+      this.serviceTicket.getTicket(this.ticketID.toString())
       .subscribe(
         res => {
           this.objTicket = res as ticket;
@@ -82,8 +94,23 @@ export class SignaturePage implements OnInit {
           }
         }
       );
-    }
 
+      //Carico l'oggetto Signature
+      this.serviceSignature.getSignature(this.ticketID)
+      .subscribe(
+        res=> {
+          this.objSignature = res as ticketSignature;
+        },
+        err => {
+          this.objSignature = {
+            id: 0,
+            ticketID: this.ticketID,
+            signature: null,
+            dtIns: null
+          }
+        }
+      )
+    };
 
     this.size1 = platform.width();
     this.size2 = platform.height();
@@ -102,7 +129,19 @@ export class SignaturePage implements OnInit {
   }
 
   ngOnInit() {
-  
+    /*
+    this.detailForm = this.fb.group({});
+    this.detailForm = (this.fb.group({
+      id: [this.localTicketDetail.id],
+      ticketID: [this.localTicketDetail.ticketID],
+      causaleID: [this.localTicketDetail.causaleID],
+      dt: [this.localTicketDetail.dt],
+      h_Ini: [this.localTicketDetail.h_Ini],
+      h_End: [this.localTicketDetail.h_End],
+      note: [this.localTicketDetail.note]
+    })
+    );
+*/
   }
 
  
@@ -126,19 +165,110 @@ export class SignaturePage implements OnInit {
     this.signaturePad.clear();
   }
 
-  savePad() {
+  saveSignature() {
     this.signature = this.signaturePad.toDataURL();
-    console.log("savePad: " , this.signature);
+    console.log("saveSignature: " , this.signature);
 
+    console.log("objSignature: " , this.objSignature);
+
+    //this.objSignature.signature = this.signature;
+    this.InsertRecord(this.signature);
+    
+
+    // if(fg.controls['id'].value == '0' || fg.controls['id'].value == null ){
+    //   this.InsertRecord(fg);
+    // }
+    // else{
+    //   this.UpdateRecord(fg);
+    // }
+
+    //this.serviceSignature.postSignature()
     //this.storage.set('savedSignature', this.signature);
     this.signaturePad.clear();
-    //let toast = this.toastCtrl.create({
-    //  message: 'New Signature saved.',
-    //  duration: 3000
-    //});
-    //toast.present();
   }
 
+  InsertRecord(sign: string){
+
+    this.serviceSignature.InitFormData();
+
+    this.serviceSignature.formData.ticketID = this.ticketID;
+    this.serviceSignature.formData.signature = sign;
+    this.serviceSignature.formData.dtIns = null;
+
+    this.serviceSignature.postSignature().subscribe(
+      res => {
+        //fg.patchValue({id: (res as ticketSignature).id});
+        //AS!!!
+        //this.localTicketDetail.id = (res as ticketDetail).id;
+
+        //this.ShowMessage("Firma registrata");
+      },
+      err => {
+        console.log(err);
+        //this.ShowMessage("Errore nel salvataggio",'danger');
+       }
+    )
+  }
+  
+  UpdateRecord(fg: FormGroup){
+    this.serviceSignature.InitFormData();
+
+    this.serviceSignature.formData.ticketID = fg.get("id").value;
+    this.serviceSignature.formData.ticketID = fg.get("ticketID").value;
+    this.serviceSignature.formData.signature = fg.get("signature").value;
+    this.serviceSignature.formData.dtIns = fg.get("dtIns").value;
+
+    this.serviceSignature.putSignature().subscribe(
+      res => {
+        //this.ShowMessage("Firma registrata");
+      },
+      err => {
+        console.log(err);
+        //this.ShowMessage("Errore nel salvataggio", 'danger'  );
+      }
+    )
+  }
+
+  deleteTicketDetail(fg: FormGroup){
+    if(fg.controls["id"].value != null && fg.controls["id"].value != "0"){
+      this.serviceSignature.deleteSignature(fg.controls["id"].value).subscribe(
+        res => {
+          //this.serviceSignature.refreshList(fg.controls["id"].value);
+          //this.removedDetail.emit(fg.controls["id"].value);
+
+          //this.ShowMessage("Record cancellato");
+        },
+        err => {
+          console.log("ERRORE: " , err);
+          //this.ShowMessage("Errore nella cancellazione", 'danger'  );
+        }
+      )
+    }
+    else{
+      //TODO!!!
+      //this.ticketDetailsForms.removeAt(i);
+    }
+  }
+
+
+
+  /*
+  postTicketDetail(){
+    this.formData.ticketID = +this.formData.ticketID;
+    return this.http.post( environment.apiBaseUrl   + '/TicketDetails',this.formData)  
+  }  
+  
+  putTicketDetail(){
+    this.formData.id = +this.formData.id;
+    this.formData.ticketID = +this.formData.ticketID;
+    
+    return this.http.put( environment.apiBaseUrl  + '/TicketDetails/' + this.formData.id , this.formData)    
+  }
+
+  deleteTicketDetail(  id  ){
+    return this.http.delete(  environment.apiBaseUrl  + '/TicketDetails/' + id ) ;
+  }
+*/
   unlockScreenOr(){
     this.screenOrientation.unlock();
   }

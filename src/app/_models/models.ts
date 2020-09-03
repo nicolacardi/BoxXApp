@@ -67,7 +67,7 @@ export interface ticketDetail {
 export interface ticketSignature {
     id: number;
     ticketID: number;
-    signature: number;
+    signature: string;
     dtIns: Date;
 }
 
