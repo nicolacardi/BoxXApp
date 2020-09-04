@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { SignaturePadModule } from 'angular2-signaturepad';
@@ -20,34 +20,43 @@ import { ticket, ticketSignature } from '../_models/models';
 
 export class SignaturePage implements OnInit {
 
-  signatureID: number;
+  //signatureID: number;
   ticketID: number;
   public objTicket: ticket;
   public objSignature: ticketSignature;
-  detailForm: FormGroup;
+  //detailForm: FormGroup;
   
-  signature = '';
+  signatureASCII = '';
   isDrawing = false;
-  
+  isMissingTicket = false;
+
   size1 : number;
   size2 : number;
 
   @ViewChild(SignaturePad,{static: false}) signaturePad: SignaturePad;
   public signaturePadOptions: Object;
   
-  constructor(platform: Platform
+  constructor( private platform: Platform
     , private screenOrientation: ScreenOrientation
     , public route: ActivatedRoute
     , public serviceTicket: TicketService
     , public serviceSignature: TicketSignaturesService
-    , private fb: FormBuilder
+    , public toastController: ToastController
     ) { 
 
-
-    // set to landscape
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    // set to landscape (solo se su device)
+    if(this.platform.is('cordova')){
+      this.platform.ready().then(()=>{
+        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+      })
+    };
+  
 
     this.ticketID = this.route.snapshot.params['ticketId'];
+
+    if(this.ticketID <=0) {
+      this.isMissingTicket = true;
+    }
 
     //Carico l'oggetto Ticket (inizializzandolo)
     this.objTicket = {
@@ -71,13 +80,20 @@ export class SignaturePage implements OnInit {
       },
       poi: null
     }
-
+    this.objSignature = {
+      id: 0,
+      ticketID: 0,
+      signature:null,
+      dtIns: null
+    }
+    
     if (this.ticketID > 0) {
 
       this.serviceTicket.getTicket(this.ticketID.toString())
       .subscribe(
         res => {
           this.objTicket = res as ticket;
+
         },
         err => {
           this.objTicket = {
@@ -96,12 +112,15 @@ export class SignaturePage implements OnInit {
       );
 
       //Carico l'oggetto Signature
-      this.serviceSignature.getSignature(this.ticketID)
+      this.serviceSignature.getSignatureByTicketID(this.ticketID)
       .subscribe(
         res=> {
           this.objSignature = res as ticketSignature;
+          this.signaturePad.fromDataURL(this.objSignature.signature);
+          //console.log("Firma trovata: ", this.objSignature.id);
         },
         err => {
+          //console.log("Errore Firma: ", err);
           this.objSignature = {
             id: 0,
             ticketID: this.ticketID,
@@ -129,29 +148,13 @@ export class SignaturePage implements OnInit {
   }
 
   ngOnInit() {
-    /*
-    this.detailForm = this.fb.group({});
-    this.detailForm = (this.fb.group({
-      id: [this.localTicketDetail.id],
-      ticketID: [this.localTicketDetail.ticketID],
-      causaleID: [this.localTicketDetail.causaleID],
-      dt: [this.localTicketDetail.dt],
-      h_Ini: [this.localTicketDetail.h_Ini],
-      h_End: [this.localTicketDetail.h_End],
-      note: [this.localTicketDetail.note]
-    })
-    );
-*/
+
   }
 
  
 
   ionViewDidEnter() {
-    this.signaturePad.clear();
-
-    //this.storage.get('savedSignature').then((data) => {
-    //  this.signature = data;
-    //});
+    //this.signaturePad.clear();
   }
 
   drawComplete() {
@@ -161,115 +164,88 @@ export class SignaturePage implements OnInit {
   drawStart() {
     this.isDrawing = true;
   }
+
   clearPad() {
     this.signaturePad.clear();
   }
 
   saveSignature() {
-    this.signature = this.signaturePad.toDataURL();
-    console.log("saveSignature: " , this.signature);
 
-    console.log("objSignature: " , this.objSignature);
+    if(this.ticketID <=0){
+      this.ShowMessage("Ticket non selezionato, impossibile salvare",'danger');
+      return;
+    }
+    this.signatureASCII = this.signaturePad.toDataURL();
 
-    //this.objSignature.signature = this.signature;
-    this.InsertRecord(this.signature);
+    //console.log("saveSignature: " , this.signatureASCII);
+    //console.log("objSignature: " , this.objSignature);
+
+    this.serviceSignature.InitFormData();
+    if(this.objSignature.id>0)
+      this.UpdateRecord(this.signatureASCII);
+    else
+      this.InsertRecord(this.signatureASCII);
     
-
-    // if(fg.controls['id'].value == '0' || fg.controls['id'].value == null ){
-    //   this.InsertRecord(fg);
-    // }
-    // else{
-    //   this.UpdateRecord(fg);
-    // }
-
-    //this.serviceSignature.postSignature()
-    //this.storage.set('savedSignature', this.signature);
-    this.signaturePad.clear();
+    //this.signaturePad.clear();
   }
 
   InsertRecord(sign: string){
 
-    this.serviceSignature.InitFormData();
+    //console.log("SIGN INSERT");
 
     this.serviceSignature.formData.ticketID = this.ticketID;
     this.serviceSignature.formData.signature = sign;
-    this.serviceSignature.formData.dtIns = null;
+    this.serviceSignature.formData.dtIns = new Date();
 
     this.serviceSignature.postSignature().subscribe(
       res => {
-        //fg.patchValue({id: (res as ticketSignature).id});
-        //AS!!!
-        //this.localTicketDetail.id = (res as ticketDetail).id;
-
-        //this.ShowMessage("Firma registrata");
+        this.ShowMessage("Firma registrata");
       },
       err => {
-        console.log(err);
-        //this.ShowMessage("Errore nel salvataggio",'danger');
+        //console.log(err);
+        this.ShowMessage("Errore nel salvataggio",'danger');
        }
     )
   }
   
-  UpdateRecord(fg: FormGroup){
-    this.serviceSignature.InitFormData();
+  UpdateRecord(sign: string){
 
-    this.serviceSignature.formData.ticketID = fg.get("id").value;
-    this.serviceSignature.formData.ticketID = fg.get("ticketID").value;
-    this.serviceSignature.formData.signature = fg.get("signature").value;
-    this.serviceSignature.formData.dtIns = fg.get("dtIns").value;
+    this.serviceSignature.formData.id = this.objSignature.id;
+    this.serviceSignature.formData.ticketID = this.objSignature.ticketID;
+    this.serviceSignature.formData.signature = sign;
+    this.serviceSignature.formData.dtIns = new Date();
 
     this.serviceSignature.putSignature().subscribe(
       res => {
-        //this.ShowMessage("Firma registrata");
+        this.ShowMessage("Firma registrata");
       },
       err => {
-        console.log(err);
-        //this.ShowMessage("Errore nel salvataggio", 'danger'  );
+        //console.log(err);
+        this.ShowMessage("Errore nel salvataggio", 'danger'  );
       }
     )
   }
 
-  deleteTicketDetail(fg: FormGroup){
-    if(fg.controls["id"].value != null && fg.controls["id"].value != "0"){
-      this.serviceSignature.deleteSignature(fg.controls["id"].value).subscribe(
-        res => {
-          //this.serviceSignature.refreshList(fg.controls["id"].value);
-          //this.removedDetail.emit(fg.controls["id"].value);
-
-          //this.ShowMessage("Record cancellato");
-        },
-        err => {
-          console.log("ERRORE: " , err);
-          //this.ShowMessage("Errore nella cancellazione", 'danger'  );
-        }
-      )
-    }
-    else{
-      //TODO!!!
-      //this.ticketDetailsForms.removeAt(i);
-    }
+  deleteRecord(){
+    //NON DOVREBBE SERVIRE
   }
 
 
-
-  /*
-  postTicketDetail(){
-    this.formData.ticketID = +this.formData.ticketID;
-    return this.http.post( environment.apiBaseUrl   + '/TicketDetails',this.formData)  
-  }  
-  
-  putTicketDetail(){
-    this.formData.id = +this.formData.id;
-    this.formData.ticketID = +this.formData.ticketID;
-    
-    return this.http.put( environment.apiBaseUrl  + '/TicketDetails/' + this.formData.id , this.formData)    
-  }
-
-  deleteTicketDetail(  id  ){
-    return this.http.delete(  environment.apiBaseUrl  + '/TicketDetails/' + id ) ;
-  }
-*/
   unlockScreenOr(){
     this.screenOrientation.unlock();
+  }
+  async ShowMessage(msg: string, titolo?: string, colore?: string) {
+    var mColor = colore;
+    if(mColor== null)
+      mColor='primary';
+
+    const toast = await this.toastController.create({
+      message: msg,
+      color: mColor,
+      duration: 2000,
+      showCloseButton: true,  
+      closeButtonText: 'OK',  
+    });
+    toast.present();
   }
 }
