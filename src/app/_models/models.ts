@@ -75,7 +75,7 @@ export interface ticketPhoto {
     id: number;
     ticketID: number;
     ticketDetailID: number;
-    signature: number;
+    photo: string;
     dtIns: Date;
 }
 

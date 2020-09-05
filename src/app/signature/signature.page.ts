@@ -22,6 +22,8 @@ export class SignaturePage implements OnInit {
 
   //signatureID: number;
   ticketID: number;
+  tickets: ticket[];
+
   public objTicket: ticket;
   public objSignature: ticketSignature;
   //detailForm: FormGroup;
@@ -39,8 +41,8 @@ export class SignaturePage implements OnInit {
   constructor( private platform: Platform
     , private screenOrientation: ScreenOrientation
     , public route: ActivatedRoute
-    , public serviceTicket: TicketService
-    , public serviceSignature: TicketSignaturesService
+    , public ticketService: TicketService
+    , public signatureService: TicketSignaturesService
     , public toastController: ToastController
     ) { 
 
@@ -50,12 +52,19 @@ export class SignaturePage implements OnInit {
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
       })
     };
-  
 
     this.ticketID = this.route.snapshot.params['ticketId'];
 
     if(this.ticketID <=0) {
       this.isMissingTicket = true;
+
+      this.ticketService.getTicketList()
+      .subscribe(
+        res=>   { 
+          this.tickets = res as ticket[];
+          res.sort((a, b) =>a.n_Ticket < b.n_Ticket ? -1: 1);
+       }
+      );
     }
 
     //Carico l'oggetto Ticket (inizializzandolo)
@@ -89,7 +98,7 @@ export class SignaturePage implements OnInit {
     
     if (this.ticketID > 0) {
 
-      this.serviceTicket.getTicket(this.ticketID.toString())
+      this.ticketService.getTicket(this.ticketID.toString())
       .subscribe(
         res => {
           this.objTicket = res as ticket;
@@ -112,7 +121,7 @@ export class SignaturePage implements OnInit {
       );
 
       //Carico l'oggetto Signature
-      this.serviceSignature.getSignatureByTicketID(this.ticketID)
+      this.signatureService.getSignatureByTicketID(this.ticketID)
       .subscribe(
         res=> {
           this.objSignature = res as ticketSignature;
@@ -180,8 +189,8 @@ export class SignaturePage implements OnInit {
     //console.log("saveSignature: " , this.signatureASCII);
     //console.log("objSignature: " , this.objSignature);
 
-    this.serviceSignature.InitFormData();
-    if(this.objSignature.id>0)
+    this.signatureService.InitFormData();
+    if(this.objSignature.id > 0)
       this.UpdateRecord(this.signatureASCII);
     else
       this.InsertRecord(this.signatureASCII);
@@ -193,11 +202,11 @@ export class SignaturePage implements OnInit {
 
     //console.log("SIGN INSERT");
 
-    this.serviceSignature.formData.ticketID = this.ticketID;
-    this.serviceSignature.formData.signature = sign;
-    this.serviceSignature.formData.dtIns = new Date();
+    this.signatureService.formData.ticketID = this.ticketID;
+    this.signatureService.formData.signature = sign;
+    this.signatureService.formData.dtIns = new Date();
 
-    this.serviceSignature.postSignature().subscribe(
+    this.signatureService.postSignature().subscribe(
       res => {
         this.ShowMessage("Firma registrata");
       },
@@ -210,12 +219,12 @@ export class SignaturePage implements OnInit {
   
   UpdateRecord(sign: string){
 
-    this.serviceSignature.formData.id = this.objSignature.id;
-    this.serviceSignature.formData.ticketID = this.objSignature.ticketID;
-    this.serviceSignature.formData.signature = sign;
-    this.serviceSignature.formData.dtIns = new Date();
+    this.signatureService.formData.id = this.objSignature.id;
+    this.signatureService.formData.ticketID = this.objSignature.ticketID;
+    this.signatureService.formData.signature = sign;
+    this.signatureService.formData.dtIns = new Date();
 
-    this.serviceSignature.putSignature().subscribe(
+    this.signatureService.putSignature().subscribe(
       res => {
         this.ShowMessage("Firma registrata");
       },

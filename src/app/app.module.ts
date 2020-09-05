@@ -10,10 +10,11 @@ import { IonicModule, IonicRouteStrategy  } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-//################## On development ....
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-//import { Camera } from '@ionic-native/camera/ngx';
+
+//################## On development ....
+import { Camera } from '@ionic-native/camera/ngx';
 //################## 
 
 
@@ -38,7 +39,7 @@ import { UserService } from './_services/user.service';
     StatusBar,
     SplashScreen,
     ScreenOrientation,
-    //Camera,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     //TODO !!! {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],

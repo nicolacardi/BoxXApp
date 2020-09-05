@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-import { ticketSignature, currentUser } from '../_models/models';
-import { Observable } from 'rxjs';
+import { ticketSignature } from '../_models/models';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TicketSignaturesService {
 
+export class TicketSignaturesService {
   
   formData:ticketSignature;
   ticketID: number;

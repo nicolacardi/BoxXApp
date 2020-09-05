@@ -25,6 +25,10 @@ export class TicketPhotosService {
     // GET: api/TicketPhotos/GetByTicketID/5
     this.ticketID = ticketID;
     return this.http.get<ticketPhoto[]>(environment.apiBaseUrl + '/TicketPhotos/GetByTicketID/' + ticketID); 
+    
+    //ATTENZIONE: TEMPORANEO!!!!
+    //return this.http.get<ticketPhoto[]>(environment.apiBaseUrl + '/TicketPhotos' ); 
+    
   }
 
   postPhoto(){

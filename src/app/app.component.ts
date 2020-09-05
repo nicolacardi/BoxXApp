@@ -46,6 +46,11 @@ export class AppComponent {
       title: "Firma",
       url: "/signature/0",
       icon: "at"
+    },
+    {
+      title: "Foto",
+      url: "/photo-gallery/1",
+      icon: "camera"
     }
   ];
 

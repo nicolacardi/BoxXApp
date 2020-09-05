@@ -13,8 +13,8 @@ import { TicketService } from '../../_services/ticket.service';
 })
 export class TicketsListPage implements OnInit {
 
-  tickets: ticket[];
   loading = true;
+  tickets: ticket[];
 
   constructor(private router: Router,
     private fb: FormBuilder,

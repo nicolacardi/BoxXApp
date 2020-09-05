@@ -8,10 +8,6 @@ import { SignaturePageRoutingModule } from './signature-routing.module';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignaturePage } from './signature.page';
 
-import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
-
-
-
 
 @NgModule({
   imports: [
@@ -20,7 +16,6 @@ import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
     IonicModule,
     SignaturePadModule,
     SignaturePageRoutingModule
-    //,ScreenOrientation
   ],
   declarations: [SignaturePage]
 })

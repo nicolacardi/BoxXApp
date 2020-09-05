@@ -9,18 +9,7 @@
  
 <ion-content>
  
-  <ion-row *ngIf="objTicket.id <=0 ">
 
-manca il ticket
-  <!--
-    <ion-select #causaleID formControlName="causaleID" placeholder="--Selezionare--" required class="w100" style="max-width: 100% !important;">
-      <ion-select-option value=0>--Selezionare--</ion-select-option>
-      <ion-select-option *ngFor="let item of missionCausali" [value]="item.id">{{item.causaleDesc}}
-      </ion-select-option>
-    </ion-select>
-  -->
-
-  </ion-row>
 
   <ion-row [ngClass]="{'drawing-active': isDrawing}">
     <ion-col></ion-col>
@@ -32,18 +21,24 @@ manca il ticket
  
   </ion-row>
 
-  <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button color="danger" size="small">
-      <ion-back-button defaultHref="/home" [text]="" (click)="unlockScreenOr()"></ion-back-button>
-    </ion-fab-button>
-  </ion-fab> -->
+  <ion-row  class="ion-padding-start ion-padding-end">
 
-
-  <ion-row class="ion-padding-start ion-padding-end">
-    <ion-col class="cntr" size="8" class="ion-padding-top">
-      Ticket N. {{objTicket.n_Ticket}} - {{objTicket.customer.ragsoc}}
+    <ion-col *ngIf="objTicket.id > 0" class="cntr" size="8" class="ion-padding-top">
+      <ion-row>
+        {{objTicket.n_Ticket}} 
+      </ion-row>
+      <ion-row>
+        {{objTicket.customer.ragsoc}}
+      </ion-row>     
     </ion-col>
  
+    <ion-col *ngIf="objTicket.id <= 0">
+      <ion-select #ticketID placeholder="--Selezionare il ticket --" required class="w100" style="max-width: 100% !important;">
+        <ion-select-option *ngFor="let item of tickets" [value]="item.id">{{item.n_Ticket}}
+        </ion-select-option>
+      </ion-select>  
+    </ion-col>
+
     <ion-col class="cntr" size="2" class="ion-no-padding">
       <ion-button class="w-90" (click)="clearPad()">Cancella</ion-button>
     </ion-col>

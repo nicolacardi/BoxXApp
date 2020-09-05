@@ -74,7 +74,12 @@ const routes: Routes = [
   {
     path: 'signature/:ticketId',
     loadChildren: () => import('./signature/signature.module').then( m => m.SignaturePageModule)
+  },
+  {
+    path: 'photo-gallery/:ticketId',
+    loadChildren: () => import('./photos/photo-gallery/photo-gallery.module').then( m => m.PhotoGalleryPageModule)
   }
+
 
 
 ];

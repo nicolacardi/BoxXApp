@@ -13,42 +13,49 @@
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
   <ion-list class="trasparente ion-no-padding">
-    <ion-item *ngFor="let objTicket of tickets; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
+    <ion-item (click)="openDefault(objTicket.id)" *ngFor="let objTicket of tickets; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
 
       <ion-card style="width: 100%!important;" class="my-margins" >
         <ion-item-sliding #slideitem>
-          <ion-item-options side="start">
-            <ion-item-option (click)="openDetail(objTicket.id, slideitem)" class="w-40px">
-              <span class="rotated-text">ATTIVITA'</span>
-            </ion-item-option>
-            <ion-item-option (click)="showCustomer(objTicket.customerID)" color="medium"  class="w-40px">
-              <span class="rotated-text">CLIENTE</span>
-            </ion-item-option>
 
-            <!-- <ion-item-option class="w-40px">
-              <span class="rotated-text">RICAMBI</span>
-            </ion-item-option> -->
-
-          </ion-item-options>
           <ion-item lines="none" >
-            <!-- (click)="openDefault(objTicket.id)"-->
+            
             <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
               <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
                 [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>
               <ion-card-subtitle>Data: {{objTicket.data1| date: 'dd/MM/yyyy'}}</ion-card-subtitle>
               <ion-card-title class="grassetto">{{objTicket.n_Ticket}}</ion-card-title>
               <ion-label class="ion-padding-start ion-padding-end stato-tipo" style="float:right">
-                {{objTicket.statoTicket}} </ion-label>
-              <ion-button (click)="showCustomer(objTicket.customerID)">Cliente: <span class="grassetto">{{objTicket.customer.ragsoc}}</span> </ion-button>
-              <ion-label>
+                {{objTicket.statoTicket}} 
               </ion-label>
+              <ion-label>Cliente: <span class="grassetto">{{objTicket.customer.ragsoc}}</span> </ion-label>
+              <!--<ion-button (click)="showCustomer(objTicket.customerID)">Cliente: <span class="grassetto">{{objTicket.customer.ragsoc}}</span> </ion-button>-->
+              
+              <ion-label></ion-label>
             </ion-card-content>
           </ion-item>
+          
+          <ion-item-options side="end">
+            <!--
+              <ion-item-option (click)="openDetail(objTicket.id, slideitem)" class="w-40px" >
+                <span class="rotated-text">ATTIVITA'</span>
+              </ion-item-option>
+            -->
+              <ion-item-option (click)="showCustomer(objTicket.customerID)" color="medium"  class="w-40px">
+                <span class="rotated-text">CLIENTE</span>
+              </ion-item-option>
+              <!-- <ion-item-option class="w-40px">
+                <span class="rotated-text">RICAMBI</span>
+              </ion-item-option> -->
+          </ion-item-options>
+
+        <!--
           <ion-item-options side="end">
             <ion-item-option (click)="closeTicket()" class="bk-complete">
               <ion-icon src="../../assets/ionicicons/complete.svg" size="large"></ion-icon>
             </ion-item-option>
           </ion-item-options>
+        -->
         </ion-item-sliding>
       </ion-card>
     </ion-item>
