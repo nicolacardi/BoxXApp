@@ -9,20 +9,16 @@
 
 
 <ion-content>
-
+  <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
  
+  <!--
   <ion-slides class="image-slider" loop="true" slidesPerView="4">
     <ion-slide *ngFor="let img of photos">
       {{img.id}}
       <img style="border:1px solid black;" [src]="img.photo" class="thumb-img" imageViewer/>
-      
-      <!--
-      {{img.photo}}
-      
-      -->
     </ion-slide>
   </ion-slides>
-
+  -->
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let img of photos">

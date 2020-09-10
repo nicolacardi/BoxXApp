@@ -53,11 +53,9 @@ export class PhotoGalleryPage implements OnInit {
   }
 
   
-  public immagine: any;
+  //public immagine: any;
   
   takePicture() {
-
-    
     const options: CameraOptions = {
       quality: 70,
       //destinationType: this.camera.DestinationType.FILE_URI,    //PER JPG
@@ -69,7 +67,15 @@ export class PhotoGalleryPage implements OnInit {
      this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
-      this.immagine = 'data:image/jpeg;base64,' + imageData;
+      //this.immagine = 'data:image/jpeg;base64,' + imageData;
+
+      this.photos.unshift({ 
+        id: null, 
+        ticketID: this.ticketID,
+        ticketDetailID: null,
+        photo: 'data:image/jpeg;base64,' + imageData,
+        dtIns: new Date()
+      });
      }, (err) => {
       // Handle error
      });
