@@ -8,6 +8,9 @@ import { PhotoGalleryPageRoutingModule } from './photo-gallery-routing.module';
 
 import { PhotoGalleryPage } from './photo-gallery.page';
 
+//import { CameraOptions } from '@ionic-native/camera/ngx';
+
+
 @NgModule({
   imports: [
     CommonModule,

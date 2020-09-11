@@ -15,6 +15,18 @@ export class TicketPhotosService {
 
   constructor(private http: HttpClient) {} 
 
+  public InitFormData(){
+    this.formData ={
+      id: 0,
+      ticketID: 0,
+      ticketDetailID: 0,
+      photo: null,
+      dtIns: null
+    }
+  }
+
+
+
   getPhoto(photoID: string) {
     //GET: api/TicketPhotos/5
     return this.http.get(environment.apiBaseUrl + '/TicketPhotos/' + photoID);

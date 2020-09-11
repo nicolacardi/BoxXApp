@@ -21,3 +21,16 @@ ion-slide.swiper-slide {
 .thumb-img {
     padding: 10px;
 }
+
+
+ion-content{
+    --background: url("../../assets/img/backgroundhilight.png") no-repeat !important;
+    background-size: cover;
+}
+
+.photoframe{
+    background-color: #FFF;
+    border-radius: 4px;
+    //border: 1px grey solid;
+}
+

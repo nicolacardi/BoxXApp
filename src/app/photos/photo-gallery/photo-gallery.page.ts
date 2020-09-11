@@ -25,12 +25,14 @@ export class PhotoGalleryPage implements OnInit {
 
   photoASCII = '';
 
-  public camera: Camera;
+  
 
   constructor( public route: ActivatedRoute
     , public ticketService: TicketService
     , public photoService: TicketPhotosService
-    , public toastController: ToastController) { 
+    , public toastController: ToastController
+    , public camera: Camera
+    ) { 
 
     
     this.ticketID = this.route.snapshot.params['ticketId'];
@@ -68,10 +70,30 @@ export class PhotoGalleryPage implements OnInit {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       //this.immagine = 'data:image/jpeg;base64,' + imageData;
+      this.photoService.InitFormData();
+      
+      //this.photoService.formData.id = this.objPhoto.id;
+      
+      this.photoService.formData.ticketID = 1;
+      this.photoService.formData.photo = 'data:image/jpeg;base64,' + imageData;
+      this.photoService.formData.dtIns = new Date();
+
+
+      this.photoService.postPhoto().subscribe(
+        res => {
+          this.ShowMessage("Firma registrata");
+        },
+        err => {
+          //console.log(err);
+          this.ShowMessage("Errore nel salvataggio", 'danger'  );
+        }
+      )
+
+      console.log ("imageData", imageData);
 
       this.photos.unshift({ 
         id: null, 
-        ticketID: this.ticketID,
+        ticketID: 1, //ricordarsi di inserire this.ticketID
         ticketDetailID: null,
         photo: 'data:image/jpeg;base64,' + imageData,
         dtIns: new Date()
@@ -79,6 +101,21 @@ export class PhotoGalleryPage implements OnInit {
      }, (err) => {
       // Handle error
      });
+  }
+
+  async ShowMessage(msg: string, titolo?: string, colore?: string) {
+    var mColor = colore;
+    if(mColor== null)
+      mColor='primary';
+
+    const toast = await this.toastController.create({
+      message: msg,
+      color: mColor,
+      duration: 2000,
+      showCloseButton: true,  
+      closeButtonText: 'OK',  
+    });
+    toast.present();
   }
   
 }

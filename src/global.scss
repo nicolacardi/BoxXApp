@@ -23,6 +23,12 @@ ion-toast {
     color: #FFF;
 }
 
+ion-spinner {
+    display: block;
+    margin: auto;
+    top: 50%;
+}
+
 
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";

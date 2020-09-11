@@ -243,6 +243,7 @@ export class SignaturePage implements OnInit {
   unlockScreenOr(){
     this.screenOrientation.unlock();
   }
+  
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;
     if(mColor== null)
