@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PhotoGalleryPage } from './photo-gallery.page';
+//import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 
 const routes: Routes = [
   {
@@ -11,7 +12,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    //NgxIonicImageViewerModule,
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule],
 })
 export class PhotoGalleryPageRoutingModule {}

@@ -15,6 +15,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 //################## On development ....
 import { Camera } from '@ionic-native/camera/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+//import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 //################## 
 
 
@@ -40,6 +42,7 @@ import { UserService } from './_services/user.service';
     SplashScreen,
     ScreenOrientation,
     Camera,
+    ImagePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     //TODO !!! {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],

@@ -46,12 +46,14 @@ export class AppComponent {
       title: "Firma",
       url: "/signature/0",
       icon: "at"
-    },
-    {
+    }
+    /*
+    ,{
       title: "Foto",
       url: "/photo-gallery/1",
       icon: "camera"
     }
+    */
   ];
 
   // INIZIALMENTE C'ERA UN GRUPPO "members" di pagine accessibili se autenticati
@@ -76,6 +78,7 @@ export class AppComponent {
     this.auth.setLoggedIn(false);
     this.router.navigateByUrl("/");
   }
+  
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

@@ -4,6 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
+import { IonToggle, ModalController } from '@ionic/angular';
+//import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
+
 
 import { TicketService } from 'src/app/_services/ticket.service';
 import { TicketPhotosService } from 'src/app/_services/ticket-photos.service';
@@ -25,15 +30,14 @@ export class PhotoGalleryPage implements OnInit {
 
   photoASCII = '';
 
-  
-
   constructor( public route: ActivatedRoute
     , public ticketService: TicketService
     , public photoService: TicketPhotosService
     , public toastController: ToastController
     , public camera: Camera
+    , private imagePicker: ImagePicker
+    , public modalController: ModalController
     ) { 
-
     
     this.ticketID = this.route.snapshot.params['ticketId'];
 
@@ -54,9 +58,7 @@ export class PhotoGalleryPage implements OnInit {
   ngOnInit() {
   }
 
-  
-  //public immagine: any;
-  
+  //scatta una foto con la fotocamera del device
   takePicture() {
     const options: CameraOptions = {
       quality: 70,
@@ -67,18 +69,15 @@ export class PhotoGalleryPage implements OnInit {
       correctOrientation: true
     }
     
-     this.camera.getPicture(options).then((imageData) => {
+    this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       //this.immagine = 'data:image/jpeg;base64,' + imageData;
       this.photoService.InitFormData();
       
-      //this.photoService.formData.id = this.objPhoto.id;
-      
-      this.photoService.formData.ticketID = 1;
+      this.photoService.formData.ticketID = this.ticketID;
       this.photoService.formData.photo = 'data:image/jpeg;base64,' + imageData;
       this.photoService.formData.dtIns = new Date();
-
 
       this.photoService.postPhoto().subscribe(
         res => {
@@ -90,11 +89,9 @@ export class PhotoGalleryPage implements OnInit {
         }
       )
 
-      console.log ("imageData", imageData);
-
       this.photos.unshift({ 
         id: null, 
-        ticketID: 1, //ricordarsi di inserire this.ticketID
+        ticketID: this.ticketID,
         ticketDetailID: null,
         photo: 'data:image/jpeg;base64,' + imageData,
         dtIns: new Date()
@@ -102,6 +99,74 @@ export class PhotoGalleryPage implements OnInit {
      }, (err) => {
       // Handle error
      });
+  }
+
+  //Seleziona una o più immagini dalla gallery del device
+  getPictures(){
+    
+    this.imagePicker.getPictures({
+      maximumImagesCount: 5,
+      outputType: 1
+    }).then(
+      (results) => {
+        for (var i = 0; i < results.length; i++) {
+
+          console.log('Image URI: ' + results[i]);
+
+          this.photoService.InitFormData();
+      
+          this.photoService.formData.ticketID = this.ticketID;
+          this.photoService.formData.photo = 'data:image/jpeg;base64,' + results[i];
+          this.photoService.formData.dtIns = new Date();
+    
+          this.photoService.postPhoto().subscribe(
+            res => {
+              //this.ShowMessage("Foto registrata");
+              console.log("Foto registrata");
+
+              this.photos.unshift({ 
+                id: null, 
+                ticketID: this.ticketID,
+                ticketDetailID: null,
+                photo: 'data:image/jpeg;base64,' + results[i],
+                dtIns: new Date()
+              });
+            },
+            err => {
+              //console.log(err);
+              this.ShowMessage("Errore nel salvataggio", 'danger'  );
+            });
+        }
+      });
+  }
+
+  //Apre l'immagine a pieno schermo
+  zoomPicture(id){
+    console.log("Photo id:" , id);
+
+    //recupero il base64 dell'immagine
+    //...
+
+    //la passo alla funzione openViewer
+
+
+  }
+  async openViewer(base64: string) {
+    /*
+    const modal = await this.modalController.create({
+      component: ViewerModalComponent,
+      componentProps: {
+        src: base64, // required
+        title: 'Immagine ... ', // optional
+        //text: 'Photo by Mayur Gala on Unsplash' // optional
+      },
+      cssClass: 'ion-img-viewer', // required
+      keyboardClose: true,
+      showBackdrop: true
+    });
+
+    return await modal.present();
+    */
   }
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {

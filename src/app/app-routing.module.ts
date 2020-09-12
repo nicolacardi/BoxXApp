@@ -79,9 +79,6 @@ const routes: Routes = [
     path: 'photo-gallery/:ticketId',
     loadChildren: () => import('./photos/photo-gallery/photo-gallery.module').then( m => m.PhotoGalleryPageModule)
   }
-
-
-
 ];
 
 

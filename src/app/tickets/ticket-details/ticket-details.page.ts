@@ -198,12 +198,12 @@ export class TicketDetailsPage implements OnInit {
   }
 
 
-
   showSignature() {
     this.router.navigateByUrl('/signature/'+this.objTicket.id);
   }
-
-
+  showPhotoGallery() {
+    this.router.navigateByUrl('/photo-gallery/'+this.objTicket.id);
+  }
 
 
 /*

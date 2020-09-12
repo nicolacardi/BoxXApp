@@ -19,6 +19,14 @@
           <ion-icon src="../../../assets/ionicicons/signature.svg" size="large"></ion-icon>
       </ion-button>
     </ion-col>
+
+    <ion-col class="mini-padding" style="text-align: center;">
+      <ion-button class="button-tickets" (click)="showPhotoGallery()">
+        <div class="row">foto</div>
+          <ion-icon src="../../../assets/ionicicons/signature.svg" size="large"></ion-icon>
+      </ion-button>
+    </ion-col>
+    
     <ion-col class="mini-padding" style="text-align: center;">
       <ion-button class="button-tickets">
         <div class="row">stampa</div>
@@ -26,6 +34,9 @@
         </ion-icon>
       </ion-button>
     </ion-col>
+
+
+
     <ion-col class="mini-padding" style="text-align: center;">
       <span *ngIf="(objTicket.statoTicket == '70') ; else (ticketChiuso)" >Chiudi Ticket</span><br>
       
