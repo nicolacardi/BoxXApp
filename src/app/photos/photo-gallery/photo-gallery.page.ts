@@ -63,7 +63,8 @@ export class PhotoGalleryPage implements OnInit {
       //destinationType: this.camera.DestinationType.FILE_URI,    //PER JPG
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     }
     
      this.camera.getPicture(options).then((imageData) => {
@@ -81,7 +82,7 @@ export class PhotoGalleryPage implements OnInit {
 
       this.photoService.postPhoto().subscribe(
         res => {
-          this.ShowMessage("Firma registrata");
+          this.ShowMessage("Foto registrata");
         },
         err => {
           //console.log(err);
