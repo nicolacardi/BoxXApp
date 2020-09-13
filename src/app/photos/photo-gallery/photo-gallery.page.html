@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Foto</ion-title>
+    <ion-title>Foto del Ticket</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +22,17 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let img of photos">
-        <img ionImgViewer title="Demo" test="Directive" class="photoframe" [src]="img.photo" (click)="zoomPicture(img.id)"/>
+        <div class="imgcontainer">
+          <ion-img ionImgViewer 
+          [scheme]="'dark'" 
+          [swipeToClose]="true" 
+          [title]= "'Ticket: '+objTicket.n_Ticket"
+          [text]="'Foto N. '+img.id"
+          test="Directive"
+          class="photoframe" 
+          [src]="img.photo"></ion-img>
+          <ion-icon src="../../assets/ionicicons/delete.svg" size="small" (click)="deletePhoto(img.id)"></ion-icon>
+       </div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -34,12 +44,12 @@
   scheme="light" 
   src="./assets/img/demo.jpg">
 </ion-img> -->
-  <ion-img-viewer 
+  <!-- <ion-img-viewer 
   title="Demo" 
   text="Component" 
   scheme="dark" 
   src="./assets/img/demo.jpg">
-</ion-img-viewer>
+</ion-img-viewer> -->
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
     <ion-row class="ion-text-center">

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ticketPhoto } from 'src/app/_models/models';
+import { ticketPhoto, ticket } from 'src/app/_models/models';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 //import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
-import { IonToggle, ModalController } from '@ionic/angular';
-import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
+//import { IonToggle, ModalController } from '@ionic/angular';
+//import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
 
 
 import { TicketService } from 'src/app/_services/ticket.service';
@@ -27,19 +28,28 @@ export class PhotoGalleryPage implements OnInit {
   //public objTicket: ticket;
   public objPhoto : ticketPhoto;
   public photos: ticketPhoto[];
-
+  public objTicket: ticket;
   photoASCII = '';
 
   constructor( public route: ActivatedRoute
-    , public ticketService: TicketService
+    , public serviceTicket: TicketService
     , public photoService: TicketPhotosService
     , public toastController: ToastController
     , public camera: Camera
+    , public alertController: AlertController
     //, private imagePicker: ImagePicker
-    , public modalController: ModalController
+    //, public modalController: ModalController
     ) { 
     
     this.ticketID = this.route.snapshot.params['ticketId'];
+    let ticketIDString = this.ticketID.toString();
+    this.serviceTicket.getTicket(ticketIDString)
+    .subscribe(
+      res => {
+        this.objTicket = res as ticket;
+        this.loading = false;
+      }
+    );
 
     this.photoService.getPhotosList(this.ticketID)
     .subscribe(
@@ -101,6 +111,47 @@ export class PhotoGalleryPage implements OnInit {
      });
   }
 
+  async deletePhoto(id) {
+    console.log (id);
+
+      let retValue: boolean;
+  
+      const alert = await this.alertController.create({
+        header: 'CANCELLAZIONE FOTO',
+        message: 'Si desidera cancellare la Foto?<br/>(operazione irreversibile)',
+        buttons: [
+          {
+            text: 'NO',
+            role: 'cancel'
+          },
+          {
+            text: 'CANCELLA LA FOTO',
+            handler: () => {
+              this.photoService.deletePhoto(id).subscribe(
+                res=>{
+  
+                  let j=0;
+                  this.photos.forEach(element => {
+                    if(element.id == id){
+                      this.photos.splice(j,1);
+                    }
+                    j++;
+                  }); 
+                },
+                err=>{
+                  console.log('ERRORE IN CANCELLAZIONE');
+                }
+              )
+            }
+          }
+        ]
+      });
+      await alert.present();
+ 
+  }
+
+
+
   //Seleziona una o più immagini dalla gallery del device
   getPictures(){
     
@@ -140,31 +191,24 @@ export class PhotoGalleryPage implements OnInit {
     //   });
   }
 
-  //Apre l'immagine a pieno schermo
-  //zoomPicture(id){
-    //console.log("Photo id:" , id);
-
-    //recupero il base64 dell'immagine
-    //...
-
-    //la passo alla funzione openViewer
 
 
-  //}
 
-  async zoomPicture(id) {
-    const modal = await this.modalController.create({
-      component: ViewerModalComponent,
-      componentProps: {
-        src: "./assets/img/demo.jpg"
-      },
-      cssClass: 'ion-img-viewer',
-      keyboardClose: true,
-      showBackdrop: true
-    });
+  //NON SERVE QUELLO CHE SEGUE: GIA' IL FATTO CHE IL TAG SIA img-viewer FA TUTTO
+  // async zoomPicture(id) {
+  //   const modal = await this.modalController.create({
+  //     component: ViewerModalComponent,
+  //     componentProps: {
+  //       src: "./assets/img/demo.jpg"
+  //     },
+  //     cssClass: 'ion-img-viewer',
+  //     keyboardClose: true,
+  //     showBackdrop: true
+  //   });
  
-    return await modal.present();
-  }
+  //   return await modal.present();
+  // }
+
   //async openViewer(base64: string) {
     /*
     const modal = await this.modalController.create({
