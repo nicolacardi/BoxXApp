@@ -6,8 +6,8 @@ import { ToastController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 //import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
-//import { IonToggle, ModalController } from '@ionic/angular';
-//import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
+import { IonToggle, ModalController } from '@ionic/angular';
+import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
 
 
 import { TicketService } from 'src/app/_services/ticket.service';
@@ -36,7 +36,7 @@ export class PhotoGalleryPage implements OnInit {
     , public toastController: ToastController
     , public camera: Camera
     //, private imagePicker: ImagePicker
-    //, public modalController: ModalController
+    , public modalController: ModalController
     ) { 
     
     this.ticketID = this.route.snapshot.params['ticketId'];
@@ -141,8 +141,8 @@ export class PhotoGalleryPage implements OnInit {
   }
 
   //Apre l'immagine a pieno schermo
-  zoomPicture(id){
-    console.log("Photo id:" , id);
+  //zoomPicture(id){
+    //console.log("Photo id:" , id);
 
     //recupero il base64 dell'immagine
     //...
@@ -150,8 +150,22 @@ export class PhotoGalleryPage implements OnInit {
     //la passo alla funzione openViewer
 
 
+  //}
+
+  async zoomPicture(id) {
+    const modal = await this.modalController.create({
+      component: ViewerModalComponent,
+      componentProps: {
+        src: "./assets/img/demo.jpg"
+      },
+      cssClass: 'ion-img-viewer',
+      keyboardClose: true,
+      showBackdrop: true
+    });
+ 
+    return await modal.present();
   }
-  async openViewer(base64: string) {
+  //async openViewer(base64: string) {
     /*
     const modal = await this.modalController.create({
       component: ViewerModalComponent,
@@ -167,7 +181,7 @@ export class PhotoGalleryPage implements OnInit {
 
     return await modal.present();
     */
-  }
+  //}
 
   async ShowMessage(msg: string, titolo?: string, colore?: string) {
     var mColor = colore;

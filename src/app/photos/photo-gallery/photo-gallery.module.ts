@@ -9,14 +9,15 @@ import { PhotoGalleryPageRoutingModule } from './photo-gallery-routing.module';
 import { PhotoGalleryPage } from './photo-gallery.page';
 
 //import { CameraOptions } from '@ionic-native/camera/ngx';
-
+import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PhotoGalleryPageRoutingModule
+    PhotoGalleryPageRoutingModule,
+    NgxIonicImageViewerModule
   ],
   declarations: [PhotoGalleryPage]
 })

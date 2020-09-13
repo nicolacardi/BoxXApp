@@ -22,17 +22,24 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let img of photos">
-        <img class="photoframe" [src]="img.photo" (click)="zoomPicture(img.id)"/>
+        <img ionImgViewer title="Demo" test="Directive" class="photoframe" [src]="img.photo" (click)="zoomPicture(img.id)"/>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- <ion-img-viewer 
+  <!-- <ion-img 
+  ionImgViewer 
+  title="Demo" 
+  text="Directive" 
+  scheme="light" 
+  src="./assets/img/demo.jpg">
+</ion-img> -->
+  <ion-img-viewer 
   title="Demo" 
   text="Component" 
   scheme="dark" 
   src="./assets/img/demo.jpg">
-</ion-img-viewer> -->
+</ion-img-viewer>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
     <ion-row class="ion-text-center">

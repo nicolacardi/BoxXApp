@@ -149,7 +149,7 @@ export class SignaturePage implements OnInit {
     this.signaturePadOptions = { 
       'minWidth': 2,
       'canvasWidth': setwidth - setwidth * 0.05, //400
-      'canvasHeight': setheight -  setheight * 0.3 , //200
+      'canvasHeight': setheight -  setheight * 0.38 , //200
       'backgroundColor': 'transparent',
       'penColor': 'black'
     };
