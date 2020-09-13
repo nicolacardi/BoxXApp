@@ -34,11 +34,11 @@ export class TicketDetailsPage implements OnInit {
   
   constructor(private route: ActivatedRoute
     , private router: Router
-    , private fb: FormBuilder
+    //, private fb: FormBuilder
     , public serviceTicket: TicketService
     , public serviceTicketDetails: TicketDetailService
     , public serviceTicketCausali: TicketCausaliService
-    , public toastController: ToastController
+    //, public toastController: ToastController
     , public alertController: AlertController) {
 
   }
@@ -49,9 +49,12 @@ export class TicketDetailsPage implements OnInit {
   ticketID: any;
   ticketDetails: ticketDetail[];
   ticketCausali: ticketCausale[];
-  //ticketDetailsForms: FormArray = this.fb.array([]);
 
   ngOnInit() {
+    let totOre: number = 0;
+    let totMinuti: number = 0;
+    this.totCards = 0;
+
     //init oggetto [ticket]
     if (this.objTicket == null) {
       this.objTicket = {
@@ -70,58 +73,82 @@ export class TicketDetailsPage implements OnInit {
 
     this.ticketID = this.route.snapshot.params['id'];
 
+    //console.log("TicketID: ", this.ticketID);
+
+    /* 3 CALL ASINCRONE: poteva capitare che la seconda arrivasse prima della prima e quindi i ticket non avessero la causale
     this.serviceTicketCausali.getCausaliList()
       .subscribe(
-        res => this.ticketCausali = res as ticketCausale[]
-      );
-
-    this.serviceTicket.getTicket(this.ticketID)
-      .subscribe(
         res => {
-          this.objTicket = res as ticket;
-          if (this.objTicket.statoTicket == '90' ) {
-            this.ticketClosed = true ;
-          }
-          this.loading = false;
+          this.ticketCausali = res as ticketCausale[];
         }
-      );
-
+    );
+  
     this.serviceTicketDetails.getTicketDetailList(this.ticketID)
       .subscribe(
         res => {
           this.ticketDetails = res as ticketDetail[];
         }
       );
-
-    let totOre: number = 0;
-    let totMinuti: number = 0;
-    this.totCards = 0;
-    
     //this.ticketDetailsForms.clear();
     this.serviceTicketDetails.getTicketDetailList(this.ticketID).subscribe(
       res => {
+
+        console.log("Ticket details caricati");
+
         if (res == [] || res == null || res.length == 0) {
           this.addTicketDetailForm();
           this.loading = false;
         } else {
-          //sort per far comparire i todo chiusi sotto, ordinati per data
-          //res.sort((a, b) => new Date(b.dt).getTime() - new Date(a.dt).getTime())
-          //  .sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
-
           (res as []).forEach((detail: ticketDetail) => {
-
             this.totCards++;
-
             let diffInMs: number = Date.parse(detail.h_End.toString()) - Date.parse(detail.h_Ini.toString())
-
             var mins = Math.floor(diffInMs / 60000);
             totMinuti += mins;
           });
           this.Minuti = totMinuti % 60;
           this.Ore = Math.floor(totMinuti / 60) % 24;
-
           this.loading = false;
         }
+      }
+    );
+    */
+    this.serviceTicketCausali.getCausaliList().subscribe(
+      res => {
+        this.ticketCausali = res as ticketCausale[];
+
+        this.serviceTicket.getTicket(this.ticketID).subscribe(
+          res => {
+            this.objTicket = res as ticket;
+            if (this.objTicket.statoTicket == '90' ) 
+              this.ticketClosed = true ;
+          }
+        );
+
+        this.serviceTicketDetails.getTicketDetailList(this.ticketID).subscribe(
+          res => {
+            this.ticketDetails = res as ticketDetail[];
+
+            if (res == [] || res == null || res.length == 0) {
+              this.addTicketDetailForm();
+              this.loading = false;
+            } 
+            else {
+                //sort per far comparire i todo chiusi sotto, ordinati per data
+                //res.sort((a, b) => new Date(b.dt).getTime() - new Date(a.dt).getTime())
+                //  .sort((a, b) => a.isClosed < b.isClosed ? -1 : a.isClosed > b.isClosed ? 1 : 0);
+                
+                (res as []).forEach((detail: ticketDetail) => {
+                  this.totCards++;
+                  let diffInMs: number = Date.parse(detail.h_End.toString()) - Date.parse(detail.h_Ini.toString())
+                  var mins = Math.floor(diffInMs / 60000);
+                  totMinuti += mins;
+                });
+                this.Minuti = totMinuti % 60;
+                this.Ore = Math.floor(totMinuti / 60) % 24;
+                this.loading = false;
+              }
+            }
+        );
       }
     );
   }
@@ -132,9 +159,7 @@ export class TicketDetailsPage implements OnInit {
     this.topPage.scrollToTop();
   }
 
-
   removedDetailCard(id){ 
-
     let j=0;
     this.ticketDetails.forEach(element => {
      console.log("i=", id , "  element.id=", element.id);
@@ -144,9 +169,6 @@ export class TicketDetailsPage implements OnInit {
      j++;
    }); 
   }
-
-  
-
 
   async ConfirmTicket(){
 
@@ -161,161 +183,44 @@ export class TicketDetailsPage implements OnInit {
       'customer': this.objTicket.customer,
       'poi': this.objTicket.poi
     };
-    
+  
+    const alert = await this.alertController.create({
+      header: 'CHIUSURA TICKET',
+      message: 'Si desidera chiudere il ticket ?<br/>(operazione irreversibile)',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          handler: () => {
+            this.togglestato.checked = false;
 
-      const alert = await this.alertController.create({
-        header: 'CHIUSURA TICKET',
-        message: 'Si desidera chiudere il ticket?<br/>(operazione irreversibile)',
-        buttons: [
-          {
-            text: 'NO',
-            role: 'cancel',
-            handler: () => {
-              this.togglestato.checked = false;
-
-            }
-          },
-          {
-            text: 'CHIUDI IL TICKET',
-            
-            handler: () => {
-              this.serviceTicket.confirmTicket(fd)
-                .subscribe(
-                res=>{
-                  this.router.navigateByUrl('/tickets-list');
-                  this.ticketClosed = true;
-                },
-                err=>{
-                  console.log('ERRORE IN CHIUSURA');
-                }
-              )
-            }
           }
-        ]
-      });
-      await alert.present();
-    
+        },
+        {
+          text: 'CHIUDI IL TICKET',
+          
+          handler: () => {
+            this.serviceTicket.confirmTicket(fd)
+              .subscribe(
+              res=>{
+                this.router.navigateByUrl('/tickets-list');
+                this.ticketClosed = true;
+              },
+              err=>{
+                console.log('ERRORE IN CHIUSURA');
+              }
+            )
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
-
 
   showSignature() {
-    this.router.navigateByUrl('/signature/'+this.objTicket.id);
+    this.router.navigateByUrl('/signature/'+  this.ticketID);
   }
   showPhotoGallery() {
-    this.router.navigateByUrl('/photo-gallery/'+this.objTicket.id);
-  }
-
-
-/*
-  saveTicketDetail(fg: FormGroup){
-
-    if(fg.controls['id'].value == '0' ){
-      this.InsertRecord(fg);
-    }
-    else{
-      this.UpdateRecord(fg);
-    }
-    fg.markAsPristine();
-  }
-  
-  InsertRecord(fg: FormGroup){
-
-    this.serviceTicketDetails.InitFormData();
-
-    this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
-    this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
-    this.serviceTicketDetails.formData.dt = fg.get("dt").value;
-    this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
-    this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
-    this.serviceTicketDetails.formData.note = fg.get("note").value;
-
-    this.serviceTicketDetails.postTicketDetail().subscribe(
-      res => {
-        //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
-        //this.resetForm(form);
-        
-        //fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
-        
-        this.ShowMessage("Record inserito");
-      },
-      err => {
-        console.log(err);
-        this.ShowMessage("Errore nel salvataggio",'danger');
-       }
-    )
-  }
-  
-  UpdateRecord(fg: FormGroup){
-    this.serviceTicketDetails.InitFormData();
-
-    this.serviceTicketDetails.formData.id = fg.get("id").value;
-    this.serviceTicketDetails.formData.ticketID = fg.get("ticketID").value;
-    this.serviceTicketDetails.formData.causaleID = fg.get("causaleID").value;
-    this.serviceTicketDetails.formData.dt = fg.get("dt").value;
-    
-    console.log("h_ini: ",  fg.get("h_Ini").value);
-    console.log("h_end: ",  fg.get("h_End").value);
-
-    this.serviceTicketDetails.formData.h_Ini = fg.get("h_Ini").value;
-    this.serviceTicketDetails.formData.h_End = fg.get("h_End").value;
-    this.serviceTicketDetails.formData.note = fg.get("note").value;
-
-    this.serviceTicketDetails.putTicketDetail().subscribe(
-      res => {
-        //this.serviceDetails.refreshList(this.serviceDetails.formData.ticketID);
-        //this.resetForm(form);
-
-        this.ShowMessage("Record aggiornato");
-      },
-      err => {
-        console.log(err);
-        this.ShowMessage("Errore nel salvataggio", 'danger'  );
-      }
-    )
-  }
-
-  deleteTicketDetail(fg: FormGroup, i){  
-    if(fg.controls["id"].value != "0"){
-      this.serviceTicketDetails.deleteTicketDetail(fg.controls["id"].value).subscribe(
-        res => {
-          this.serviceTicketDetails.refreshList(fg.controls["id"].value);
-          this.ticketDetailsForms.removeAt(i);
-
-          this.ShowMessage("Record cancellato");
-        },
-        err => {
-          console.log(err);
-          this.ShowMessage("Errore nella cancellazione", 'danger'  );
-        }
-      )
-    }
-    else{
-      this.ticketDetailsForms.removeAt(i);
-    }
-  }
-
-  onChange(fg: FormGroup, i){
-
-
-  }
-*/
-
-
-
-
-//credo si possa togliere insieme a tutta la parte commentata: non si fa uso di toastController qui
-  async ShowMessage(msg: string, titolo?: string, colore?: string) {
-    var mColor = colore;
-    if (mColor == null)
-      mColor = 'primary';
-
-    const toast = await this.toastController.create({
-      message: msg,
-      color: mColor,
-      duration: 2000,
-      showCloseButton: true,
-      closeButtonText: 'OK',
-    });
-    toast.present();
+    this.router.navigateByUrl('/photo-gallery/'+  this.ticketID);
   }
 }

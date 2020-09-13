@@ -119,15 +119,15 @@ export class TodoPage implements OnInit {
       let retValue: boolean;
 
       const alert = await this.alertController.create({
-        header: 'CANCELLAZIONE TRASFERTA',
-        message: 'Si desidera cancellare la trasferta?<br/>(operazione irreversibile)',
+        header: 'CANCELLAZIONE TODO',
+        message: 'Si desidera cancellare il ToDo ?<br/>(operazione irreversibile)',
         buttons: [
           {
             text: 'NO',
             role: 'cancel'
           },
           {
-            text: 'CANCELLA LA TRASFERTA',
+            text: 'CANCELLA IL TODO',
             handler: () => {
               this.todoEventsService.deleteTodoEvent(id).subscribe(
                 res => {
@@ -143,12 +143,7 @@ export class TodoPage implements OnInit {
     }
   }
 
-
-
   onChange(fg: FormGroup) {
-
-    //console.log("onChange");
-    //console.log(this.tmpID);
 
     if (fg.controls['isClosed'].dirty ||
       fg.controls['titolo'].dirty ||
@@ -160,13 +155,8 @@ export class TodoPage implements OnInit {
         //Insert
         this.todoEventsService.postTodoEvent(fg.value).subscribe(
           (res: any) => {
-            //this.tmpID = res.id;
-            //console.log("onChange - after Post");
-            //console.log(this.tmpID);
-
             fg.patchValue({ id: res.id });     ///riporto l'id generato dall'insert
             fg.reset(fg.value);
-            //this.showNotification('insert');
    
             if(this.detailClicked){
               this.router.navigateByUrl('/todo-detail/' + res.id);

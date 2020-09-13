@@ -15,6 +15,11 @@ export class TicketCausaliService  {
     
   }
 
+  async getCausaliList_Sync()
+  {
+    return await this.http.get<ticketCausale[]>(environment.apiBaseUrl + '/TicketCausali').toPromise();     
+  }
+
   getCausaliList(): Observable<ticketCausale[]>
   {
     return this.http.get<ticketCausale[]>(environment.apiBaseUrl + '/TicketCausali');     
