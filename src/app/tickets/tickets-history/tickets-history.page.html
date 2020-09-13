@@ -12,11 +12,11 @@
   <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
 
   <ion-list class="trasparente ion-no-padding">
-    <ion-item (click)="openDefault(objTicket.id)" *ngFor="let objTicket of tickets; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
+    <ion-item  *ngFor="let objTicket of tickets; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
 
       <ion-card style="width: 100%!important;" class="my-margins" >
         <ion-item-sliding #slideitem>
-          <ion-item lines="none">
+          <ion-item lines="none" (click)="openDefault(objTicket.id)">
             <ion-card-content style="background-color: #FFF" class="ion-no-padding ion-padding-top ion-padding-bottom">
               <ion-label class="ion-padding-start ion-padding-end label-tipo" style="float:right"
                 [ngClass]="'tipoticket'+objTicket.tipoTicket">{{objTicket.tipoTicket}} </ion-label>

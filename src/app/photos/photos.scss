@@ -34,3 +34,34 @@ ion-content{
     border: 1px white solid;
 }
 
+ion-button {
+    color: #FFF;
+}
+
+
+// .imgcontainer {
+//     position: relative;
+//     width: 50%;
+//   }
+  
+  /* Make the image responsive */
+  .imgcontainer ion-img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Style the button and place it in the middle of the container/image */
+  .imgcontainer ion-icon {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+     transform: translate(-35%, -35%);
+     -ms-transform: translate(-35%, -35%);
+    background-color: rgba(255,255,255,0.8);
+    color: red;
+    font-size: 16px;
+    padding: 4px 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+  }
