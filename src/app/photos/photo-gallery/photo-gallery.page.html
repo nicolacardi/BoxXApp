@@ -19,6 +19,8 @@
     </ion-slide>
   </ion-slides>
   -->
+  <!-- [text]="'Foto N. '+img.id" -->
+  <!-- ""dateFormat(img.dtIns)" -->
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let img of photos">
@@ -27,7 +29,9 @@
           [scheme]="'dark'" 
           [swipeToClose]="true" 
           [title]= "'Ticket: '+objTicket.n_Ticket"
-          [text]="'Foto N. '+img.id"
+          
+          [text]= "img.dtIns"
+          
           test="Directive"
           class="photoframe" 
           [src]="img.photo"></ion-img>

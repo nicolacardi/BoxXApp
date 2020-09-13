@@ -13,6 +13,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import { TicketService } from 'src/app/_services/ticket.service';
 import { TicketPhotosService } from 'src/app/_services/ticket-photos.service';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -150,7 +151,16 @@ export class PhotoGalleryPage implements OnInit {
  
   }
 
+  public  dateFormat(dt: Date){
+    console.log(dt.toISOString());
 
+    let tmp = dt.toISOString();
+
+return tmp;
+    //return formatDate(dt,'yyyy-MM-dd','it-IT' ).toString();
+
+//    return dt.toDateString();
+  }
 
   //Seleziona una o più immagini dalla gallery del device
   getPictures(){
