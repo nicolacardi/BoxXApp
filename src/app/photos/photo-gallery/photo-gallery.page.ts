@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+//import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
-import { IonToggle, ModalController } from '@ionic/angular';
+//import { IonToggle, ModalController } from '@ionic/angular';
 //import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
 
 
@@ -35,8 +35,8 @@ export class PhotoGalleryPage implements OnInit {
     , public photoService: TicketPhotosService
     , public toastController: ToastController
     , public camera: Camera
-    , private imagePicker: ImagePicker
-    , public modalController: ModalController
+    //, private imagePicker: ImagePicker
+    //, public modalController: ModalController
     ) { 
     
     this.ticketID = this.route.snapshot.params['ticketId'];
@@ -104,40 +104,40 @@ export class PhotoGalleryPage implements OnInit {
   //Seleziona una o più immagini dalla gallery del device
   getPictures(){
     
-    this.imagePicker.getPictures({
-      maximumImagesCount: 5,
-      outputType: 1
-    }).then(
-      (results) => {
-        for (var i = 0; i < results.length; i++) {
+    // this.imagePicker.getPictures({
+    //   maximumImagesCount: 5,
+    //   outputType: 1
+    // }).then(
+    //   (results) => {
+    //     for (var i = 0; i < results.length; i++) {
 
-          console.log('Image URI: ' + results[i]);
+    //       console.log('Image URI: ' + results[i]);
 
-          this.photoService.InitFormData();
+    //       this.photoService.InitFormData();
       
-          this.photoService.formData.ticketID = this.ticketID;
-          this.photoService.formData.photo = 'data:image/jpeg;base64,' + results[i];
-          this.photoService.formData.dtIns = new Date();
+    //       this.photoService.formData.ticketID = this.ticketID;
+    //       this.photoService.formData.photo = 'data:image/jpeg;base64,' + results[i];
+    //       this.photoService.formData.dtIns = new Date();
     
-          this.photoService.postPhoto().subscribe(
-            res => {
-              //this.ShowMessage("Foto registrata");
-              console.log("Foto registrata");
+    //       this.photoService.postPhoto().subscribe(
+    //         res => {
+    //           //this.ShowMessage("Foto registrata");
+    //           console.log("Foto registrata");
 
-              this.photos.unshift({ 
-                id: null, 
-                ticketID: this.ticketID,
-                ticketDetailID: null,
-                photo: 'data:image/jpeg;base64,' + results[i],
-                dtIns: new Date()
-              });
-            },
-            err => {
-              //console.log(err);
-              this.ShowMessage("Errore nel salvataggio", 'danger'  );
-            });
-        }
-      });
+    //           this.photos.unshift({ 
+    //             id: null, 
+    //             ticketID: this.ticketID,
+    //             ticketDetailID: null,
+    //             photo: 'data:image/jpeg;base64,' + results[i],
+    //             dtIns: new Date()
+    //           });
+    //         },
+    //         err => {
+    //           //console.log(err);
+    //           this.ShowMessage("Errore nel salvataggio", 'danger'  );
+    //         });
+    //     }
+    //   });
   }
 
   //Apre l'immagine a pieno schermo
