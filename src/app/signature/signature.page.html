@@ -8,9 +8,6 @@
 </ion-header>
  
 <ion-content>
- 
-
-
   <ion-row [ngClass]="{'drawing-active': isDrawing}">
     <ion-col></ion-col>
     <ion-col class="ion-no-padding backsignaturepad" >
@@ -18,11 +15,9 @@
       <signature-pad [options]="signaturePadOptions" class="ion-padding-right mypad"></signature-pad>
     </ion-col>
     <ion-col></ion-col>
- 
   </ion-row>
 
   <ion-row  class="ion-padding-start ion-padding-end">
-
     <ion-col *ngIf="objTicket.id > 0" class="cntr" size="8" class="ion-padding-top">
       <ion-row>
         {{objTicket.n_Ticket}} 
@@ -39,23 +34,12 @@
       </ion-select>  
     </ion-col>
 
-    <ion-col class="cntr" size="2" class="ion-no-padding">
-      <ion-button class="w-90" (click)="clearPad()">Cancella</ion-button>
+    <ion-col *ngIf="isEnabled" class="cntr" size="2" class="ion-no-padding">
+      <ion-button class="w-90"  (click)="clearPad()">Cancella</ion-button>
     </ion-col>
-    <ion-col class="cntr" size="2" class="ion-no-padding">
-      <ion-button  class="w-90 button-save" ion-button  (click)="saveSignature()">Salva</ion-button>
+    <ion-col *ngIf="isEnabled" class="cntr" size="2" class="ion-no-padding">
+      <ion-button  class="w-90 button-save" (click)="saveSignature()">Salva</ion-button>
     </ion-col>
 
-<!--
-    <ion-col>
-       Ticket ID: {{objTicket.id}}
-    </ion-col>
-    <ion-col>
-      Signature ID: {{objSignature.id}}
-   </ion-col>
-    <ion-col width-80 style="border-style: inset;">
-      <img [src]="signatureASCII"/>
-    </ion-col>
-  -->
   </ion-row> 
 </ion-content>

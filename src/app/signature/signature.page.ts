@@ -31,7 +31,8 @@ export class SignaturePage implements OnInit {
   signatureASCII = '';
   isDrawing = false;
   isMissingTicket = false;
-
+  public isEnabled: boolean;
+  
   size1 : number;
   size2 : number;
 
@@ -54,9 +55,11 @@ export class SignaturePage implements OnInit {
     };
 
     this.ticketID = this.route.snapshot.params['ticketId'];
+    this.isEnabled = true;
 
     if(this.ticketID <=0) {
       this.isMissingTicket = true;
+      this.isEnabled = false;
 
       this.ticketService.getTicketList()
       .subscribe(
@@ -102,9 +105,12 @@ export class SignaturePage implements OnInit {
       .subscribe(
         res => {
           this.objTicket = res as ticket;
+          console.log("Stato ticket: " ,this.objTicket.statoTicket );
 
+          if(this.objTicket.statoTicket == "90") this.isEnabled =false;
         },
         err => {
+          this.isEnabled = false;
           this.objTicket = {
             id: 0,
             n_Ticket: "errore",

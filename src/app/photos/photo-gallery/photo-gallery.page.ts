@@ -32,6 +32,8 @@ export class PhotoGalleryPage implements OnInit {
   public objTicket: ticket;
   photoASCII = '';
 
+  public isEnabled: boolean;
+
   constructor( public route: ActivatedRoute
     , public serviceTicket: TicketService
     , public photoService: TicketPhotosService
@@ -49,6 +51,8 @@ export class PhotoGalleryPage implements OnInit {
       res => {
         this.objTicket = res as ticket;
         this.loading = false;
+        if(this.objTicket.statoTicket == "90") this.isEnabled =false;
+        else this.isEnabled = true;
       }
     );
 
@@ -57,10 +61,7 @@ export class PhotoGalleryPage implements OnInit {
       res=>   { 
         this.photos = res as ticketPhoto[];
         //res.sort((a, b) =>a.n_Ticket < b.n_Ticket ? -1: 1);
-
         console.log("N° rec: ", this.photos.length.toString());
-        //console.log(JSON.stringify( this.photos));
-
         this.loading = false;
      }
     );
@@ -148,18 +149,13 @@ export class PhotoGalleryPage implements OnInit {
         ]
       });
       await alert.present();
- 
   }
 
   public  dateFormat(dt: Date){
     console.log(dt.toISOString());
 
     let tmp = dt.toISOString();
-
-return tmp;
-    //return formatDate(dt,'yyyy-MM-dd','it-IT' ).toString();
-
-//    return dt.toDateString();
+    return tmp;
   }
 
   //Seleziona una o più immagini dalla gallery del device
