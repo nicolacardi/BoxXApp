@@ -23,7 +23,7 @@ import { formatDate } from '@angular/common';
 })
 export class PhotoGalleryPage implements OnInit {
 
-  loading = true;
+  loading: boolean;
   ticketID: number;
 
   //public objTicket: ticket;
@@ -68,8 +68,12 @@ export class PhotoGalleryPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
   }
-
+  ionViewDidEnter(){
+    this.loading = true;
+  }
+  
   //scatta una foto con la fotocamera del device
   takePicture() {
     const options: CameraOptions = {

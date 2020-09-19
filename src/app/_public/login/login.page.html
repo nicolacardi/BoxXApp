@@ -12,8 +12,10 @@
         <ion-card-header>
           <ion-img style="height: 160px;" src="../../../assets/img/BoxXColoredtextandicon.svg"></ion-img>
         </ion-card-header>
+        
+
         <ion-card-content>
-          <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
+          <form #form='ngForm'  autocomplete="off" (submit)="onSubmit(form)">
             <ion-item>
               <ion-label position="stacked">UTENTE <ion-text color="#FFF">*</ion-text>
               </ion-label>
@@ -26,14 +28,16 @@
               <ion-input required type="password" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password">
               </ion-input>
             </ion-item>
-            <ion-button type="submit" expand="block" class="ion-margin-top ion-margin-bottom">Login</ion-button>
+
+            <ion-button [disabled]="loading" type="submit" expand="block" class="ion-margin-top ion-margin-bottom">Login</ion-button>
+            
             <div class="ion-text-center">
-            <a color="#FFF" routerLink="/password-reset" routerDirection="forward" 
-              class="ion-margin-top grassetto">Hai dimenticato la password ?</a>
+              <ion-spinner name="bubbles" *ngIf="loading"></ion-spinner>
+              <a color="#FFF" routerLink="/password-reset" routerDirection="forward" 
+                class="ion-margin-top grassetto"
+                *ngIf="!loading">Hai dimenticato la password ?</a>
             </div>
           </form>
-         
-
         </ion-card-content>
       </ion-card>
       <ion-card>
@@ -41,10 +45,9 @@
           <div class="ion-text-center">
             <p position="center" >Non hai un account?<a class="grassetto" color="#FFF" routerLink="/registration" routerDirection="forward" > Registrati</a></p>
           </div>
-
         </ion-card-content>
       </ion-card>
     </ion-col>
   </ion-row>
-  <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
+
 </ion-content>

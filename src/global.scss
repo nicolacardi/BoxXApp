@@ -27,8 +27,8 @@ ion-spinner {
     display: block;
     margin: auto;
     top: 50%;
+    transform: scale(2);
 }
-
 
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";

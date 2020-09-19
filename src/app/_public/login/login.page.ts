@@ -36,12 +36,50 @@ export class LoginPage implements OnInit {
     }
   }
 
-
   onSubmit(form: NgForm) {
+
+    this.loading = true;
+    
+    setTimeout(() => {
+      this.uService.Login(form.value).subscribe(
+        (res: any) => {
+          this.auth.setLoggedIn(true);
+          this.ShowMessage("Benvenuto " + this.uService.currUser.fullname);
+          this.router.navigateByUrl("home");
+        },
+        err => {
+          this.loading = false;
+          this.auth.setLoggedIn(false);
+          if (err.status == 400) {
+            this.ShowMessage("Utente o Password errati");
+          }
+          else {
+            console.log(err);
+          }
+        }
+      );
+    }, 100);
+  }
+
+  async ShowMessage(msg: string, title?: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      color: 'primary',
+      duration: 2000,
+      showCloseButton: true,  
+      closeButtonText: 'OK',  
+    });
+    toast.present();
+  }
+
+}
+
+
+/*
 
     //this.auth.setLoggedIn(true)
     //this.router.navigateByUrl("members");
-    this.loading = true;
+    
     //this.uService.Login(form.value);
     //this.auth.setLoggedIn(true);
     //this.router.navigateByUrl("members");
@@ -90,45 +128,4 @@ export class LoginPage implements OnInit {
       .catch((error:any) => {
         console.error(`POST ${url} ${error.error}`);
       });
-    */
-
-    this.uService.Login(form.value).subscribe(
-      (res: any) => {
-        //this.uService.changeLoggedIn(true);
-        this.auth.setLoggedIn(true);
-        //this.ShowMessage("Login Corretta", "Benvenuto " + this.uService.currUser.fullname, false);
-        this.ShowMessage("Benvenuto " + this.uService.currUser.fullname);
-        //Forse fa schifo ma funziona
-        //this.sidebar.ngOnInit();
-        //this.router.navigateByUrl("members");
-        this.router.navigateByUrl("home");
-      },
-      err => {
-
-        this.loading = false;
-        this.auth.setLoggedIn(false);
-        //this.uService.changeLoggedIn(false);
-        if (err.status == 400) {
-          //this.ShowMessage("Utente o Password errati", "Riprova",true);
-          this.ShowMessage("Utente o Password errati");
-        }
-        else {
-          console.log(err);
-        }
-      }
-
-    );
-  }
-
-  async ShowMessage(msg: string, title?: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      color: 'primary',
-      duration: 2000,
-      showCloseButton: true,  
-      closeButtonText: 'OK',  
-    });
-    toast.present();
-  }
-
-}
+*/

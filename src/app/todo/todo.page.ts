@@ -118,6 +118,13 @@ export class TodoPage implements OnInit {
     } else {
       let retValue: boolean;
 
+      this.todoEventsService.deleteTodoEvent(id).subscribe(
+        res => {
+          this.todoEventsForms.removeAt(i);
+          this.topPage.scrollToTop();
+        });
+
+      /*AS: tolto la conferma
       const alert = await this.alertController.create({
         header: 'CANCELLAZIONE TODO',
         message: 'Si desidera cancellare il ToDo ?<br/>(operazione irreversibile)',
@@ -140,6 +147,7 @@ export class TodoPage implements OnInit {
         ]
       });
       await alert.present();
+      */
     }
   }
 
