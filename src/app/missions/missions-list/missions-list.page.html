@@ -60,13 +60,13 @@
   </ion-list>
 
 <ion-header class="ion-padding-bottom titolo-missions-group2">
-    <ion-title class="w-100 ion-no-margin ion-no-padding" class="ion-text-center"  >IN ATTESA DI RIMBORSO</ion-title>
+    <ion-title class="ion-text-center"  >IN ATTESA DI RIMBORSO</ion-title>
 </ion-header>
 
   <!-- <div style="color:blue">IN ATTESA DI RIMBORSO</div> -->
 
-  <ion-list class="trasparente ion-no-padding">
-    <ion-item *ngFor="let obj of missions_S; let i=index;" lines="none" class="ion-no-margin ion-no-padding">
+  <ion-list class="trasparente ion-no-padding ion-no-margin">
+    <ion-item *ngFor="let obj of missions_S; let i=index;" lines="none" >
       <ion-card style="width: 100%!important;" class="my-margins">
           
           <ion-item lines="none"  (click)="openDetail(obj.id)">
