@@ -15,8 +15,9 @@
   loading: {{loading}}
   -->
   <ion-spinner name="bubbles" *ngIf="loading"></ion-spinner>
-  <!-- <ion-label *ngIf="photos.length <= 0 && !loading">Nessuna foto presente</ion-label> -->
-
+  <div class="noimagecontainer" *ngIf="photos != null && photos.length <= 0 && !loading">
+    <ion-label>Nessuna foto presente</ion-label>
+  </div>
   <!--
   <ion-slides class="image-slider" loop="true" slidesPerView="4">
     <ion-slide *ngFor="let img of photos">

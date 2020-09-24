@@ -5,16 +5,9 @@ import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-//import { ImagePicker } from '@ionic-native/image-picker/ngx';
-
-//import { IonToggle, ModalController } from '@ionic/angular';
-//import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
-
 
 import { TicketService } from 'src/app/_services/ticket.service';
 import { TicketPhotosService } from 'src/app/_services/ticket-photos.service';
-import { formatDate } from '@angular/common';
-
 
 @Component({
   selector: 'app-photo-gallery',
@@ -49,35 +42,31 @@ export class PhotoGalleryPage implements OnInit {
 
     this.ticketID = this.route.snapshot.params['ticketId'];
     let ticketIDString = this.ticketID.toString();
+
     this.serviceTicket.getTicket(ticketIDString)
     .subscribe(
       res => {
         this.objTicket = res as ticket;
-        this.loading = false;
         if(this.objTicket.statoTicket == "90") this.isEnabled =false;
         else this.isEnabled = true;
       }
     );
 
+    this.loading = true;
     this.photoService.getPhotosList(this.ticketID)
     .subscribe(
-      res=>   { 
+      res=>   {
         this.photos = res as ticketPhoto[];
-        //res.sort((a, b) =>a.n_Ticket < b.n_Ticket ? -1: 1);
-        
         this.loading = false;
-        
-        console.log("N° rec: ", this.photos.length.toString());
-
         if(this.photos.length <=0)
           this.noPhotos = true;
         else
           this.noPhotos = false;
-     },
-     err=>{
-      this.loading = false;
-      this.noPhotos = true ;
-     }
+      },
+      err=>{
+        this.loading = false;
+        this.noPhotos = true ;
+      }
     );
     
   }
@@ -86,18 +75,6 @@ export class PhotoGalleryPage implements OnInit {
    
   }
 
-  ionViewDidEnter(){
-    
-    console.log("ionViewDidEnter");
-
-    this.loading = true;
-
-
-
-
-
-
-  }
   
   //scatta una foto con la fotocamera del device
   takePicture() {
