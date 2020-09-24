@@ -41,13 +41,14 @@ export class AppComponent {
       title: "Clienti",
       url: "/customers-list/0",
       icon: "people"
-    },
-    {
+    }
+    /*
+    ,{
       title: "Firma",
       url: "/signature/0",
       icon: "at"
     }
-    /*
+    
     ,{
       title: "Foto",
       url: "/photo-gallery/1",

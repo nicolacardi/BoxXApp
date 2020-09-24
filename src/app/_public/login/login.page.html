@@ -12,7 +12,6 @@
         <ion-card-header>
           <ion-img style="height: 160px;" src="../../../assets/img/BoxXColoredtextandicon.svg"></ion-img>
         </ion-card-header>
-        
 
         <ion-card-content>
           <form #form='ngForm'  autocomplete="off" (submit)="onSubmit(form)">
@@ -31,8 +30,9 @@
 
             <ion-button [disabled]="loading" type="submit" expand="block" class="ion-margin-top ion-margin-bottom">Login</ion-button>
             
-            <div class="ion-text-center">
-              <ion-spinner name="bubbles" *ngIf="loading"></ion-spinner>
+            <div class="ion-text-center" style="height: 50px; margin-bottom: 5px">
+              <ion-spinner name="bubbles" *ngIf="loading" ></ion-spinner>
+
               <a color="#FFF" routerLink="/password-reset" routerDirection="forward" 
                 class="ion-margin-top grassetto"
                 *ngIf="!loading">Hai dimenticato la password ?</a>

@@ -24,6 +24,7 @@ import { formatDate } from '@angular/common';
 export class PhotoGalleryPage implements OnInit {
 
   loading: boolean;
+  noPhotos=true;
   ticketID: number;
 
   //public objTicket: ticket;
@@ -44,6 +45,8 @@ export class PhotoGalleryPage implements OnInit {
     //, public modalController: ModalController
     ) { 
     
+      
+
     this.ticketID = this.route.snapshot.params['ticketId'];
     let ticketIDString = this.ticketID.toString();
     this.serviceTicket.getTicket(ticketIDString)
@@ -61,17 +64,39 @@ export class PhotoGalleryPage implements OnInit {
       res=>   { 
         this.photos = res as ticketPhoto[];
         //res.sort((a, b) =>a.n_Ticket < b.n_Ticket ? -1: 1);
-        console.log("N° rec: ", this.photos.length.toString());
+        
         this.loading = false;
+        
+        console.log("N° rec: ", this.photos.length.toString());
+
+        if(this.photos.length <=0)
+          this.noPhotos = true;
+        else
+          this.noPhotos = false;
+     },
+     err=>{
+      this.loading = false;
+      this.noPhotos = true ;
      }
     );
+    
   }
 
   ngOnInit() {
-    this.loading = true;
+   
   }
+
   ionViewDidEnter(){
+    
+    console.log("ionViewDidEnter");
+
     this.loading = true;
+
+
+
+
+
+
   }
   
   //scatta una foto con la fotocamera del device
